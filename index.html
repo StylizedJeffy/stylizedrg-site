@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StylizedRG — Link Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(circle at 20% 0%, #111 0%, #070707 40%, #000 100%);
+  color: #e5e5e5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,200,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,200,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.banner {
+  width: 100%;
+  height: 240px;
+  background-image: url("https://yt3.googleusercontent.com/kK13FMgMVKdv4Sy5ZPRhZe66yOVS-hkoVuzwvRDz67AhIs_8GjTWNNuXnGSEbLX276tv0xTogQ=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj");
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid #222;
+  position: relative;
+  z-index: 1;
+}
+
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+}
+
+.wrapper { display:flex; justify-content:center; }
+
+.container {
+  width: 100%;
+  max-width: 560px;
+  padding: 28px;
+  margin-top: -100px;
+  position: relative;
+  z-index: 5;
+  animation: fadeIn .7s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(30px);} 
+  to { opacity:1; transform:translateY(0);} 
+}
+
+.header { text-align:center; margin-bottom:28px; z-index:6; position:relative; }
+
+.title {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 6px 0 0 0;
+  text-shadow: 0 0 12px rgba(0,255,200,0.25), 0 0 22px rgba(255,0,200,0.12);
+}
+
+.avatar {
+  width:170px; height:170px; border-radius:50%; object-fit:cover;
+  margin-bottom:16px;
+  border:3px solid #0a0a0a;
+  position:relative; z-index:7;
+  transition:.25s;
+  box-shadow: 0 0 25px rgba(0,255,200,.25), 0 0 45px rgba(255,0,200,.15);
+}
+
+.avatar:hover { transform:scale(1.08); }
+
+.tagline { margin-top:8px; font-size:14px; color:#9ca3af; }
+
+.card {
+  background: rgba(15,15,18,.9);
+  border:1px solid #1f1f23;
+  border-radius:22px;
+  padding:20px;
+  backdrop-filter: blur(12px);
+}
+
+.link {
+  display:flex; gap:14px; align-items:center;
+  padding:16px; border-radius:16px;
+  background: linear-gradient(135deg,#141414,#101010);
+  border:1px solid #262626;
+  text-decoration:none; color:#e5e5e5;
+  margin-bottom:12px;
+  transition:.18s;
+  cursor:pointer;
+}
+
+.link:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color:#00ffd5;
+  box-shadow:0 0 18px rgba(0,255,213,.25);
+}
+
+.icon {
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:#0b0b0b;
+}
+
+.link-title { font-weight:600; font-size:15px; }
+.link-desc { font-size:12px; color:#9a9a9a; }
+
+/* ===== YouTube latest section ===== */
+.video-section {
+  margin-top:22px;
+  background: rgba(15,15,18,.9);
+  border:1px solid #1f1f23;
+  border-radius:22px;
+  padding:18px;
+}
+
+.video-title {
+  text-align:center;
+  font-weight:700;
+  margin-bottom:14px;
+}
+
+.video-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.video-card {
+  display:block;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid #262626;
+  text-decoration:none;
+  color:inherit;
+  background:#0d0d11;
+  transition:.2s;
+}
+
+.video-card:hover {
+  transform: translateY(-3px);
+  box-shadow:0 0 18px rgba(255,0,200,.18);
+}
+
+.video-thumb {
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  display:block;
+}
+
+.video-card-title {
+  padding:12px 14px 16px;
+  font-size:16px;
+  font-weight:700;
+  line-height:1.35;
+  color:#e9e9ef;
+}
+
+/* Contact modal */
+.modal {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.7);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:.25s;
+  z-index:20;
+}
+
+.modal.active { opacity:1; pointer-events:all; }
+
+.modal-box {
+  width:92%; max-width:420px;
+  background:#0e0e12;
+  border:1px solid #26262c;
+  border-radius:20px;
+  padding:20px;
+}
+
+.input, textarea {
+  width:100%;
+  background:#0a0a0d;
+  border:1px solid #22232a;
+  border-radius:12px;
+  padding:12px;
+  color:#e5e5e5;
+  margin-top:10px;
+}
+
+textarea { min-height:120px; resize:vertical; }
+
+.send-btn, .close-btn {
+  width:100%; margin-top:12px; padding:12px;
+  border-radius:14px;
+  background:#111; color:#e5e5e5;
+  border:1px solid #2a2a33;
+  cursor:pointer;
+}
+
+.footer {
+  text-align:center;
+  margin-top:24px;
+  font-size:12px;
+  color:#666;
+}
+@media (max-width: 520px) {
+  .container { padding:18px; margin-top:-80px; }
+  .banner { height:180px; }
+  .title { font-size:34px; }
+  .avatar { width:130px; height:130px; }
+  .video-card-title { font-size:15px; }
+}
+
+/* micro animations */
+.link, .video-card, .avatar { will-change: transform; }
+.link:active { transform: scale(.98); }
+.video-card:active { transform: scale(.985); }
+.send-btn:active, .close-btn:active { transform: scale(.97); }
+
+.modal-box { animation: modalPop .25s ease; }
+@keyframes modalPop {
+  from { transform:scale(.9); opacity:0; }
+  to { transform:scale(1); opacity:1; }
+}
+
+.reveal { opacity:0; transform: translateY(18px); transition:.5s; }
+.reveal.show { opacity:1; transform: translateY(0); }
+</style>
+</head>
+
+<body>
+
+<div class="banner"></div>
+
+<div class="wrapper">
+<div class="container">
+
+<div class="header">
+<img class="avatar" src="https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s160-c-k-c0x00ffffff-no-rj">
+<div class="title">StylizedRG</div>
+<div class="tagline">Making songs for the world to discover.</div>
+</div>
+
+<!-- ===== About Section ===== -->
+<div class="video-section">
+  <div class="video-title" style="font-size:26px;font-weight:800;">So, Who am I?</div>
+  <div style="font-size:14px; line-height:1.6; color:#b8b8c3; text-align:center; padding:6px 6px 2px;">
+    StylizedRG is an artist and music producer focused on contemporary electronic music. His sound blends electro, glitch-hop, indie dance and plunderphonics, mainly uploading in youtube.
+  </div>
+</div>
+
+<div class="card">
+
+<a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank">
+<div class="icon">▶</div>
+<div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases</div></div>
+</a>
+
+<a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank">
+<div class="icon">♫</div>
+<div><div class="link-title">Spotify</div><div class="link-desc">Stream my music</div></div>
+</a>
+
+<a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank">
+<div class="icon">◎</div>
+<div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews</div></div>
+</a>
+
+<a class="link" href="https://soundcloud.com/stylizedrg" target="_blank">
+<div class="icon">☁</div>
+<div><div class="link-title">SoundCloud</div><div class="link-desc">Tracks & demos</div></div>
+</a>
+
+<div class="link" onclick="openContact()">
+<div class="icon">✉</div>
+<div><div class="link-title">Contact</div><div class="link-desc">Send a message</div></div>
+</div>
+
+</div>
+
+<!-- ===== Latest 3 YouTube videos (API driven) ===== -->
+<div class="video-section">
+<div class="video-title">Check out my newest videos on YouTube!</div>
+<div id="videoGrid" class="video-grid"></div>
+</div>
+
+<div class="footer">© 2026 StylizedRG — All links in one place.</div>
+
+</div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="modal">
+<div class="modal-box">
+<h3>Send a message</h3>
+<form action="mailto:stylizedrg.contact@gmail.com" method="post" enctype="text/plain">
+<input class="input" type="text" name="name" placeholder="Your name" required>
+<textarea name="message" placeholder="Your message" required></textarea>
+<button class="send-btn" type="submit">Send</button>
+</form>
+<button class="close-btn" onclick="closeContact()">Close</button>
+</div>
+</div>
+
+<script>
+/* ===== Performance + UX helpers ===== */
+
+// scroll reveal
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('show');
+  });
+},{threshold:.12});
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.video-section, .card').forEach(el => {
+    el.classList.add('reveal');
+    revealObserver.observe(el);
+  });
+});
+
+// safe fetch helper
+async function safeFetch(url){
+  try {
+    const r = await fetch(url);
+    if(!r.ok) throw new Error('network');
+    return await r.json();
+  } catch(err){
+    return null;
+  }
+}
+
+
+function openContact(){ document.getElementById('contactModal').classList.add('active'); }
+function closeContact(){ document.getElementById('contactModal').classList.remove('active'); }
+
+/* ===== YouTube API auto latest videos =====
+INSTRUCTIONS:
+1. Go to Google Cloud Console
+2. Enable YouTube Data API v3
+3. Create API key
+4. Replace YOUR_API_KEY below
+*/
+
+const API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
+const CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w"; // ← put your real channel ID here
+
+async function loadVideos(){
+  if(API_KEY === "YOUR_API_KEY"){
+    document.getElementById('videoGrid').innerHTML =
+      '<div style="font-size:13px;color:#888">Add your YouTube API key + Channel ID to show latest videos.</div>';
+    return;
+  }
+
+  const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
+
+  const data = await safeFetch(url);
+  if(!data || !data.items){
+    document.getElementById('videoGrid').innerHTML = '<div style="font-size:13px;color:#888">Could not load videos right now.</div>';
+    return;
+  }
+
+  const grid = document.getElementById('videoGrid');
+  grid.innerHTML = "";
+
+  data.items.slice(0,3).forEach(v => {
+    const a = document.createElement('a');
+    a.className = 'video-card';
+    a.href = `https://www.youtube.com/watch?v=${v.id.videoId}`;
+    a.target = '_blank';
+
+    a.innerHTML = `
+      <img class="video-thumb" src="${v.snippet.thumbnails.high.url}">
+      <div class="video-card-title">${v.snippet.title}</div>
+    `;
+
+    grid.appendChild(a);
+  });
+}
+
+loadVideos();
+</script>
+
+</body>
+</html>
