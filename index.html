@@ -29,8 +29,10 @@
 <meta name="twitter:image" content="https://yt3.googleusercontent.com/kK13FMgMVKdv4Sy5ZPRhZe66yOVS-hkoVuzwvRDz67AhIs_8GjTWNNuXnGSEbLX276tv0xTogQ=w1707">
 <meta name="twitter:image:alt" content="StylizedRG banner artwork">
 
-<!-- Favicon -->
-<link rel="icon" href="https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s160" type="image/png">
+<!-- Icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s160">
+<link rel="icon" type="image/png" sizes="192x192" href="https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s160">
+<link rel="apple-touch-icon" sizes="180x180" href="https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s160">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; }
@@ -378,7 +380,8 @@ function closeContact(){ document.getElementById('contactModal').classList.remov
 
 
 const API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
-const CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w"; // ← put your real channel ID here
+Object.freeze(window);
+const CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w"; 
 
 async function loadVideos(){
   if(API_KEY === "YOUR_API_KEY"){
