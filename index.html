@@ -3,23 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>StylizedRG — Link Hub</title>
+<title>StylizedRG — Music and Links!</title>
 
-<!-- SEO + Social Preview Meta -->
-<meta name="description" content="StylizedRG — Electronic & experimental music. Links, videos and latest releases in one place.">
+<!-- Primary SEO -->
+<meta name="description" content="StylizedRG — Releases, videos, and my official links in here.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.stylizedrg.linkpc.net/">
+<meta name="theme-color" content="#00ffd5">
 
-<!-- Open Graph -->
-<meta property="og:title" content="StylizedRG — Music & Links">
-<meta property="og:description" content="Making songs for the world to discover.">
+<!-- Open Graph (Perfect social preview control) -->
+<meta property="og:site_name" content="StylizedRG">
+<meta property="og:title" content="StylizedRG — Official Webpage">
+<meta property="og:description" content="Releases, videos, and my official links.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.stylizedrg.linkpc.net/">
 <meta property="og:image" content="https://yt3.googleusercontent.com/kK13FMgMVKdv4Sy5ZPRhZe66yOVS-hkoVuzwvRDz67AhIs_8GjTWNNuXnGSEbLX276tv0xTogQ=w1707">
+<meta property="og:image:width" content="1707">
+<meta property="og:image:height" content="960">
+<meta property="og:image:alt" content="StylizedRG banner artwork">
 
-<!-- Twitter Card -->
+<!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="StylizedRG — Music & Links">
-<meta name="twitter:description" content="Making songs for the world to discover.">
+<meta name="twitter:title" content="StylizedRG — Official Music Hub">
+<meta name="twitter:description" content="Releases, videos, and my official links.">
 <meta name="twitter:image" content="https://yt3.googleusercontent.com/kK13FMgMVKdv4Sy5ZPRhZe66yOVS-hkoVuzwvRDz67AhIs_8GjTWNNuXnGSEbLX276tv0xTogQ=w1707">
+<meta name="twitter:image:alt" content="StylizedRG banner artwork">
 
 <!-- Favicon -->
 <link rel="icon" href="https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s160" type="image/png">
@@ -278,7 +286,7 @@ textarea { min-height:120px; resize:vertical; }
 <div class="video-section">
   <div class="video-title" style="font-size:26px;font-weight:800;">So, Who am I?</div>
   <div style="font-size:14px; line-height:1.6; color:#b8b8c3; text-align:center; padding:6px 6px 2px;">
-   StylizedRG is an artist and music producer focused on contemporary electronic music. His sound blends electro, glitch-hop, indie dance and plunderphonics, mainly uploading in youtube. (This section will extend soon! :D)
+    StylizedRG is an artist and music producer focused on contemporary electronic music. His sound blends electro, glitch-hop, indie dance and plunderphonics, mainly uploading in youtube. (This section will extend soon! :D)
   </div>
 </div>
 
@@ -366,6 +374,8 @@ async function safeFetch(url){
 
 function openContact(){ document.getElementById('contactModal').classList.add('active'); }
 function closeContact(){ document.getElementById('contactModal').classList.remove('active'); }
+
+
 
 const API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
 const CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w"; // ← put your real channel ID here
