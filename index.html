@@ -276,6 +276,57 @@ textarea { min-height:120px; resize:vertical; }
 
 .reveal { opacity:0; transform: translateY(18px); transition:.5s; }
 .reveal.show { opacity:1; transform: translateY(0); }
+/* ===== Desktop layout redesign ===== */
+@media (min-width: 900px) {
+  .container {
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 28px;
+    margin-top: -120px;
+  }
+
+  .header {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: left;
+  }
+
+  .header .title { font-size: 56px; }
+  .header .tagline { font-size: 16px; }
+
+  .avatar {
+    width: 210px;
+    height: 210px;
+  }
+
+  /* About card top-right */
+  .container > .video-section:first-of-type {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Links block right column */
+  .card {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Videos full width bottom */
+  .container > .video-section:last-of-type {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer {
+    grid-column: 1 / span 2;
+  }
+}
+
 </style>
 </head>
 
