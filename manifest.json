@@ -1,0 +1,15 @@
+{
+  "name": "StylizedRG",
+  "short_name": "StylizedRG",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ffd5",
+  "icons": [
+    {
+      "src": "https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s192",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
