@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>StylizedRG — Music and Links!</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#00ffd5">
 
 <!-- Primary SEO -->
 <meta name="description" content="StylizedRG — Releases, videos, and my official links in here.">
@@ -35,6 +37,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://yt3.googleusercontent.com/r1H5R9I5fhwy2Mgdbj9G0cNq9NAmuwjd7gBOBODYnljcTD1T4okqA-ZHsBLjhU8PN4o60_d4tw=s160">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preconnect" href="https://www.googleapis.com">
+<link rel="dns-prefetch" href="https://i.ytimg.com">
 * { box-sizing: border-box; }
 
 body {
@@ -321,7 +326,6 @@ textarea { min-height:120px; resize:vertical; }
 
 </div>
 
-<!-- ===== Latest 3 YouTube videos (API driven) ===== -->
 <div class="video-section">
 <div class="video-title">Check out my newest videos on YouTube!</div>
 <div id="videoGrid" class="video-grid"></div>
@@ -346,7 +350,6 @@ textarea { min-height:120px; resize:vertical; }
 </div>
 
 <script>
-/* ===== Performance + UX helpers ===== */
 
 // scroll reveal
 const revealObserver = new IntersectionObserver(entries => {
