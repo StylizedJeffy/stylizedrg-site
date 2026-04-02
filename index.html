@@ -386,6 +386,22 @@ textarea { min-height:120px; resize:vertical; }
   color: #9da1aa;
   font-size: 13px;
 }
+
+.promo-preview-wrap {
+  margin-top: 12px;
+  display: none;
+}
+
+.promo-preview-wrap.show {
+  display: block;
+}
+
+.promo-embed {
+  width: 100%;
+  height: 152px;
+  border: 0;
+  border-radius: 12px;
+}
 /* ===== Desktop layout redesign ===== */
 @media (min-width: 900px) {
   .container {
@@ -550,8 +566,18 @@ textarea { min-height:120px; resize:vertical; }
     <p class="promo-text">'Sweet, Sweet Lola' is now available on all platforms!</p>
     <div class="promo-actions">
       <a class="promo-btn spotify" id="promoListenBtn" href="https://open.spotify.com/intl-es/album/1U57kh3NR9zTnBDLqcKxuK" target="_blank" rel="noopener noreferrer">Escuchar</a>
-      <a class="promo-btn preview" href="https://open.spotify.com/intl-es/album/1U57kh3NR9zTnBDLqcKxuK" target="_blank" rel="noopener noreferrer">▶ Listen on Spotify</a>
+      <button class="promo-btn preview" id="promoPreviewBtn" type="button">▶ Preview</button>
       <button class="promo-btn" id="promoCloseBtn" type="button">Cerrar</button>
+    </div>
+    <div class="promo-preview-wrap" id="promoPreviewWrap">
+      <iframe
+        class="promo-embed"
+        id="promoEmbed"
+        src="https://open.spotify.com/embed/album/1U57kh3NR9zTnBDLqcKxuK?utm_source=generator"
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        title="Preview del álbum Sweet, Sweet Lola en Spotify">
+      </iframe>
     </div>
     <label class="promo-opt">
       <input id="promoDontShow" type="checkbox">
@@ -594,6 +620,8 @@ function closeContact(){ document.getElementById('contactModal').classList.remov
 const promoModal = document.getElementById('albumPromoModal');
 const promoCloseBtn = document.getElementById('promoCloseBtn');
 const promoListenBtn = document.getElementById('promoListenBtn');
+const promoPreviewBtn = document.getElementById('promoPreviewBtn');
+const promoPreviewWrap = document.getElementById('promoPreviewWrap');
 const promoDontShow = document.getElementById('promoDontShow');
 
 function openPromo(){
@@ -607,6 +635,8 @@ function closePromo(){
   }
   promoModal.classList.remove('active');
   promoModal.setAttribute('aria-hidden', 'true');
+  promoPreviewWrap.classList.remove('show');
+  promoPreviewBtn.textContent = '▶ Preview';
 }
 
 if(localStorage.getItem('hideAlbumPromo') !== 'true'){
@@ -621,6 +651,11 @@ promoListenBtn.addEventListener('click', () => {
     localStorage.setItem('hideAlbumPromo', 'true');
   }
   closePromo();
+});
+
+promoPreviewBtn.addEventListener('click', () => {
+  const isOpen = promoPreviewWrap.classList.toggle('show');
+  promoPreviewBtn.textContent = isOpen ? 'Ocultar preview' : '▶ Preview';
 });
 
 promoModal.addEventListener('click', (e) => {
