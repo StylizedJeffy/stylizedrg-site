@@ -276,6 +276,132 @@ textarea { min-height:120px; resize:vertical; }
 
 .reveal { opacity:0; transform: translateY(18px); transition:.5s; }
 .reveal.show { opacity:1; transform: translateY(0); }
+
+/* ===== Album promo popup ===== */
+.promo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.82);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+}
+
+.promo-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.promo-box {
+  width: min(92vw, 520px);
+  background:
+    radial-gradient(1200px 260px at 20% -10%, rgba(30, 215, 96, 0.18), transparent 50%),
+    linear-gradient(160deg, #101011, #070707 70%);
+  border: 1px solid #2a2a2d;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(30,215,96,.2) inset;
+  transform: translateY(12px) scale(.98);
+  transition: transform .28s ease;
+}
+
+.promo-modal.active .promo-box {
+  transform: translateY(0) scale(1);
+}
+
+.promo-title {
+  margin: 0 0 14px;
+  font-size: clamp(34px, 6.4vw, 52px);
+  line-height: .95;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 22px rgba(30, 215, 96, .28);
+}
+
+.promo-cover {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 14px;
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid #2a2a2f;
+  box-shadow: 0 14px 34px rgba(0,0,0,.42);
+}
+
+.promo-text {
+  margin: 0 0 14px;
+  color: #d8d8dd;
+  line-height: 1.45;
+  font-size: 15px;
+  text-align: center;
+}
+
+.promo-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.promo-btn {
+  flex: 1 1 170px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  border: 1px solid #2a2a31;
+  padding: 12px 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #efeff3;
+  background: #101013;
+  cursor: pointer;
+}
+
+.promo-btn:hover { transform: translateY(-1px); }
+
+.promo-btn.spotify {
+  background: #1db954;
+  border-color: #1db954;
+  color: #08110b;
+}
+
+.promo-btn.preview {
+  border-color: #1db954;
+  color: #89ffc1;
+}
+
+.promo-opt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: #9da1aa;
+  font-size: 13px;
+}
+
+.promo-preview-wrap {
+  margin-top: 12px;
+  display: none;
+}
+
+.promo-preview-wrap.show {
+  display: block;
+}
+
+.promo-embed {
+  width: 100%;
+  height: 152px;
+  border: 0;
+  border-radius: 12px;
+}
 /* ===== Desktop layout redesign ===== */
 @media (min-width: 900px) {
   .container {
@@ -351,7 +477,7 @@ textarea { min-height:120px; resize:vertical; }
 <div class="container">
 
 <div class="header">
-<img class="avatar" src="img/avatar.png">
+<img class="avatar" src="img/avatar.png" alt="StylizedRG avatar">
 <div class="title">StylizedRG</div>
 <div class="tagline">Making songs for the world to discover.</div>
 </div>
@@ -366,17 +492,17 @@ textarea { min-height:120px; resize:vertical; }
 
 <div class="card">
 
-<a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank">
+<a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
 <div class="icon">▶</div>
 <div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases</div></div>
 </a>
 
-<a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank">
+<a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
 <div class="icon">♫</div>
 <div><div class="link-title">Spotify</div><div class="link-desc">Stream my Original music</div></div>
 </a>
 
-<a class="link" href="https://discord.gg/z48EBANjDs" target="_blank">
+<a class="link" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
 <div class="icon">💬</div>
 <div>
 <div class="link-title">Discord</div>
@@ -384,17 +510,17 @@ textarea { min-height:120px; resize:vertical; }
 </div>
 </a>
 
-<a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank">
+<a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
 <div class="icon">◎</div>
 <div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews</div></div>
 </a>
 
-<a class="link" href="https://soundcloud.com/stylizedrg" target="_blank">
+<a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
 <div class="icon">☁</div>
 <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my Youtube channel</div></div>
 </a>
 
-<a class="link" href="https://ko-fi.com/stylizedrg" target="_blank">
+<a class="link" href="https://ko-fi.com/stylizedrg" target="_blank" rel="noopener noreferrer">
 <div class="icon">☕</div>
 <div>
   <div class="link-title">Ko-fi</div>
@@ -432,6 +558,34 @@ textarea { min-height:120px; resize:vertical; }
 </div>
 </div>
 
+<!-- Album Promo Popup -->
+<div id="albumPromoModal" class="promo-modal" aria-hidden="true">
+  <div class="promo-box" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
+    <h2 class="promo-title" id="promoTitle">NEW ALBUM!</h2>
+    <img class="promo-cover" src="img/preview.jpg" alt="Sweet, Sweet Lola album art">
+    <p class="promo-text">'Sweet, Sweet Lola' is now available on all platforms!</p>
+    <div class="promo-actions">
+      <a class="promo-btn spotify" id="promoListenBtn" href="https://open.spotify.com/intl-es/album/1U57kh3NR9zTnBDLqcKxuK" target="_blank" rel="noopener noreferrer">Escuchar</a>
+      <button class="promo-btn preview" id="promoPreviewBtn" type="button">▶ Preview</button>
+      <button class="promo-btn" id="promoCloseBtn" type="button">Cerrar</button>
+    </div>
+    <div class="promo-preview-wrap" id="promoPreviewWrap">
+      <iframe
+        class="promo-embed"
+        id="promoEmbed"
+        src="https://open.spotify.com/embed/album/1U57kh3NR9zTnBDLqcKxuK?utm_source=generator"
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        title="Preview del álbum Sweet, Sweet Lola en Spotify">
+      </iframe>
+    </div>
+    <label class="promo-opt">
+      <input id="promoDontShow" type="checkbox">
+      No mostrar otra vez
+    </label>
+  </div>
+</div>
+
 <script>
 
 // scroll reveal
@@ -463,6 +617,64 @@ async function safeFetch(url){
 function openContact(){ document.getElementById('contactModal').classList.add('active'); }
 function closeContact(){ document.getElementById('contactModal').classList.remove('active'); }
 
+const promoModal = document.getElementById('albumPromoModal');
+const promoCloseBtn = document.getElementById('promoCloseBtn');
+const promoListenBtn = document.getElementById('promoListenBtn');
+const promoPreviewBtn = document.getElementById('promoPreviewBtn');
+const promoPreviewWrap = document.getElementById('promoPreviewWrap');
+const promoDontShow = document.getElementById('promoDontShow');
+
+function openPromo(){
+  promoModal.classList.add('active');
+  promoModal.setAttribute('aria-hidden', 'false');
+}
+
+function closePromo(){
+  if(promoDontShow.checked){
+    localStorage.setItem('hideAlbumPromo', 'true');
+  }
+  promoModal.classList.remove('active');
+  promoModal.setAttribute('aria-hidden', 'true');
+  promoPreviewWrap.classList.remove('show');
+  promoPreviewBtn.textContent = '▶ Preview';
+}
+
+if(localStorage.getItem('hideAlbumPromo') !== 'true'){
+  window.addEventListener('load', () => {
+    setTimeout(openPromo, 240);
+  });
+}
+
+promoCloseBtn.addEventListener('click', closePromo);
+promoListenBtn.addEventListener('click', () => {
+  if(promoDontShow.checked){
+    localStorage.setItem('hideAlbumPromo', 'true');
+  }
+  closePromo();
+});
+
+promoPreviewBtn.addEventListener('click', () => {
+  const isOpen = promoPreviewWrap.classList.toggle('show');
+  promoPreviewBtn.textContent = isOpen ? 'Ocultar preview' : '▶ Preview';
+});
+
+promoModal.addEventListener('click', (e) => {
+  if(e.target === promoModal){
+    closePromo();
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+    closeContact();
+    if(promoModal.classList.contains('active')) closePromo();
+  }
+});
+
+document.getElementById('contactModal').addEventListener('click', (e) => {
+  if(e.target.id === 'contactModal') closeContact();
+});
+
 
 
 const API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
@@ -491,9 +703,10 @@ async function loadVideos(){
     a.className = 'video-card';
     a.href = `https://www.youtube.com/watch?v=${v.id.videoId}`;
     a.target = '_blank';
+    a.rel = 'noopener noreferrer';
 
     a.innerHTML = `
-      <img class="video-thumb" src="${v.snippet.thumbnails.high.url}">
+      <img class="video-thumb" src="${v.snippet.thumbnails.high.url}" alt="${v.snippet.title.replace(/"/g, '&quot;')}">
       <div class="video-card-title">${v.snippet.title}</div>
     `;
 
