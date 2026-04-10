@@ -169,12 +169,11 @@ body::after {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .social-card,
 .video-section {
-  height: 100%;
   padding: 18px;
 }
 
@@ -641,6 +640,13 @@ window.addEventListener('DOMContentLoaded', () => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
+});
+
+// prevent right-click image download
+document.addEventListener('contextmenu', (e) => {
+  if (e.target.closest('img')) {
+    e.preventDefault();
+  }
 });
 
 // safe fetch helper
