@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" fill="none" role="img" aria-label="StylizedRG logo">
+  <defs>
+    <linearGradient id="paint0" x1="120" y1="40" x2="780" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff2ad4"/>
+      <stop offset="0.45" stop-color="#7a4bff"/>
+      <stop offset="1" stop-color="#21b7ff"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="960" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <text x="58" y="190" fill="url(#paint0)" font-family="Inter, Arial, sans-serif" font-size="128" font-weight="800" letter-spacing="1">Stylized</text>
+    <text x="640" y="250" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="96" font-weight="800">RG</text>
+  </g>
+</svg>
