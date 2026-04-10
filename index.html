@@ -643,6 +643,13 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// prevent right-click image download
+document.addEventListener('contextmenu', (e) => {
+  if (e.target.closest('img')) {
+    e.preventDefault();
+  }
+});
+
 // safe fetch helper
 async function safeFetch(url){
   try {
