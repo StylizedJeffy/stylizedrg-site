@@ -38,7 +38,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <!-- Banner preload -->
-<link rel="preload" as="image" href="https://yt3.googleusercontent.com/kK13FMgMVKdv4Sy5ZPRhZe66yOVS-hkoVuzwvRDz67AhIs_8GjTWNNuXnGSEbLX276tv0xTogQ=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj">
+<link rel="preload" as="image" href="img/banner.jpg">
 <link rel="preconnect" href="https://i.ytimg.com">
 <link rel="preconnect" href="https://www.googleapis.com">
 <link rel="dns-prefetch" href="https://i.ytimg.com">
@@ -48,94 +48,154 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at 20% 0%, #111 0%, #070707 40%, #000 100%);
   color: #e5e5e5;
   min-height: 100vh;
   overflow-x: hidden;
+  background: radial-gradient(circle at 30% 0%, #15151a 0%, #09090d 42%, #030305 100%);
+  position: relative;
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(0,255,200,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,200,0.06) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.11) 10px, transparent 11px);
+  background-size: 56px 56px;
+  background-position: 0 0;
+  animation: driftDots 30s linear infinite;
+  opacity: .45;
   pointer-events: none;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,8,10,0.15) 0%, rgba(5,5,7,0.55) 45%, rgba(3,3,5,0.9) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes driftDots {
+  from { background-position: 0 0; }
+  to { background-position: 56px 56px; }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0 18px 50px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  z-index: 2;
+  animation: fadeIn .7s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero {
+  position: relative;
+  margin-top: 72px;
+  text-align: center;
 }
 
 .banner {
   width: 100%;
-  height: 240px;
+  height: 260px;
+  border-radius: 26px;
+  overflow: hidden;
   background-image: url("img/banner.jpg");
   background-size: cover;
   background-position: center;
-  border-bottom: 1px solid #222;
   position: relative;
-  z-index: 1;
+  border: 1px solid rgba(255,255,255,0.13);
 }
 
 .banner::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.58));
 }
 
-.wrapper { display:flex; justify-content:center; }
-
-.container {
-  width: 100%;
-  max-width: 560px;
-  padding: 28px;
-  margin-top: -100px;
+.header {
+  margin-top: -98px;
   position: relative;
-  z-index: 5;
-  animation: fadeIn .7s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(30px);} 
-  to { opacity:1; transform:translateY(0);} 
-}
-
-.header { text-align:center; margin-bottom:28px; z-index:6; position:relative; }
-
-.title {
-  font-size: 48px;
-  font-weight: 800;
-  margin: 6px 0 0 0;
-  text-shadow: 0 0 12px rgba(0,255,200,0.25), 0 0 22px rgba(255,0,200,0.12);
+  z-index: 3;
 }
 
 .avatar {
-  width:170px; height:170px; border-radius:50%; object-fit:cover;
-  margin-bottom:16px;
-  border:3px solid #0a0a0a;
-  position:relative; z-index:7;
-  transition:.25s;
-  box-shadow: 0 0 25px rgba(0,255,200,.25), 0 0 45px rgba(255,0,200,.15);
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid #f0f0f0;
+  box-shadow: 0 0 24px rgba(0,0,0,0.45);
+  transition: transform .25s ease;
 }
 
-.avatar:hover { transform:scale(1.08); }
+.avatar:hover { transform: scale(1.08); }
 
-.tagline { margin-top:8px; font-size:14px; color:#9ca3af; }
+.brand-logo {
+  display: block;
+  width: min(340px, 74vw);
+  margin: 20px auto 10px;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,.45));
+}
 
-.card {
-  background: rgba(15,15,18,.9);
-  border:1px solid #1f1f23;
-  border-radius:22px;
-  padding:20px;
-  backdrop-filter: blur(12px);
+.tagline {
+  margin: 8px auto 34px;
+  max-width: 620px;
+  font-size: 15px;
+  color: #cfcfda;
+}
+
+.card, .video-section, .about-section {
+  background: rgba(14,14,18,.83);
+  border: 1px solid #24242b;
+  border-radius: 22px;
+  backdrop-filter: blur(8px);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.social-card,
+.video-section {
+  height: 100%;
+  padding: 18px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 4px 0 14px;
+  letter-spacing: .02em;
 }
 
 .link {
-  display:flex; gap:14px; align-items:center;
-  padding:16px; border-radius:16px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 16px;
+  border-radius: 16px;
   background: linear-gradient(135deg,#141414,#101010);
   border:1px solid #262626;
-  text-decoration:none; color:#e5e5e5;
+  text-decoration:none;
+  color:#e5e5e5;
   margin-bottom:12px;
   transition:.18s;
   cursor:pointer;
@@ -143,33 +203,22 @@ body::before {
 
 .link:hover {
   transform: translateY(-3px) scale(1.02);
-  border-color:#00ffd5;
-  box-shadow:0 0 18px rgba(0,255,213,.25);
+  border-color:#b53bff;
+  box-shadow:0 0 18px rgba(181,59,255,.27);
 }
 
 .icon {
-  width:40px;height:40px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:#0b0b0b;
 }
 
 .link-title { font-weight:600; font-size:15px; }
 .link-desc { font-size:12px; color:#9a9a9a; }
-
-/* ===== YouTube latest section ===== */
-.video-section {
-  margin-top:22px;
-  background: rgba(15,15,18,.9);
-  border:1px solid #1f1f23;
-  border-radius:22px;
-  padding:18px;
-}
-
-.video-title {
-  text-align:center;
-  font-weight:700;
-  margin-bottom:14px;
-}
 
 .video-grid {
   display:grid;
@@ -206,6 +255,38 @@ body::before {
   font-weight:700;
   line-height:1.35;
   color:#e9e9ef;
+}
+
+.about-section {
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.about-hero {
+  min-height: 300px;
+  padding: 36px;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(8,9,12,.88) 0%, rgba(8,9,12,.7) 40%, rgba(8,9,12,.2) 70%),
+    url('img/about.jpg') center/cover no-repeat;
+}
+
+.about-content {
+  max-width: 420px;
+}
+
+.about-content h2 {
+  margin: 0 0 10px;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.about-content p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #d0d2dc;
 }
 
 /* Contact modal */
@@ -252,14 +333,7 @@ textarea { min-height:120px; resize:vertical; }
   text-align:center;
   margin-top:24px;
   font-size:12px;
-  color:#666;
-}
-@media (max-width: 520px) {
-  .container { padding:18px; margin-top:-80px; }
-  .banner { height:180px; }
-  .title { font-size:34px; }
-  .avatar { width:130px; height:130px; }
-  .video-card-title { font-size:15px; }
+  color:#858595;
 }
 
 /* micro animations */
@@ -402,68 +476,31 @@ textarea { min-height:120px; resize:vertical; }
   border: 0;
   border-radius: 12px;
 }
-/* ===== Desktop layout redesign ===== */
-@media (min-width: 900px) {
-  .container {
-    max-width: 1200px;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 36px;
-    margin-top: -140px;
-    align-items: start;
-  }
 
-  .header {
-    grid-column: 1;
-    grid-row: 1;
-    text-align: left;
-    padding: 28px 28px 10px 28px;
-    background: rgba(15,15,18,.75);
-    border:1px solid #1f1f23;
-    border-radius: 26px;
-    backdrop-filter: blur(12px);
+@media (max-width: 860px) {
+  .hero { margin-top: 24px; }
+  .banner { height: 210px; border-radius: 20px; }
+  .header { margin-top: -82px; }
+  .avatar { width: 170px; height: 170px; border-width: 5px; }
+  .content-grid { grid-template-columns: 1fr; }
+  .about-hero {
+    min-height: 240px;
+    padding: 24px;
+    background:
+      linear-gradient(180deg, rgba(8,9,12,.86) 0%, rgba(8,9,12,.68) 54%, rgba(8,9,12,.46) 100%),
+      url('img/preview.jpg') center/cover no-repeat;
   }
+}
 
-  .header .title { font-size: 60px; }
-  .header .tagline { font-size: 16px; }
-
-  .avatar {
-    width: 220px;
-    height: 220px;
-  }
-
-  /* About card top-right */
-  .container > .video-section:first-of-type {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  /* Links block right column */
-  .card {
-    grid-column: 2;
-    grid-row: 2;
-    position: sticky;
-    top: 28px;
-  }
-
-  /* Videos full width bottom */
-  .container > .video-section:last-of-type {
-    grid-column: 1 / span 2;
-    grid-row: 3;
-  }
-
-  .video-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
-
-  .video-card-title {
-    font-size: 17px;
-  }
-
-  .footer {
-    grid-column: 1 / span 2;
-  }
+@media (max-width: 520px) {
+  .wrapper { padding: 0 12px 30px; }
+  .banner { height: 170px; }
+  .header { margin-top: -64px; }
+  .avatar { width: 138px; height: 138px; }
+  .brand-logo { width: min(260px, 70vw); margin-top: 14px; }
+  .tagline { font-size: 14px; margin-bottom: 22px; }
+  .section-title { font-size: 16px; }
+  .about-content h2 { font-size: 29px; }
 }
 
 </style>
@@ -471,74 +508,78 @@ textarea { min-height:120px; resize:vertical; }
 
 <body>
 
-<div class="banner"></div>
-
 <div class="wrapper">
 <div class="container">
 
-<div class="header">
-<img class="avatar" src="img/avatar.png" alt="StylizedRG avatar">
-<div class="title">StylizedRG</div>
-<div class="tagline">Making songs for the world to discover.</div>
-</div>
-
-<!-- ===== About Section ===== -->
-<div class="video-section">
-  <div class="video-title" style="font-size:26px;font-weight:800;">So, Who am I?</div>
-  <div style="font-size:14px; line-height:1.6; color:#b8b8c3; text-align:center; padding:6px 6px 2px;">
-    I am an artist and music producer focused on contemporary electronic music. My sound blends electro, glitch-hop, indie dance and plunderphonics.
+<section class="hero">
+  <div class="banner"></div>
+  <div class="header">
+    <img class="avatar" src="img/avatar.png" alt="StylizedRG avatar">
+    <img class="brand-logo" src="img/logo-stylizedrg.png" alt="StylizedRG logo">
+    <p class="tagline">Making music for the world to discover.</p>
   </div>
+</section>
+
+<div class="content-grid reveal-wrap">
+  <div class="card social-card">
+    <div class="section-title">SOCIAL LINKS</div>
+
+    <a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
+    <div class="icon">▶</div>
+    <div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases.</div></div>
+    </a>
+
+    <a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
+    <div class="icon">♫</div>
+    <div><div class="link-title">Spotify</div><div class="link-desc">Stream my original music.</div></div>
+    </a>
+
+    <a class="link" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
+    <div class="icon">💬</div>
+    <div>
+    <div class="link-title">Discord</div>
+    <div class="link-desc">Join the community!</div>
+    </div>
+    </a>
+
+    <a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
+    <div class="icon">◎</div>
+    <div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews.</div></div>
+    </a>
+
+    <a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
+    <div class="icon">☁</div>
+    <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my Youtube channel.</div></div>
+    </a>
+
+    <a class="link" href="https://ko-fi.com/stylizedrg" target="_blank" rel="noopener noreferrer">
+    <div class="icon">☕</div>
+    <div>
+      <div class="link-title">Ko-fi</div>
+      <div class="link-desc">Support me & request custom remixes!</div>
+    </div>
+    </a>
+
+    <div class="link" onclick="openContact()">
+    <div class="icon">✉</div>
+    <div><div class="link-title">Contact</div><div class="link-desc">Send a message! (Collabs, Commisions, etc.)</div></div>
+    </div>
+  </div>
+
+  <section class="video-section">
+    <div class="section-title">VIDEOS</div>
+    <div id="videoGrid" class="video-grid"></div>
+  </section>
 </div>
 
-<div class="card">
-
-<a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
-<div class="icon">▶</div>
-<div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases</div></div>
-</a>
-
-<a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
-<div class="icon">♫</div>
-<div><div class="link-title">Spotify</div><div class="link-desc">Stream my Original music</div></div>
-</a>
-
-<a class="link" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
-<div class="icon">💬</div>
-<div>
-<div class="link-title">Discord</div>
-<div class="link-desc">Join the community!</div>
-</div>
-</a>
-
-<a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
-<div class="icon">◎</div>
-<div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews</div></div>
-</a>
-
-<a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
-<div class="icon">☁</div>
-<div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my Youtube channel</div></div>
-</a>
-
-<a class="link" href="https://ko-fi.com/stylizedrg" target="_blank" rel="noopener noreferrer">
-<div class="icon">☕</div>
-<div>
-  <div class="link-title">Ko-fi</div>
-  <div class="link-desc">Support me & request custom remixes!</div>
-</div>
-</a>
-  
-<div class="link" onclick="openContact()">
-<div class="icon">✉</div>
-<div><div class="link-title">Contact</div><div class="link-desc">Send a message! (Collabs, Commisions, etc.)</div></div>
-</div>
-
-</div>
-
-<div class="video-section">
-<div class="video-title">Check out my newest videos on YouTube!</div>
-<div id="videoGrid" class="video-grid"></div>
-</div>
+<section class="about-section reveal">
+  <div class="about-hero">
+    <div class="about-content">
+      <h2>So, Who am I?</h2>
+      <p>I'm Ivan, a small Mexican composer focused on making movie remixes as well as original music. My sound is centered on a mix of electro, glitchhop, and indie house. I started making music in 2022 and to this day I continue experimenting with new sounds.</p>
+    </div>
+  </div>
+</section>
 
 <div class="footer">© 2026 StylizedRG — All links in one place.</div>
 
@@ -596,7 +637,7 @@ const revealObserver = new IntersectionObserver(entries => {
 },{threshold:.12});
 
 window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.video-section, .card').forEach(el => {
+  document.querySelectorAll('.card, .video-section, .about-section').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
