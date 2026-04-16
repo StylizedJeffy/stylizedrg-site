@@ -158,7 +158,7 @@ body::after {
   color: #cfcfda;
 }
 
-.card, .video-section, .about-section {
+.card, .video-section, .about-section, .discography-section {
   background: rgba(14,14,18,.83);
   border: 1px solid #24242b;
   border-radius: 22px;
@@ -259,6 +259,46 @@ body::after {
 .about-section {
   margin-top: 24px;
   overflow: hidden;
+}
+
+.discography-section {
+  margin-top: 24px;
+  padding: 18px;
+}
+
+.discography-subtitle {
+  margin: -4px 0 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #9ea0ad;
+}
+
+.discography-embed-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #2b2b34;
+  background: #0b0b10;
+}
+
+.discography-embed {
+  width: 100%;
+  height: 352px;
+  border: 0;
+  display: block;
+}
+
+.discography-link {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 15px;
+  color: #b53bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.discography-link:hover {
+  color: #d37bff;
 }
 
 .about-hero {
@@ -571,6 +611,27 @@ textarea { min-height:120px; resize:vertical; }
   </section>
 </div>
 
+<section class="discography-section reveal">
+  <div class="section-title">DISCOGRAPHY</div>
+  <p class="discography-subtitle">Latest releases, singles & albums — pulled live from Spotify.</p>
+  <div class="discography-embed-wrap">
+    <iframe
+      class="discography-embed"
+      src="https://open.spotify.com/embed/artist/16IDj0PILvEu42ZwYgvJo3?utm_source=generator&theme=0"
+      loading="lazy"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      title="StylizedRG discography on Spotify">
+    </iframe>
+  </div>
+  <a
+    class="discography-link"
+    href="https://open.spotify.com/artist/16IDj0PILvEu42ZwYgvJo3"
+    target="_blank"
+    rel="noopener noreferrer">
+    Open full discography on Spotify →
+  </a>
+</section>
+
 <section class="about-section reveal">
   <div class="about-hero">
     <div class="about-content">
@@ -636,7 +697,7 @@ const revealObserver = new IntersectionObserver(entries => {
 },{threshold:.12});
 
 window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.card, .video-section, .about-section').forEach(el => {
+  document.querySelectorAll('.card, .video-section, .discography-section, .about-section').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
