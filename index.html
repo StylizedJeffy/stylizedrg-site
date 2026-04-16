@@ -258,7 +258,9 @@ body::after {
 
 .about-section {
   margin-top: 24px;
-  overflow: hidden;
+  padding: 30px 34px 34px;
+  background:
+    linear-gradient(90deg, rgba(6,8,16,.92) 0%, rgba(7,8,14,.86) 100%);
 }
 
 .discography-section {
@@ -301,31 +303,85 @@ body::after {
   color: #d37bff;
 }
 
-.about-hero {
-  min-height: 300px;
-  padding: 36px;
-  display: flex;
-  align-items: center;
-  background:
-    linear-gradient(90deg, rgba(8,9,12,.88) 0%, rgba(8,9,12,.7) 40%, rgba(8,9,12,.2) 70%),
-    url('img/about.jpg') center/cover no-repeat;
+.about-content {
+  max-width: 540px;
 }
 
-.about-content {
-  max-width: 420px;
+.about-kicker {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: .26em;
+  font-weight: 700;
+  color: #ff4abf;
+  text-transform: uppercase;
 }
 
 .about-content h2 {
-  margin: 0 0 10px;
-  font-size: 36px;
-  line-height: 1;
+  margin: 0 0 14px;
+  font-size: clamp(38px, 6vw, 58px);
+  line-height: .95;
+  color: #f8f8ff;
 }
 
 .about-content p {
   margin: 0;
   font-size: 15px;
-  line-height: 1.55;
-  color: #d0d2dc;
+  line-height: 1.5;
+  color: #d8d9e4;
+}
+
+.about-tags {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.about-tag {
+  border: 1px solid #2f3240;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #bec1cf;
+  background: rgba(18,20,29,.72);
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.footer-social {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid #2a2d3b;
+  background: rgba(15,17,27,.82);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #cfd2e3;
+  font-size: 13px;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.footer-social:hover {
+  transform: translateY(-2px);
+  border-color: #ff4abf;
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(255,74,191,.25);
+}
+
+.footer {
+  text-align:center;
+  margin-top:30px;
+  padding-top:20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-size:12px;
+  color:#858595;
 }
 
 /* Contact modal */
@@ -366,13 +422,6 @@ textarea { min-height:120px; resize:vertical; }
   background:#111; color:#e5e5e5;
   border:1px solid #2a2a33;
   cursor:pointer;
-}
-
-.footer {
-  text-align:center;
-  margin-top:24px;
-  font-size:12px;
-  color:#858595;
 }
 
 /* micro animations */
@@ -522,13 +571,7 @@ textarea { min-height:120px; resize:vertical; }
   .header { margin-top: -82px; }
   .avatar { width: 170px; height: 170px; border-width: 5px; }
   .content-grid { grid-template-columns: 1fr; }
-  .about-hero {
-    min-height: 240px;
-    padding: 24px;
-    background:
-      linear-gradient(180deg, rgba(8,9,12,.86) 0%, rgba(8,9,12,.68) 54%, rgba(8,9,12,.46) 100%),
-      url('img/about.jpg') center/cover no-repeat;
-  }
+  .about-section { padding: 24px; }
 }
 
 @media (max-width: 520px) {
@@ -539,7 +582,9 @@ textarea { min-height:120px; resize:vertical; }
   .brand-logo { width: min(260px, 70vw); margin-top: 14px; }
   .tagline { font-size: 14px; margin-bottom: 22px; }
   .section-title { font-size: 16px; }
-  .about-content h2 { font-size: 29px; }
+  .about-section { padding: 24px 18px; }
+  .about-content h2 { font-size: 46px; }
+  .about-content p { font-size: 18px; }
 }
 
 </style>
@@ -633,15 +678,29 @@ textarea { min-height:120px; resize:vertical; }
 </section>
 
 <section class="about-section reveal">
-  <div class="about-hero">
-    <div class="about-content">
-      <h2>So, Who am I?</h2>
-      <p>I'm Ivan, a small Mexican composer focused on making movie remixes as well as original music. My sound is centered on a mix of electro, glitchhop, and indie house. I started making music in 2022 and to this day I continue experimenting with new sounds.</p>
+  <div class="about-content">
+    <p class="about-kicker">About</p>
+    <h2>So, who am I?</h2>
+    <p>I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022 and I'm still experimenting with new sounds every release.</p>
+    <div class="about-tags">
+      <span class="about-tag">Electro</span>
+      <span class="about-tag">Glitchhop</span>
+      <span class="about-tag">Indie House</span>
+      <span class="about-tag">Movie Remixes</span>
     </div>
   </div>
 </section>
 
-<div class="footer">© 2026 StylizedRG — All links in one place.</div>
+<footer class="footer">
+  <div class="footer-socials">
+    <a class="footer-social" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer" aria-label="YouTube">▶</a>
+    <a class="footer-social" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer" aria-label="Spotify">♫</a>
+    <a class="footer-social" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+    <a class="footer-social" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud">☁</a>
+    <a class="footer-social" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer" aria-label="Discord">💬</a>
+  </div>
+  <div>© 2026 StylizedRG — All links in one place.</div>
+</footer>
 
 </div>
 </div>
