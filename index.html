@@ -244,8 +244,19 @@ body::after {
   background: rgba(14,14,18,.83);
   border: 1px solid #24242b;
   border-radius: 22px;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
+
+.cf-status {
+  margin-top: 10px;
+  font-size: 13px;
+  min-height: 18px;
+  color: #cfd2e3;
+}
+.cf-status.error { color: #ff6b8a; }
+.cf-status.success { color: #56e88e; }
+button.link { background: linear-gradient(135deg,#141414,#101010); border: 1px solid #262626; color: inherit; }
 
 .content-grid {
   display: grid;
@@ -433,6 +444,111 @@ body::after {
   font-size: 12px;
   color: #bec1cf;
   background: rgba(18,20,29,.72);
+}
+
+/* ===== Remix Commissions ===== */
+.commissions-section {
+  position: relative;
+  margin-top: 24px;
+  padding: 38px 34px;
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(255,74,191,.28) 0%, rgba(255,74,191,0) 55%),
+    radial-gradient(120% 140% at 100% 100%, rgba(123,92,255,.32) 0%, rgba(123,92,255,0) 55%),
+    linear-gradient(135deg, #120a1f 0%, #0a0814 60%, #150a22 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 18px 60px -20px rgba(181, 59, 255, .35);
+}
+.commissions-section::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 2px, transparent 2px 14px);
+  pointer-events: none;
+}
+.commissions-section::after {
+  content: "";
+  position: absolute;
+  width: 320px; height: 320px;
+  right: -120px; top: -120px;
+  background: radial-gradient(circle, rgba(255,74,191,.45) 0%, transparent 65%);
+  filter: blur(20px);
+  pointer-events: none;
+  animation: floaty 8s ease-in-out infinite alternate;
+}
+@keyframes floaty {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-20px, 20px); }
+}
+.commissions-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+.commissions-kicker {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: .26em;
+  font-weight: 700;
+  color: #ff4abf;
+  text-transform: uppercase;
+}
+.commissions-content h2 {
+  margin: 0 0 14px;
+  font-size: clamp(36px, 5.6vw, 54px);
+  line-height: .98;
+  background: linear-gradient(90deg, #ffffff 0%, #ffb3e6 50%, #b59cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.commissions-content p {
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #d8d9e4;
+}
+.commissions-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+.commissions-perks li {
+  border: 1px solid rgba(255,74,191,.35);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #f1d6ec;
+  background: rgba(255,74,191,.08);
+}
+.commissions-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0010;
+  text-decoration: none;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff4abf 0%, #b53bff 100%);
+  box-shadow: 0 10px 28px -8px rgba(255,74,191,.55);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.commissions-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.07);
+  box-shadow: 0 14px 34px -8px rgba(255,74,191,.7);
+}
+.commissions-cta svg {
+  width: 20px; height: 20px;
+}
+@media (max-width: 640px) {
+  .commissions-section { padding: 28px 22px; }
 }
 
 .footer-socials {
@@ -729,10 +845,10 @@ textarea { min-height:120px; resize:vertical; }
         </div>
       </div>
     </section>
-  </div>
 </section>
 
-<div class="content-grid reveal-wrap">
+
+<div class="content-grid">
   <div class="card social-card">
     <div class="section-title">SOCIAL LINKS</div>
 
@@ -761,7 +877,7 @@ textarea { min-height:120px; resize:vertical; }
 
     <a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
     <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
-    <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my Youtube channel.</div></div>
+    <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my YouTube channel.</div></div>
     </a>
 
     <a class="link" href="https://ko-fi.com/stylizedrg" target="_blank" rel="noopener noreferrer">
@@ -772,10 +888,10 @@ textarea { min-height:120px; resize:vertical; }
     </div>
     </a>
 
-    <div class="link" onclick="openContact()">
+    <button class="link" type="button" id="openContactBtn" style="width:100%;font:inherit;text-align:left;">
     <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg></div>
-    <div><div class="link-title">Contact</div><div class="link-desc">Send a message! (Collabs, Commisions, etc.)</div></div>
-    </div>
+    <div><div class="link-title">Contact</div><div class="link-desc">Send a message! (Collabs, Commissions, etc.)</div></div>
+    </button>
   </div>
 
   <section class="video-section">
@@ -783,27 +899,6 @@ textarea { min-height:120px; resize:vertical; }
     <div id="videoGrid" class="video-grid"></div>
   </section>
 </div>
-
-<section class="discography-section reveal">
-  <div class="section-title">DISCOGRAPHY</div>
-  <p class="discography-subtitle">Latest releases, singles & albums — pulled live from Spotify.</p>
-  <div class="discography-embed-wrap">
-    <iframe
-      class="discography-embed"
-      src="https://open.spotify.com/embed/artist/16IDj0PILvEu42ZwYgvJo3?utm_source=generator&theme=0"
-      loading="lazy"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      title="StylizedRG discography on Spotify">
-    </iframe>
-  </div>
-  <a
-    class="discography-link"
-    href="https://open.spotify.com/artist/16IDj0PILvEu42ZwYgvJo3"
-    target="_blank"
-    rel="noopener noreferrer">
-    Open full discography on Spotify →
-  </a>
-</section>
 
 <section class="about-section reveal">
   <div class="about-content">
@@ -819,6 +914,23 @@ textarea { min-height:120px; resize:vertical; }
   </div>
 </section>
 
+<section class="commissions-section reveal" aria-labelledby="commissions-title">
+  <div class="commissions-content">
+    <p class="commissions-kicker">Now Open</p>
+    <h2 id="commissions-title">Remix Commissions</h2>
+    <p>Got a movie you love and want it reimagined into a song? I will create a custom remix using samples from a movie of your choice and convert it into something STYLIZED.</p>
+    <ul class="commissions-perks">
+      <li>✦ Custom genre & vibe</li>
+      <li>✦ MP3 & WAV delivery</li>
+      <li>✦ And more...</li>
+    </ul>
+    <a class="commissions-cta" href="https://ko-fi.com/stylizedrg" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-kofi"></use></svg>
+      Commission a remix on Ko-fi
+    </a>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="footer-socials">
     <a class="footer-social" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></a>
@@ -827,22 +939,26 @@ textarea { min-height:120px; resize:vertical; }
     <a class="footer-social" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></a>
     <a class="footer-social" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer" aria-label="Discord"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></a>
   </div>
-  <div>© 2026 StylizedRG — All links in one place.</div>
+  <div>© <span id="year"></span> StylizedRG — All links in one place.</div>
 </footer>
 
 </div>
 </div>
 
 <!-- Contact Modal -->
-<div id="contactModal" class="modal">
+<div id="contactModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle" aria-hidden="true">
 <div class="modal-box">
-<h3>Send a message</h3>
-<form action="mailto:stylizedrg.contact@gmail.com" method="post" enctype="text/plain">
-<input class="input" type="text" name="name" placeholder="Your name" required>
-<textarea name="message" placeholder="Your message" required></textarea>
-<button class="send-btn" type="submit">Send</button>
+<h3 id="contactTitle">Send a message</h3>
+<form id="contactForm" novalidate>
+  <!-- Honeypot: bots fill this, humans don't see it -->
+  <input type="text" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
+  <input class="input" type="text" name="name" id="cf-name" placeholder="Your name" required minlength="2" maxlength="80" autocomplete="name">
+  <input class="input" type="email" name="email" id="cf-email" placeholder="Your email" required maxlength="120" autocomplete="email">
+  <textarea name="message" id="cf-message" placeholder="Your message" required minlength="5" maxlength="2000"></textarea>
+  <div id="cf-status" class="cf-status" aria-live="polite"></div>
+  <button class="send-btn" type="submit" id="cf-submit">Send</button>
 </form>
-<button class="close-btn" onclick="closeContact()">Close</button>
+<button class="close-btn" type="button" id="closeContactBtn">Close</button>
 </div>
 </div>
 
@@ -875,148 +991,239 @@ textarea { min-height:120px; resize:vertical; }
 </div>
 
 <script>
+(function(){
+  'use strict';
 
-// scroll reveal
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting) e.target.classList.add('show');
-  });
-},{threshold:.12});
+  // ===== Config =====
+  // Web3Forms access key — get yours free at https://web3forms.com (no signup, just enter your email)
+  const WEB3FORMS_ACCESS_KEY = "637b4a51-aee6-49df-be78-0baaef5fdde4";
+  const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw"; // Restrict by HTTP referrer in Google Cloud Console!
+  const YT_CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w";
+  const PROMO_KEY = "hideAlbumPromo:sweet-lola"; // version-keyed so new releases re-show
 
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.card, .video-section, .discography-section, .about-section, .latest-release-card').forEach(el => {
+  // ===== Helpers =====
+  const $ = (id) => document.getElementById(id);
+  const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
+
+  async function safeFetch(url){
+    try {
+      const r = await fetch(url);
+      if(!r.ok) throw new Error('network');
+      return await r.json();
+    } catch { return null; }
+  }
+
+  // ===== Dynamic year =====
+  const yearEl = $('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // ===== Scroll reveal =====
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('show');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: .12 });
+
+  document.querySelectorAll('.card, .video-section, .about-section, .commissions-section, .latest-release-card').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
-});
 
-// prevent right-click image download
-document.addEventListener('contextmenu', (e) => {
-  if (e.target.closest('img')) {
+  // ===== Contact modal =====
+  const contactModal = $('contactModal');
+  const openContactBtn = $('openContactBtn');
+  const closeContactBtn = $('closeContactBtn');
+  const contactForm = $('contactForm');
+  const cfStatus = $('cf-status');
+  const cfSubmit = $('cf-submit');
+
+  function openContact(){
+    if (!contactModal) return;
+    contactModal.classList.add('active');
+    contactModal.setAttribute('aria-hidden', 'false');
+    const first = $('cf-name');
+    if (first) setTimeout(() => first.focus(), 50);
+  }
+  function closeContact(){
+    if (!contactModal) return;
+    contactModal.classList.remove('active');
+    contactModal.setAttribute('aria-hidden', 'true');
+  }
+
+  on(openContactBtn, 'click', openContact);
+  on(closeContactBtn, 'click', closeContact);
+  on(contactModal, 'click', (e) => { if (e.target === contactModal) closeContact(); });
+
+  // Form validation + submission via Web3Forms
+  function setStatus(msg, type){
+    if (!cfStatus) return;
+    cfStatus.textContent = msg;
+    cfStatus.className = 'cf-status' + (type ? ' ' + type : '');
+  }
+
+  on(contactForm, 'submit', async (e) => {
     e.preventDefault();
-  }
-});
+    if (!contactForm) return;
 
-// safe fetch helper
-async function safeFetch(url){
-  try {
-    const r = await fetch(url);
-    if(!r.ok) throw new Error('network');
-    return await r.json();
-  } catch(err){
-    return null;
-  }
-}
+    const name = ($('cf-name').value || '').trim();
+    const email = ($('cf-email').value || '').trim();
+    const message = ($('cf-message').value || '').trim();
+    const botcheck = contactForm.elements['botcheck'] ? contactForm.elements['botcheck'].value : '';
 
+    // Honeypot — silently succeed for bots
+    if (botcheck) { setStatus('Thanks! Message sent.', 'success'); contactForm.reset(); return; }
 
-function openContact(){ document.getElementById('contactModal').classList.add('active'); }
-function closeContact(){ document.getElementById('contactModal').classList.remove('active'); }
+    // Validation
+    if (name.length < 2 || name.length > 80) return setStatus('Please enter a valid name (2–80 chars).', 'error');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length > 120) return setStatus('Please enter a valid email.', 'error');
+    if (message.length < 5 || message.length > 2000) return setStatus('Message must be 5–2000 characters.', 'error');
 
-const promoModal = document.getElementById('albumPromoModal');
-const promoCloseBtn = document.getElementById('promoCloseBtn');
-const promoListenBtn = document.getElementById('promoListenBtn');
-const promoPreviewBtn = document.getElementById('promoPreviewBtn');
-const promoPreviewWrap = document.getElementById('promoPreviewWrap');
-const promoDontShow = document.getElementById('promoDontShow');
-const latestPreviewBtn = document.getElementById('latestPreviewBtn');
-const latestPreviewWrap = document.getElementById('latestPreviewWrap');
+    if (WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY_HERE") {
+      return setStatus('Form not configured yet. Please email stylizedrg.contact@gmail.com directly.', 'error');
+    }
 
-function openPromo(){
-  promoModal.classList.add('active');
-  promoModal.setAttribute('aria-hidden', 'false');
-}
+    cfSubmit.disabled = true;
+    setStatus('Sending…');
 
-function closePromo(){
-  if(promoDontShow.checked){
-    localStorage.setItem('hideAlbumPromo', 'true');
-  }
-  promoModal.classList.remove('active');
-  promoModal.setAttribute('aria-hidden', 'true');
-  promoPreviewWrap.classList.remove('show');
-  promoPreviewBtn.textContent = '▶ Preview';
-}
-
-if(localStorage.getItem('hideAlbumPromo') !== 'true'){
-  window.addEventListener('load', () => {
-    setTimeout(openPromo, 240);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: 'New StylizedRG contact: ' + name,
+          from_name: 'StylizedRG site',
+          name, email, message,
+          botcheck: ''
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setStatus('Thanks! Your message was sent.', 'success');
+        contactForm.reset();
+        setTimeout(closeContact, 1500);
+      } else {
+        setStatus((data && data.message) || 'Something went wrong. Try again later.', 'error');
+      }
+    } catch {
+      setStatus('Network error. Please try again.', 'error');
+    } finally {
+      cfSubmit.disabled = false;
+    }
   });
-}
 
-promoCloseBtn.addEventListener('click', closePromo);
-promoListenBtn.addEventListener('click', () => {
-  if(promoDontShow.checked){
-    localStorage.setItem('hideAlbumPromo', 'true');
+  // ===== Album promo modal =====
+  const promoModal = $('albumPromoModal');
+  const promoCloseBtn = $('promoCloseBtn');
+  const promoListenBtn = $('promoListenBtn');
+  const promoPreviewBtn = $('promoPreviewBtn');
+  const promoPreviewWrap = $('promoPreviewWrap');
+  const promoDontShow = $('promoDontShow');
+  const latestPreviewBtn = $('latestPreviewBtn');
+  const latestPreviewWrap = $('latestPreviewWrap');
+
+  function openPromo(){
+    if (!promoModal) return;
+    promoModal.classList.add('active');
+    promoModal.setAttribute('aria-hidden', 'false');
   }
-  closePromo();
-});
+  function closePromo(){
+    if (!promoModal) return;
+    if (promoDontShow && promoDontShow.checked) {
+      try { localStorage.setItem(PROMO_KEY, 'true'); } catch {}
+    }
+    promoModal.classList.remove('active');
+    promoModal.setAttribute('aria-hidden', 'true');
+    if (promoPreviewWrap) promoPreviewWrap.classList.remove('show');
+    if (promoPreviewBtn) promoPreviewBtn.textContent = '▶ Preview';
+  }
 
-promoPreviewBtn.addEventListener('click', () => {
-  const isOpen = promoPreviewWrap.classList.toggle('show');
-  promoPreviewBtn.textContent = isOpen ? 'Hide preview' : '▶ Preview';
-});
+  let shouldShowPromo = true;
+  try { shouldShowPromo = localStorage.getItem(PROMO_KEY) !== 'true'; } catch {}
+  if (shouldShowPromo && promoModal) {
+    window.addEventListener('load', () => setTimeout(openPromo, 240));
+  }
 
-latestPreviewBtn.addEventListener('click', () => {
-  const isOpen = latestPreviewWrap.classList.toggle('show');
-  latestPreviewBtn.textContent = isOpen ? 'Hide preview' : 'Preview';
-});
-
-promoModal.addEventListener('click', (e) => {
-  if(e.target === promoModal){
+  on(promoCloseBtn, 'click', closePromo);
+  on(promoListenBtn, 'click', () => {
+    if (promoDontShow && promoDontShow.checked) {
+      try { localStorage.setItem(PROMO_KEY, 'true'); } catch {}
+    }
     closePromo();
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape'){
-    closeContact();
-    if(promoModal.classList.contains('active')) closePromo();
-  }
-});
-
-document.getElementById('contactModal').addEventListener('click', (e) => {
-  if(e.target.id === 'contactModal') closeContact();
-});
-
-
-
-const API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
-const CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w"; 
-
-async function loadVideos(){
-  if(API_KEY === "YOUR_API_KEY"){
-    document.getElementById('videoGrid').innerHTML =
-      '<div style="font-size:13px;color:#888">Add your YouTube API key + Channel ID to show latest videos.</div>';
-    return;
-  }
-
-  const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
-
-  const data = await safeFetch(url);
-  if(!data || !data.items){
-    document.getElementById('videoGrid').innerHTML = '<div style="font-size:13px;color:#888">Shet... Could not load videos right now...</div>';
-    return;
-  }
-
-  const grid = document.getElementById('videoGrid');
-  grid.innerHTML = "";
-
-  data.items.slice(0,3).forEach(v => {
-    const a = document.createElement('a');
-    a.className = 'video-card';
-    a.href = `https://www.youtube.com/watch?v=${v.id.videoId}`;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-
-    a.innerHTML = `
-      <img class="video-thumb" src="${v.snippet.thumbnails.high.url}" alt="${v.snippet.title.replace(/"/g, '&quot;')}">
-      <div class="video-card-title">${v.snippet.title}</div>
-    `;
-
-    grid.appendChild(a);
   });
-}
+  on(promoPreviewBtn, 'click', () => {
+    if (!promoPreviewWrap) return;
+    const isOpen = promoPreviewWrap.classList.toggle('show');
+    promoPreviewBtn.textContent = isOpen ? 'Hide preview' : '▶ Preview';
+  });
+  on(latestPreviewBtn, 'click', () => {
+    if (!latestPreviewWrap) return;
+    const isOpen = latestPreviewWrap.classList.toggle('show');
+    latestPreviewBtn.textContent = isOpen ? 'Hide preview' : 'Preview';
+  });
+  on(promoModal, 'click', (e) => { if (e.target === promoModal) closePromo(); });
 
-loadVideos();
+  // Global Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (contactModal && contactModal.classList.contains('active')) closeContact();
+    if (promoModal && promoModal.classList.contains('active')) closePromo();
+  });
+
+  // ===== YouTube videos (XSS-safe) =====
+  const VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+  const grid = $('videoGrid');
+
+  async function loadVideos(){
+    if (!grid) return;
+    if (!YT_API_KEY || YT_API_KEY === "YOUR_API_KEY") {
+      grid.textContent = 'Add your YouTube API key + Channel ID to show latest videos.';
+      return;
+    }
+    const url = `https://www.googleapis.com/youtube/v3/search?key=${encodeURIComponent(YT_API_KEY)}&channelId=${encodeURIComponent(YT_CHANNEL_ID)}&part=snippet,id&order=date&maxResults=3&type=video`;
+    const data = await safeFetch(url);
+    if (!data || !Array.isArray(data.items)) {
+      grid.textContent = 'Could not load videos right now. Please try again later.';
+      return;
+    }
+
+    grid.textContent = '';
+    data.items.slice(0, 3).forEach(v => {
+      const videoId = v && v.id && v.id.videoId;
+      const snippet = v && v.snippet;
+      if (!videoId || !VIDEO_ID_RE.test(videoId) || !snippet) return;
+
+      const thumbUrl = snippet.thumbnails && snippet.thumbnails.high && snippet.thumbnails.high.url;
+      // Only allow https URLs from YouTube's image CDN
+      const safeThumb = (typeof thumbUrl === 'string' && /^https:\/\/i\.ytimg\.com\//.test(thumbUrl)) ? thumbUrl : '';
+      const title = typeof snippet.title === 'string' ? snippet.title : '';
+
+      const a = document.createElement('a');
+      a.className = 'video-card';
+      a.href = 'https://www.youtube.com/watch?v=' + videoId;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+
+      const img = document.createElement('img');
+      img.className = 'video-thumb';
+      img.loading = 'lazy';
+      img.alt = title;
+      if (safeThumb) img.src = safeThumb;
+
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'video-card-title';
+      titleDiv.textContent = title;
+
+      a.appendChild(img);
+      a.appendChild(titleDiv);
+      grid.appendChild(a);
+    });
+  }
+  loadVideos();
+})();
 </script>
 
 </body>
