@@ -953,8 +953,8 @@ body::after {
       <div class="stat-label">Years making music</div>
     </div>
     <div class="stat-card">
-      <div class="stat-num" data-count="100000" data-suffix="+" data-format="compact">0</div>
-      <div class="stat-label">Total plays</div>
+      <div class="stat-num" data-stat="plays" data-count="0" data-suffix="+" data-format="compact">0</div>
+      <div class="stat-label">Remix plays</div>
     </div>
   </div>
 </section>
@@ -1112,6 +1112,7 @@ body::after {
   const WEB3FORMS_ACCESS_KEY = "637b4a51-aee6-49df-be78-0baaef5fdde4";
   const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw"; // Restrict by HTTP referrer in Google Cloud Console!
   const YT_CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w";
+  const YT_REMIX_PLAYLIST_ID = "PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN";
   const PROMO_KEY = "hideAlbumPromo:sweet-lola"; // version-keyed so new releases re-show
 
   // ===== Helpers =====
@@ -1375,6 +1376,77 @@ body::after {
     });
   }, { threshold: 0.4 });
   nodes.forEach(el => io.observe(el));
+})();
+</script>
+
+<script>
+/* Remix plays counter — sums viewCount of all videos in the remix playlist */
+(async () => {
+  const el = document.querySelector('.stat-num[data-stat="plays"]');
+  if (!el) return;
+  if (!YT_API_KEY || !YT_REMIX_PLAYLIST_ID) return;
+
+  const CACHE_KEY = 'yt_remix_plays_v1';
+  const TTL_MS = 6 * 60 * 60 * 1000; // 6h
+
+  const setCount = (n) => {
+    el.dataset.count = String(n);
+    // If counter already animated to 0, render the final value now.
+    const fmt = (v) => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(v);
+    el.textContent = fmt(n) + (el.dataset.suffix || '');
+  };
+
+  // Hydrate from cache immediately (instant UX, refresh in background)
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (raw) {
+      const { value, ts } = JSON.parse(raw);
+      if (typeof value === 'number') {
+        setCount(value);
+        if (Date.now() - ts < TTL_MS) return; // fresh enough, skip refetch
+      }
+    }
+  } catch {}
+
+  try {
+    // 1) Page through playlistItems to gather all videoIds
+    const ids = [];
+    let pageToken = '';
+    do {
+      const u = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
+      u.searchParams.set('part', 'contentDetails');
+      u.searchParams.set('playlistId', YT_REMIX_PLAYLIST_ID);
+      u.searchParams.set('maxResults', '50');
+      u.searchParams.set('key', YT_API_KEY);
+      if (pageToken) u.searchParams.set('pageToken', pageToken);
+      const r = await fetch(u);
+      if (!r.ok) throw new Error('playlistItems ' + r.status);
+      const j = await r.json();
+      (j.items || []).forEach(it => { if (it.contentDetails?.videoId) ids.push(it.contentDetails.videoId); });
+      pageToken = j.nextPageToken || '';
+    } while (pageToken);
+
+    if (!ids.length) return;
+
+    // 2) Chunk videoIds (max 50 per videos.list call) and sum viewCount
+    let total = 0;
+    for (let i = 0; i < ids.length; i += 50) {
+      const chunk = ids.slice(i, i + 50);
+      const u = new URL('https://www.googleapis.com/youtube/v3/videos');
+      u.searchParams.set('part', 'statistics');
+      u.searchParams.set('id', chunk.join(','));
+      u.searchParams.set('key', YT_API_KEY);
+      const r = await fetch(u);
+      if (!r.ok) throw new Error('videos ' + r.status);
+      const j = await r.json();
+      (j.items || []).forEach(v => { total += parseInt(v.statistics?.viewCount || '0', 10) || 0; });
+    }
+
+    setCount(total);
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ value: total, ts: Date.now() })); } catch {}
+  } catch (err) {
+    console.warn('[remix plays] failed:', err);
+  }
 })();
 </script>
 
