@@ -945,7 +945,7 @@ body::after {
   <h2 id="stats-title" class="visually-hidden" style="position:absolute;left:-9999px;">By the numbers</h2>
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-num" data-count="30" data-suffix="+">0</div>
+      <div class="stat-num" data-stat="remixes" data-count="30" data-suffix="+">0</div>
       <div class="stat-label">Remixes</div>
     </div>
     <div class="stat-card">
@@ -1380,41 +1380,56 @@ body::after {
 </script>
 
 <script>
-/* Remix plays counter — sums viewCount of all videos in the remix playlist */
+/* Remix plays + remix count — pulls playlist, filters out non-remixes by title,
+   sums viewCount of remaining videos, and updates both stat cards. */
 (async () => {
-  const el = document.querySelector('.stat-num[data-stat="plays"]');
-  if (!el) return;
+  // Self-contained config (the previous IIFE's consts are not in this scope)
+  const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
+  const YT_REMIX_PLAYLIST_ID = "PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN";
+  // Title must match this to count as a remix (case-insensitive). Adjust if needed.
+  const REMIX_RE = /remix|flip|bootleg|edit|mashup|rework/i;
+
+  const playsEl = document.querySelector('.stat-num[data-stat="plays"]');
+  const remixesEl = document.querySelector('.stat-num[data-stat="remixes"]');
+  if (!playsEl && !remixesEl) return;
   if (!YT_API_KEY || !YT_REMIX_PLAYLIST_ID) return;
 
-  const CACHE_KEY = 'yt_remix_plays_v1';
-  const TTL_MS = 6 * 60 * 60 * 1000; // 6h
+  const CACHE_KEY = 'yt_remix_stats_v2';
+  const TTL_MS = 6 * 60 * 60 * 1000;
 
-  const setCount = (n) => {
-    el.dataset.count = String(n);
-    // If counter already animated to 0, render the final value now.
-    const fmt = (v) => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(v);
-    el.textContent = fmt(n) + (el.dataset.suffix || '');
+  const fmtCompact = (v) => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(v);
+  const fmtPlain = (v) => new Intl.NumberFormat('en').format(v);
+
+  const apply = ({ plays, count }) => {
+    if (playsEl && typeof plays === 'number') {
+      playsEl.dataset.count = String(plays);
+      playsEl.textContent = fmtCompact(plays) + (playsEl.dataset.suffix || '');
+    }
+    if (remixesEl && typeof count === 'number') {
+      remixesEl.dataset.count = String(count);
+      remixesEl.textContent = fmtPlain(count) + (remixesEl.dataset.suffix || '');
+    }
   };
 
-  // Hydrate from cache immediately (instant UX, refresh in background)
+  // Hydrate from cache for instant UX
   try {
     const raw = localStorage.getItem(CACHE_KEY);
     if (raw) {
       const { value, ts } = JSON.parse(raw);
-      if (typeof value === 'number') {
-        setCount(value);
-        if (Date.now() - ts < TTL_MS) return; // fresh enough, skip refetch
+      if (value && typeof value.plays === 'number') {
+        apply(value);
+        if (Date.now() - ts < TTL_MS) return;
       }
     }
   } catch {}
 
   try {
-    // 1) Page through playlistItems to gather all videoIds
-    const ids = [];
+    // 1) Page through playlistItems (need snippet for title-based filtering)
+    const items = [];
     let pageToken = '';
     do {
       const u = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
-      u.searchParams.set('part', 'contentDetails');
+      u.searchParams.set('part', 'snippet,contentDetails');
       u.searchParams.set('playlistId', YT_REMIX_PLAYLIST_ID);
       u.searchParams.set('maxResults', '50');
       u.searchParams.set('key', YT_API_KEY);
@@ -1422,14 +1437,25 @@ body::after {
       const r = await fetch(u);
       if (!r.ok) throw new Error('playlistItems ' + r.status);
       const j = await r.json();
-      (j.items || []).forEach(it => { if (it.contentDetails?.videoId) ids.push(it.contentDetails.videoId); });
+      (j.items || []).forEach(it => {
+        const id = it.contentDetails?.videoId;
+        const title = it.snippet?.title || '';
+        // Skip private/deleted entries and titles that don't look like a remix
+        if (!id || /^(Private|Deleted) video$/i.test(title)) return;
+        if (!REMIX_RE.test(title)) return;
+        items.push({ id, title });
+      });
       pageToken = j.nextPageToken || '';
     } while (pageToken);
 
-    if (!ids.length) return;
+    if (!items.length) {
+      console.warn('[remix stats] playlist returned 0 remix items after filtering');
+      return;
+    }
 
-    // 2) Chunk videoIds (max 50 per videos.list call) and sum viewCount
-    let total = 0;
+    // 2) Sum viewCount in chunks of 50
+    let plays = 0;
+    const ids = items.map(i => i.id);
     for (let i = 0; i < ids.length; i += 50) {
       const chunk = ids.slice(i, i + 50);
       const u = new URL('https://www.googleapis.com/youtube/v3/videos');
@@ -1439,13 +1465,14 @@ body::after {
       const r = await fetch(u);
       if (!r.ok) throw new Error('videos ' + r.status);
       const j = await r.json();
-      (j.items || []).forEach(v => { total += parseInt(v.statistics?.viewCount || '0', 10) || 0; });
+      (j.items || []).forEach(v => { plays += parseInt(v.statistics?.viewCount || '0', 10) || 0; });
     }
 
-    setCount(total);
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ value: total, ts: Date.now() })); } catch {}
+    const value = { plays, count: items.length };
+    apply(value);
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ value, ts: Date.now() })); } catch {}
   } catch (err) {
-    console.warn('[remix plays] failed:', err);
+    console.warn('[remix stats] failed:', err);
   }
 })();
 </script>
