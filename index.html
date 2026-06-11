@@ -40,11 +40,11 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon-192.png">
 <link rel="icon" type="image/png" sizes="256x256" href="/img/favicon-256.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-192.png">
-<!-- Fonts: Sora (headings) + Manrope (body) -->
+<!-- Fonts: preconnect + preload main family -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <!-- Banner preload -->
 <link rel="preload" as="image" href="img/banner.jpg" fetchpriority="high">
@@ -79,31 +79,15 @@
 <style>
 * { box-sizing: border-box; }
 
-:root {
-  --bg-0: #08070d;
-  --bg-1: #0e0c16;
-  --surface: rgba(20,16,30,.55);
-  --hairline: rgba(255,255,255,.07);
-  --hairline-strong: rgba(255,255,255,.14);
-  --text: #f1f1f7;
-  --muted: #9a9aae;
-  --accent: #b53bff;
-  --accent-2: #7b5cff;
-  --accent-soft: rgba(181,59,255,.18);
-  --magenta: #ff4abf;
-}
-
 body {
   margin: 0;
-  font-family: Manrope, system-ui, sans-serif;
-  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  color: #e5e5e5;
   min-height: 100vh;
   overflow-x: hidden;
   background: radial-gradient(circle at 30% 0%, #15151a 0%, #09090d 42%, #030305 100%);
   position: relative;
 }
-
-h1, h2, h3, h4 { font-family: Sora, system-ui, sans-serif; letter-spacing: -.01em; }
 
 .wrapper {
   display: flex;
@@ -181,86 +165,13 @@ h1, h2, h3, h4 { font-family: Sora, system-ui, sans-serif; letter-spacing: -.01e
   color: #cfcfda;
 }
 
-.latest-release-card {
-  width: min(900px, 100%);
-  margin: 0 auto 24px;
-  padding: 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(72, 211, 120, .26);
-  background:
-    radial-gradient(600px 180px at 96% 0%, rgba(29,185,84,.22), transparent 60%),
-    linear-gradient(145deg, rgba(12,12,18,.95), rgba(8,9,13,.95));
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 16px;
-  text-align: left;
-}
 
-.latest-cover {
-  width: 150px;
-  height: 150px;
-  border-radius: 14px;
-  object-fit: cover;
-  border: 1px solid #303544;
-}
-
-.latest-kicker {
-  margin: 0;
-  color: #56e88e;
-  font-size: 12px;
-  letter-spacing: .16em;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.latest-title {
-  margin: 6px 0 6px;
-  font-size: clamp(32px, 5vw, 50px);
-  line-height: .95;
-}
-
-.latest-copy {
-  margin: 0 0 14px;
-  color: #b9bccb;
-}
-
-.latest-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.latest-btn {
-  border-radius: 12px;
-  border: 1px solid #2f3444;
-  padding: 10px 14px;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  background: #151824;
-  color: #ecedf4;
-}
-
-.latest-btn.listen {
-  background: #1db954;
-  border-color: #1db954;
-  color: #0b120d;
-}
-
-.latest-preview-wrap {
-  margin-top: 12px;
-  display: none;
-}
-
-.latest-preview-wrap.show {
-  display: block;
-}
-
-.latest-embed {
-  width: 100%;
-  height: 152px;
-  border: 0;
-  border-radius: 12px;
+.card, .video-section, .about-section, .discography-section {
+  background: rgba(14,14,18,.83);
+  border: 1px solid #24242b;
+  border-radius: 22px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .cf-status {
@@ -272,317 +183,298 @@ h1, h2, h3, h4 { font-family: Sora, system-ui, sans-serif; letter-spacing: -.01e
 .cf-status.error { color: #ff6b8a; }
 .cf-status.success { color: #56e88e; }
 
-/* ===== Editorial section system ===== */
-.section-block {
-  margin-top: 56px;
-  padding-top: 28px;
-  border-top: 1px solid var(--hairline);
-}
-.section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
-}
-.section-num {
-  font-family: Sora, system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .24em;
-  color: #b59cff;
-  text-transform: uppercase;
-  flex-shrink: 0;
-}
-.section-title-xl {
-  font-size: clamp(24px, 3.6vw, 34px);
-  font-weight: 700;
-  margin: 0;
-  color: #f4f4fa;
-  flex-shrink: 0;
-}
-.section-rule {
-  flex: 1;
-  min-width: 40px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(181,156,255,.45), rgba(255,255,255,0));
-  align-self: center;
-}
 
-.split-60-40 {
+.content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
   align-items: start;
 }
 
-/* --- Social rail (no more cube of buttons) --- */
-.social-rail {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--hairline);
-  border-radius: 18px;
-  background:
-    linear-gradient(180deg, rgba(20,16,30,.6), rgba(10,10,14,.6));
-  overflow: hidden;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+.social-card,
+.video-section {
+  padding: 18px;
 }
-.social-rail .link {
-  display: grid;
-  grid-template-columns: 44px 1fr auto;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid rgba(255,255,255,.05);
-  border-radius: 0;
-  color: var(--text);
-  text-decoration: none;
-  text-align: left;
-  width: 100%;
-  font: inherit;
-  cursor: pointer;
-  transition: background .18s ease, padding .18s ease;
-  position: relative;
-  margin: 0;
-}
-.social-rail .link:last-child { border-bottom: 0; }
-.social-rail .link::after {
-  content: "→";
-  font-family: Sora, system-ui, sans-serif;
-  font-weight: 600;
-  color: #6e6e80;
+
+.section-title {
+  text-align: center;
   font-size: 18px;
-  transition: transform .2s ease, color .2s ease;
-}
-.social-rail .link:hover {
-  background: rgba(181,59,255,.07);
-  padding-left: 26px;
-  transform: none;
-  box-shadow: none;
-  border-color: rgba(255,255,255,.05);
-}
-.social-rail .link:hover::after {
-  color: #d6b8ff;
-  transform: translateX(6px);
-}
-.social-rail .icon {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.04);
-  border: 1px solid var(--hairline);
-}
-.social-rail .icon svg { width: 20px; height: 20px; fill: #ecedf4; color: #ecedf4; }
-.social-rail .link-title {
-  font-family: Sora, system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  color: #f4f4fa;
-}
-.social-rail .link-desc {
-  font-size: 12.5px;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-/* Featured CTA side panel */
-.featured-cta {
-  position: relative;
-  padding: 26px 24px;
-  border-radius: 18px;
-  border: 1px solid rgba(181,59,255,.28);
-  background:
-    radial-gradient(120% 100% at 100% 0%, rgba(181,59,255,.22), transparent 55%),
-    linear-gradient(160deg, #150f24 0%, #0a0812 100%);
-  box-shadow: 0 18px 50px -28px rgba(181,59,255,.55);
-  display: flex; flex-direction: column; gap: 14px;
-  min-height: 100%;
-}
-.featured-eyebrow {
-  font-family: Sora, system-ui, sans-serif;
-  font-size: 11px; letter-spacing: .26em;
-  font-weight: 700; color: #b59cff; text-transform: uppercase;
-}
-.featured-cta h3 {
-  font-size: clamp(22px, 2.6vw, 28px);
-  font-weight: 700; margin: 0; color: #f8f8ff;
-  line-height: 1.05;
-}
-.featured-cta p { margin: 0; color: #c8c8d6; font-size: 14.5px; line-height: 1.5; }
-.featured-btn {
-  margin-top: auto;
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: 10px;
-  padding: 13px 18px;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #b53bff 0%, #7b5cff 100%);
-  color: #fff; font-weight: 700; text-decoration: none;
-  font-family: Sora, system-ui, sans-serif;
-  font-size: 14px; letter-spacing: .02em;
-  box-shadow: 0 14px 34px -12px rgba(181,59,255,.6);
-  transition: transform .15s ease, filter .15s ease;
-}
-.featured-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
-.featured-btn svg { width: 18px; height: 18px; fill: currentColor; }
-
-/* --- Videos: featured + list --- */
-.video-section { background: transparent; border: 0; padding: 0; }
-.video-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  grid-auto-rows: min-content;
-  gap: 18px;
-}
-.video-card {
-  display: block;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--hairline);
-  background: #0d0d11;
-  text-decoration: none; color: inherit;
-  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-}
-.video-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(181,59,255,.45);
-  box-shadow: 0 18px 40px -22px rgba(181,59,255,.5);
-}
-.video-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-.video-card-title {
-  padding: 12px 14px 14px;
-  font-family: Sora, system-ui, sans-serif;
-  font-size: 14.5px; font-weight: 600; line-height: 1.3;
-  color: #ecedf4;
-}
-.video-grid .video-card:first-child {
-  grid-row: span 3;
-}
-.video-grid .video-card:first-child .video-card-title {
-  padding: 16px 18px 18px;
-  font-size: 17px;
-}
-.video-grid .video-card:not(:first-child) {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-}
-.video-grid .video-card:not(:first-child) .video-thumb {
-  height: 100%;
-  aspect-ratio: auto;
-}
-.video-grid .video-card:not(:first-child) .video-card-title {
-  padding: 10px 12px;
-  font-size: 13.5px;
-  align-self: center;
-}
-
-/* --- About --- */
-.about-block { background: transparent; border: 0; padding: 0; }
-.about-block .split-60-40 { gap: 32px; align-items: center; }
-.about-copy h2 {
-  margin: 0 0 16px;
-  font-size: clamp(32px, 4.6vw, 46px);
-  line-height: 1.02; font-weight: 700;
-  color: #f8f8ff;
-}
-.about-copy p { margin: 0; font-size: 15.5px; line-height: 1.6; color: #d0d0dc; }
-.about-tags { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-.about-tag {
-  border: 1px solid var(--hairline-strong);
-  border-radius: 999px; padding: 7px 14px;
-  font-size: 11.5px; color: #cfd0dd;
-  background: rgba(255,255,255,.025);
-  font-family: Sora, system-ui, sans-serif;
-  letter-spacing: .1em; text-transform: uppercase;
-}
-.about-visual {
-  position: relative;
-  aspect-ratio: 4/5;
-  border-radius: 18px; overflow: hidden;
-  border: 1px solid var(--hairline);
-  background: url('img/about.jpg') center/cover no-repeat;
-}
-.about-visual::after {
-  content: ""; position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg, rgba(10,8,20,0) 40%, rgba(10,8,20,.45) 100%),
-    linear-gradient(135deg, rgba(181,59,255,.16), transparent 60%);
-}
-
-/* --- Commissions block --- */
-.commissions-block {
-  position: relative;
-  padding: 36px;
-  border-radius: 22px;
-  overflow: hidden;
-  border: 1px solid rgba(181,59,255,.22);
-  background:
-    radial-gradient(120% 140% at 0% 0%, rgba(255,74,191,.22), transparent 55%),
-    radial-gradient(120% 140% at 100% 100%, rgba(123,92,255,.28), transparent 55%),
-    linear-gradient(135deg, #120a1f 0%, #08070f 100%);
-  box-shadow: 0 30px 70px -30px rgba(181,59,255,.5);
-}
-.commissions-block::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.02) 0 2px, transparent 2px 14px);
-  pointer-events: none;
-}
-.commissions-block .split-60-40 { gap: 36px; align-items: center; position: relative; z-index: 1; }
-.commissions-kicker {
-  margin: 0 0 12px; font-family: Sora, system-ui, sans-serif;
-  font-size: 11px; letter-spacing: .26em; font-weight: 700;
-  color: #ff4abf; text-transform: uppercase;
-}
-.commissions-block h2 {
-  margin: 0 0 16px;
-  font-size: clamp(32px, 4.8vw, 46px); line-height: 1.02;
-  font-weight: 700;
-  background: linear-gradient(90deg, #ffffff 0%, #ffb3e6 50%, #b59cff 100%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.commissions-block p { margin: 0 0 20px; font-size: 15.5px; line-height: 1.55; color: #d8d9e4; }
-.commissions-perks {
-  list-style: none; padding: 0; margin: 0 0 24px;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.commissions-perks li {
-  display: flex; gap: 12px; align-items: center;
-  padding: 10px 14px;
-  border: 1px solid rgba(255,74,191,.25);
-  border-radius: 12px;
-  font-size: 13.5px; color: #f1d6ec;
-  background: rgba(255,74,191,.05);
-  font-family: Sora, system-ui, sans-serif;
+  font-weight: 800;
+  margin: 4px 0 14px;
   letter-spacing: .02em;
 }
-.commissions-cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 22px; font-family: Sora, system-ui, sans-serif;
-  font-size: 14.5px; font-weight: 700; letter-spacing: .02em;
-  color: #1a0010; text-decoration: none; border-radius: 12px;
-  background: linear-gradient(90deg, #ff4abf 0%, #b53bff 100%);
-  box-shadow: 0 18px 40px -14px rgba(255,74,191,.6);
-  transition: transform .15s ease, filter .15s ease;
+
+.link {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg,#141414,#101010);
+  border:1px solid #262626;
+  text-decoration:none;
+  color:#e5e5e5;
+  margin-bottom:12px;
+  transition:.18s;
+  cursor:pointer;
 }
-.commissions-cta:hover { transform: translateY(-2px); filter: brightness(1.07); }
-.commissions-cta svg { width: 20px; height: 20px; fill: currentColor; }
-.commissions-visual {
-  aspect-ratio: 1/1;
-  border-radius: 18px;
-  border: 1px solid rgba(255,74,191,.28);
+
+.link:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color:#b53bff;
+  box-shadow:0 0 18px rgba(181,59,255,.27);
+}
+
+.icon {
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0b0b0b;
+}
+.icon svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  color: #e9ebf7;
+}
+
+.link-title { font-weight:600; font-size:15px; }
+.link-desc { font-size:12px; color:#9a9a9a; }
+
+.video-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.video-card {
+  display:block;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid #262626;
+  text-decoration:none;
+  color:inherit;
+  background:#0d0d11;
+  transition:.2s;
+}
+
+.video-card:hover {
+  transform: translateY(-3px);
+  box-shadow:0 0 18px rgba(255,0,200,.18);
+}
+
+.video-thumb {
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  display:block;
+}
+
+.video-card-title {
+  padding:12px 14px 16px;
+  font-size:16px;
+  font-weight:700;
+  line-height:1.35;
+  color:#e9e9ef;
+}
+
+.about-section {
+  margin-top: 24px;
+  padding: 30px 34px 34px;
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,74,191,.35), transparent 60%),
-    radial-gradient(circle at 70% 70%, rgba(123,92,255,.4), transparent 60%),
-    linear-gradient(135deg, #1a0e2e, #08060f);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
+    linear-gradient(90deg, rgba(6,8,16,.92) 0%, rgba(7,8,14,.62) 56%, rgba(7,8,14,.2) 100%),
+    url('img/about.jpg') center right / cover no-repeat;
 }
-.commissions-visual svg {
-  width: 46%; height: 46%; fill: rgba(255,255,255,.92);
-  filter: drop-shadow(0 8px 30px rgba(255,74,191,.5));
+
+.discography-section {
+  margin-top: 24px;
+  padding: 18px;
+}
+
+.discography-subtitle {
+  margin: -4px 0 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #9ea0ad;
+}
+
+.discography-embed-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #2b2b34;
+  background: #0b0b10;
+}
+
+.discography-embed {
+  width: 100%;
+  height: 352px;
+  border: 0;
+  display: block;
+}
+
+.discography-link {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 15px;
+  color: #b53bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.discography-link:hover {
+  color: #d37bff;
+}
+
+.about-content {
+  max-width: 540px;
+}
+
+.about-kicker {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: .26em;
+  font-weight: 700;
+  color: #ff4abf;
+  text-transform: uppercase;
+}
+
+.about-content h2 {
+  margin: 0 0 14px;
+  font-size: clamp(38px, 6vw, 58px);
+  line-height: .95;
+  color: #f8f8ff;
+}
+
+.about-content p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #d8d9e4;
+}
+
+.about-tags {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.about-tag {
+  border: 1px solid #2f3240;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #bec1cf;
+  background: rgba(18,20,29,.72);
+}
+
+/* ===== Remix Commissions ===== */
+.commissions-section {
+  position: relative;
+  margin-top: 24px;
+  padding: 38px 34px;
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(255,74,191,.28) 0%, rgba(255,74,191,0) 55%),
+    radial-gradient(120% 140% at 100% 100%, rgba(123,92,255,.32) 0%, rgba(123,92,255,0) 55%),
+    linear-gradient(135deg, #120a1f 0%, #0a0814 60%, #150a22 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 18px 60px -20px rgba(181, 59, 255, .35);
+}
+.commissions-section::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 2px, transparent 2px 14px);
+  pointer-events: none;
+}
+.commissions-section::after {
+  content: "";
+  position: absolute;
+  width: 320px; height: 320px;
+  right: -120px; top: -120px;
+  background: radial-gradient(circle, rgba(255,74,191,.45) 0%, transparent 65%);
+  filter: blur(20px);
+  pointer-events: none;
+  animation: floaty 8s ease-in-out infinite alternate;
+}
+@keyframes floaty {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-20px, 20px); }
+}
+.commissions-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+.commissions-kicker {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: .26em;
+  font-weight: 700;
+  color: #ff4abf;
+  text-transform: uppercase;
+}
+.commissions-content h2 {
+  margin: 0 0 14px;
+  font-size: clamp(36px, 5.6vw, 54px);
+  line-height: .98;
+  background: linear-gradient(90deg, #ffffff 0%, #ffb3e6 50%, #b59cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.commissions-content p {
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #d8d9e4;
+}
+.commissions-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+.commissions-perks li {
+  border: 1px solid rgba(255,74,191,.35);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #f1d6ec;
+  background: rgba(255,74,191,.08);
+}
+.commissions-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0010;
+  text-decoration: none;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff4abf 0%, #b53bff 100%);
+  box-shadow: 0 10px 28px -8px rgba(255,74,191,.55);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.commissions-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.07);
+  box-shadow: 0 14px 34px -8px rgba(255,74,191,.7);
+}
+.commissions-cta svg {
+  width: 20px; height: 20px;
+}
+@media (max-width: 640px) {
+  .commissions-section { padding: 28px 22px; }
 }
 
 .footer-socials {
@@ -744,148 +636,14 @@ body::after {
   .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
 
-/* ===== Album promo popup ===== */
-.promo-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.82);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .28s ease;
-}
-
-.promo-modal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.promo-box {
-  width: min(92vw, 520px);
-  background:
-    radial-gradient(1200px 260px at 20% -10%, rgba(30, 215, 96, 0.18), transparent 50%),
-    linear-gradient(160deg, #101011, #070707 70%);
-  border: 1px solid #2a2a2d;
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(30,215,96,.2) inset;
-  transform: translateY(12px) scale(.98);
-  transition: transform .28s ease;
-}
-
-.promo-modal.active .promo-box {
-  transform: translateY(0) scale(1);
-}
-
-.promo-title {
-  margin: 0 0 14px;
-  font-size: clamp(34px, 6.4vw, 52px);
-  line-height: .95;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 0 22px rgba(30, 215, 96, .28);
-}
-
-.promo-cover {
-  width: 100%;
-  max-width: 320px;
-  margin: 0 auto 14px;
-  display: block;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 14px;
-  border: 1px solid #2a2a2f;
-  box-shadow: 0 14px 34px rgba(0,0,0,.42);
-}
-
-.promo-text {
-  margin: 0 0 14px;
-  color: #d8d8dd;
-  line-height: 1.45;
-  font-size: 15px;
-  text-align: center;
-}
-
-.promo-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.promo-btn {
-  flex: 1 1 170px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: 12px;
-  border: 1px solid #2a2a31;
-  padding: 12px 14px;
-  font-weight: 700;
-  text-decoration: none;
-  color: #efeff3;
-  background: #101013;
-  cursor: pointer;
-}
-
-.promo-btn:hover { transform: translateY(-1px); }
-
-.promo-btn.spotify {
-  background: #1db954;
-  border-color: #1db954;
-  color: #08110b;
-}
-
-.promo-btn.preview {
-  border-color: #1db954;
-  color: #89ffc1;
-}
-
-.promo-opt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
-  color: #9da1aa;
-  font-size: 13px;
-}
-
-.promo-preview-wrap {
-  margin-top: 12px;
-  display: none;
-}
-
-.promo-preview-wrap.show {
-  display: block;
-}
-
-.promo-embed {
-  width: 100%;
-  height: 152px;
-  border: 0;
-  border-radius: 12px;
-}
 
 @media (max-width: 860px) {
   .hero { margin-top: 24px; }
   .banner { height: 210px; border-radius: 20px; }
   .header { margin-top: -82px; }
   .avatar { width: 170px; height: 170px; border-width: 5px; }
-  .latest-release-card { grid-template-columns: 1fr; }
-  .latest-cover { width: 100%; height: auto; aspect-ratio: 1 / 1; max-width: 180px; }
-  .split-60-40 { grid-template-columns: 1fr; gap: 22px; }
-  .section-block { margin-top: 44px; padding-top: 24px; }
-  .section-head { gap: 12px; margin-bottom: 22px; }
-  .video-grid { grid-template-columns: 1fr; }
-  .video-grid .video-card:first-child { grid-row: auto; }
-  .video-grid .video-card:not(:first-child) { grid-template-columns: 1fr; }
-  .video-grid .video-card:not(:first-child) .video-thumb { aspect-ratio: 16/9; }
-  .commissions-block { padding: 28px 22px; }
-  .featured-cta { padding: 24px 20px; }
+  .content-grid { grid-template-columns: 1fr; }
+  .about-section { padding: 24px; }
 }
 
 @media (max-width: 520px) {
@@ -895,8 +653,10 @@ body::after {
   .avatar { width: 138px; height: 138px; }
   .brand-logo { width: min(260px, 70vw); margin-top: 14px; }
   .tagline { font-size: 14px; margin-bottom: 22px; }
-  .section-title-xl { font-size: 22px; }
-  .about-copy h2 { font-size: 30px; }
+  .section-title { font-size: 16px; }
+  .about-section { padding: 24px 18px; }
+  .about-content h2 { font-size: 46px; }
+  .about-content p { font-size: 18px; }
 }
 
 </style>
@@ -924,27 +684,8 @@ body::after {
     <img class="brand-logo" decoding="async" src="img/logo-stylizedrg.png" alt="StylizedRG logo">
     <p class="tagline">Making music for the world to discover.</p>
 
-    <section class="latest-release-card reveal">
-      <img class="latest-cover" loading="lazy" decoding="async" src="img/sweet-lola.jpg" alt="Sweet, Sweet Lola album art">
-      <div>
-        <p class="latest-kicker">Latest release</p>
-        <h2 class="latest-title">Sweet, Sweet Lola</h2>
-        <p class="latest-copy">The new album — out now on all streaming platforms.</p>
-        <div class="latest-actions">
-          <a class="latest-btn listen" href="https://open.spotify.com/intl-es/album/1U57kh3NR9zTnBDLqcKxuK" target="_blank" rel="noopener noreferrer">▶ Listen on Spotify</a>
-          <button class="latest-btn" id="latestPreviewBtn" type="button">Preview</button>
-        </div>
-        <div class="latest-preview-wrap" id="latestPreviewWrap">
-          <iframe
-            class="latest-embed"
-            src="https://open.spotify.com/embed/album/1U57kh3NR9zTnBDLqcKxuK?utm_source=generator"
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            title="Sweet, Sweet Lola preview on Spotify">
-          </iframe>
-        </div>
-      </div>
-</section>
+  </div>
+
 
 <section class="stats-section reveal" aria-labelledby="stats-title">
   <h2 id="stats-title" style="position:absolute;left:-9999px;">By the numbers</h2>
@@ -966,111 +707,86 @@ body::after {
 </section>
 
 
-<!-- 01 — Connect -->
-<section class="section-block reveal" aria-labelledby="connect-title">
-  <header class="section-head">
-    <span class="section-num">01 — Connect</span>
-    <h2 class="section-title-xl" id="connect-title">Find me everywhere</h2>
-    <span class="section-rule" aria-hidden="true"></span>
-  </header>
-  <div class="split-60-40">
-    <div class="social-rail">
-      <a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></div>
-        <div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases.</div></div>
-      </a>
-      <a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></div>
-        <div><div class="link-title">Spotify</div><div class="link-desc">Stream my original music.</div></div>
-      </a>
-      <a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></div>
-        <div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews.</div></div>
-      </a>
-      <a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
-        <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks & unreleased cuts.</div></div>
-      </a>
-      <a class="link" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg></div>
-        <div><div class="link-title">Ko-fi</div><div class="link-desc">Support me & request custom remixes.</div></div>
-      </a>
-      <button class="link" type="button" id="openContactBtn">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg></div>
-        <div><div class="link-title">Contact</div><div class="link-desc">Send a message — collabs, commissions, etc.</div></div>
-      </button>
+<div class="content-grid">
+  <div class="card social-card">
+    <div class="section-title">SOCIAL LINKS</div>
+
+    <a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
+    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></div>
+    <div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases.</div></div>
+    </a>
+
+    <a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
+    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></div>
+    <div><div class="link-title">Spotify</div><div class="link-desc">Stream my original music.</div></div>
+    </a>
+
+    <a class="link" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
+    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></div>
+    <div>
+    <div class="link-title">Discord</div>
+    <div class="link-desc">Join the community!</div>
     </div>
-    <aside class="featured-cta">
-      <span class="featured-eyebrow">Join the crew</span>
-      <h3>Hang out on Discord</h3>
-      <p>Real-time chat, sneak peeks of unreleased tracks and a heads-up before every drop. The community where it all happens.</p>
-      <a class="featured-btn" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-discord"></use></svg>
-        Open invite
-      </a>
-    </aside>
+    </a>
+
+    <a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
+    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></div>
+    <div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews.</div></div>
+    </a>
+
+    <a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
+    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
+    <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my YouTube channel.</div></div>
+    </a>
+
+    <a class="link" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
+    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg></div>
+    <div>
+      <div class="link-title">Ko-fi</div>
+      <div class="link-desc">Support me & request custom remixes!</div>
+    </div>
+    </a>
+
+    <button class="link" type="button" id="openContactBtn" style="width:100%;font:inherit;text-align:left;">
+    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg></div>
+    <div><div class="link-title">Contact</div><div class="link-desc">Send a message! (Collabs, Commissions, etc.)</div></div>
+    </button>
+  </div>
+
+  <section class="video-section">
+    <div class="section-title">VIDEOS</div>
+    <div id="videoGrid" class="video-grid"></div>
+  </section>
+</div>
+
+<section class="about-section reveal">
+  <div class="about-content">
+    <p class="about-kicker">About</p>
+    <h2>So, who am I?</h2>
+    <p>I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022 and I'm still experimenting with new sounds every release.</p>
+    <div class="about-tags">
+      <span class="about-tag">Electro</span>
+      <span class="about-tag">Glitchhop</span>
+      <span class="about-tag">Indie House</span>
+      <span class="about-tag">Movie Remixes</span>
+    </div>
   </div>
 </section>
 
-<!-- 02 — Latest videos -->
-<section class="section-block video-section reveal" aria-labelledby="videos-title">
-  <header class="section-head">
-    <span class="section-num">02 — Latest videos</span>
-    <h2 class="section-title-xl" id="videos-title">Fresh from the channel</h2>
-    <span class="section-rule" aria-hidden="true"></span>
-  </header>
-  <div id="videoGrid" class="video-grid"></div>
-</section>
-
-<!-- 03 — About -->
-<section class="section-block about-block reveal" aria-labelledby="about-title">
-  <header class="section-head">
-    <span class="section-num">03 — About</span>
-    <h2 class="section-title-xl" id="about-title">So, who am I?</h2>
-    <span class="section-rule" aria-hidden="true"></span>
-  </header>
-  <div class="split-60-40">
-    <div class="about-copy">
-      <h2>Composer. Remixer. Experimenter.</h2>
-      <p>I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop and indie house. I started making music in 2022 and I'm still experimenting with new sounds every release.</p>
-      <div class="about-tags">
-        <span class="about-tag">Electro</span>
-        <span class="about-tag">Glitchhop</span>
-        <span class="about-tag">Indie House</span>
-        <span class="about-tag">Movie Remixes</span>
-      </div>
-    </div>
-    <div class="about-visual" role="img" aria-label="StylizedRG portrait"></div>
-  </div>
-</section>
-
-<!-- 04 — Commissions -->
-<section class="section-block reveal" aria-labelledby="commissions-title">
-  <header class="section-head">
-    <span class="section-num">04 — Commissions</span>
-    <h2 class="section-title-xl">Open for requests</h2>
-    <span class="section-rule" aria-hidden="true"></span>
-  </header>
-  <div class="commissions-block">
-    <div class="split-60-40">
-      <div>
-        <p class="commissions-kicker">Now Open</p>
-        <h2 id="commissions-title">Remix Commissions</h2>
-        <p>Got a movie you love and want it reimagined into a song? I will create a custom remix using samples from a movie of your choice and convert it into something STYLIZED.</p>
-        <ul class="commissions-perks">
-          <li>✦ Custom genre & vibe</li>
-          <li>✦ MP3 & WAV delivery</li>
-          <li>✦ Personal feedback rounds</li>
-        </ul>
-        <a class="commissions-cta" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-kofi"></use></svg>
-          Commission a remix on Ko-fi
-        </a>
-      </div>
-      <div class="commissions-visual" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg>
-      </div>
-    </div>
+<section class="commissions-section reveal" aria-labelledby="commissions-title">
+  <div class="commissions-content">
+    <p class="commissions-kicker">Now Open</p>
+    <h2 id="commissions-title">Remix Commissions</h2>
+    <p>Got a movie you love and want it reimagined into a song? I will create a custom remix using samples from a movie of your choice and convert it into something STYLIZED.</p>
+    <ul class="commissions-perks">
+      <li>✦ Custom genre & vibe</li>
+      <li>✦ MP3 & WAV delivery</li>
+      <li>✦ And more...</li>
+    </ul>
+    <a class="commissions-cta" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-kofi"></use></svg>
+      Commission a remix on Ko-fi
+    </a>
   </div>
 </section>
 
@@ -1105,33 +821,6 @@ body::after {
 </div>
 </div>
 
-<!-- Album Promo Popup -->
-<div id="albumPromoModal" class="promo-modal" aria-hidden="true">
-  <div class="promo-box" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
-    <h2 class="promo-title" id="promoTitle">NEW ALBUM!</h2>
-    <img class="promo-cover" loading="lazy" decoding="async" src="img/sweet-lola.jpg" alt="Sweet, Sweet Lola album art">
-    <p class="promo-text">'Sweet, Sweet Lola' is now available on all platforms!</p>
-    <div class="promo-actions">
-      <a class="promo-btn spotify" id="promoListenBtn" href="https://open.spotify.com/intl-es/album/1U57kh3NR9zTnBDLqcKxuK" target="_blank" rel="noopener noreferrer">Listen</a>
-      <button class="promo-btn preview" id="promoPreviewBtn" type="button">▶ Preview</button>
-      <button class="promo-btn" id="promoCloseBtn" type="button">Close</button>
-    </div>
-    <div class="promo-preview-wrap" id="promoPreviewWrap">
-      <iframe
-        class="promo-embed"
-        id="promoEmbed"
-        src="https://open.spotify.com/embed/album/1U57kh3NR9zTnBDLqcKxuK?utm_source=generator"
-        loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        title="Preview del álbum Sweet, Sweet Lola en Spotify">
-      </iframe>
-    </div>
-    <label class="promo-opt">
-      <input id="promoDontShow" type="checkbox">
-      Don't show again
-    </label>
-  </div>
-</div>
 
 <script>
 (function(){
@@ -1143,7 +832,7 @@ body::after {
   const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw"; // Restrict by HTTP referrer in Google Cloud Console!
   const YT_CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w";
   const YT_REMIX_PLAYLIST_ID = "PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN";
-  const PROMO_KEY = "hideAlbumPromo:sweet-lola"; // version-keyed so new releases re-show
+  
 
   // ===== Helpers =====
   const $ = (id) => document.getElementById(id);
@@ -1171,7 +860,7 @@ body::after {
     });
   }, { threshold: .12 });
 
-  document.querySelectorAll('.reveal, .section-block, .latest-release-card').forEach(el => {
+  document.querySelectorAll('.card, .video-section, .about-section, .commissions-section').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
@@ -1256,85 +945,71 @@ body::after {
     }
   });
 
-  // ===== Album promo modal =====
-  const promoModal = $('albumPromoModal');
-  const promoCloseBtn = $('promoCloseBtn');
-  const promoListenBtn = $('promoListenBtn');
-  const promoPreviewBtn = $('promoPreviewBtn');
-  const promoPreviewWrap = $('promoPreviewWrap');
-  const promoDontShow = $('promoDontShow');
-  const latestPreviewBtn = $('latestPreviewBtn');
-  const latestPreviewWrap = $('latestPreviewWrap');
-
-  function openPromo(){
-    if (!promoModal) return;
-    promoModal.classList.add('active');
-    promoModal.setAttribute('aria-hidden', 'false');
-  }
-  function closePromo(){
-    if (!promoModal) return;
-    if (promoDontShow && promoDontShow.checked) {
-      try { localStorage.setItem(PROMO_KEY, 'true'); } catch {}
-    }
-    promoModal.classList.remove('active');
-    promoModal.setAttribute('aria-hidden', 'true');
-    if (promoPreviewWrap) promoPreviewWrap.classList.remove('show');
-    if (promoPreviewBtn) promoPreviewBtn.textContent = '▶ Preview';
-  }
-
-  let shouldShowPromo = true;
-  try { shouldShowPromo = localStorage.getItem(PROMO_KEY) !== 'true'; } catch {}
-  if (shouldShowPromo && promoModal) {
-    window.addEventListener('load', () => setTimeout(openPromo, 240));
-  }
-
-  on(promoCloseBtn, 'click', closePromo);
-  on(promoListenBtn, 'click', () => {
-    if (promoDontShow && promoDontShow.checked) {
-      try { localStorage.setItem(PROMO_KEY, 'true'); } catch {}
-    }
-    closePromo();
-  });
-  on(promoPreviewBtn, 'click', () => {
-    if (!promoPreviewWrap) return;
-    const isOpen = promoPreviewWrap.classList.toggle('show');
-    promoPreviewBtn.textContent = isOpen ? 'Hide preview' : '▶ Preview';
-  });
-  on(latestPreviewBtn, 'click', () => {
-    if (!latestPreviewWrap) return;
-    const isOpen = latestPreviewWrap.classList.toggle('show');
-    latestPreviewBtn.textContent = isOpen ? 'Hide preview' : 'Preview';
-  });
-  on(promoModal, 'click', (e) => { if (e.target === promoModal) closePromo(); });
-
   // Global Escape
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     if (contactModal && contactModal.classList.contains('active')) closeContact();
-    if (promoModal && promoModal.classList.contains('active')) closePromo();
   });
+
 
   // ===== YouTube videos (XSS-safe) =====
   const VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
   const grid = $('videoGrid');
 
+  // Parse ISO 8601 duration (e.g. PT1M30S) to seconds
+  function parseISODuration(iso){
+    if (typeof iso !== 'string') return 0;
+    const m = iso.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
+    if (!m) return 0;
+    return (+m[1]||0)*3600 + (+m[2]||0)*60 + (+m[3]||0);
+  }
+
   async function loadVideos(){
     if (!grid) return;
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${encodeURIComponent(YT_API_KEY)}&channelId=${encodeURIComponent(YT_CHANNEL_ID)}&part=snippet,id&order=date&maxResults=3&type=video`;
-    const data = await safeFetch(url);
-    if (!data || !Array.isArray(data.items)) {
+    // Pull recent uploads — request more than we need so we can filter out Shorts and Live broadcasts.
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${encodeURIComponent(YT_API_KEY)}&channelId=${encodeURIComponent(YT_CHANNEL_ID)}&part=snippet,id&order=date&maxResults=20&type=video`;
+    const searchData = await safeFetch(searchUrl);
+    if (!searchData || !Array.isArray(searchData.items)) {
       grid.textContent = 'Could not load videos right now. Please try again later.';
       return;
     }
 
-    grid.textContent = '';
-    data.items.slice(0, 3).forEach(v => {
+    // Keep only non-live items with valid IDs, preserving order
+    const candidates = [];
+    searchData.items.forEach(v => {
       const videoId = v && v.id && v.id.videoId;
       const snippet = v && v.snippet;
       if (!videoId || !VIDEO_ID_RE.test(videoId) || !snippet) return;
+      if (snippet.liveBroadcastContent && snippet.liveBroadcastContent !== 'none') return;
+      candidates.push({ videoId, snippet });
+    });
 
+    if (!candidates.length) { grid.textContent = ''; return; }
+
+    // Fetch durations + live details to drop Shorts (<= 60s) and any live/upcoming streams.
+    const ids = candidates.map(c => c.videoId).join(',');
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${encodeURIComponent(YT_API_KEY)}&id=${encodeURIComponent(ids)}&part=contentDetails,liveStreamingDetails,snippet`;
+    const details = await safeFetch(detailsUrl);
+    const detailMap = {};
+    if (details && Array.isArray(details.items)) {
+      details.items.forEach(it => { if (it && it.id) detailMap[it.id] = it; });
+    }
+
+    const filtered = candidates.filter(c => {
+      const d = detailMap[c.videoId];
+      if (!d) return false;
+      // Drop anything that ever was a live stream (live/upcoming or has streaming details)
+      if (d.liveStreamingDetails) return false;
+      if (d.snippet && d.snippet.liveBroadcastContent && d.snippet.liveBroadcastContent !== 'none') return false;
+      // Drop Shorts: duration <= 60s
+      const seconds = parseISODuration(d.contentDetails && d.contentDetails.duration);
+      if (seconds > 0 && seconds <= 60) return false;
+      return true;
+    }).slice(0, 3);
+
+    grid.textContent = '';
+    filtered.forEach(({ videoId, snippet }) => {
       const thumbUrl = snippet.thumbnails && snippet.thumbnails.high && snippet.thumbnails.high.url;
-      // Only allow https URLs from YouTube's image CDN
       const safeThumb = (typeof thumbUrl === 'string' && /^https:\/\/i\.ytimg\.com\//.test(thumbUrl)) ? thumbUrl : '';
       const title = typeof snippet.title === 'string' ? snippet.title : '';
 
