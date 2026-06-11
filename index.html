@@ -165,87 +165,6 @@ body {
   color: #cfcfda;
 }
 
-.latest-release-card {
-  width: min(900px, 100%);
-  margin: 0 auto 24px;
-  padding: 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(72, 211, 120, .26);
-  background:
-    radial-gradient(600px 180px at 96% 0%, rgba(29,185,84,.22), transparent 60%),
-    linear-gradient(145deg, rgba(12,12,18,.95), rgba(8,9,13,.95));
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 16px;
-  text-align: left;
-}
-
-.latest-cover {
-  width: 150px;
-  height: 150px;
-  border-radius: 14px;
-  object-fit: cover;
-  border: 1px solid #303544;
-}
-
-.latest-kicker {
-  margin: 0;
-  color: #56e88e;
-  font-size: 12px;
-  letter-spacing: .16em;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.latest-title {
-  margin: 6px 0 6px;
-  font-size: clamp(32px, 5vw, 50px);
-  line-height: .95;
-}
-
-.latest-copy {
-  margin: 0 0 14px;
-  color: #b9bccb;
-}
-
-.latest-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.latest-btn {
-  border-radius: 12px;
-  border: 1px solid #2f3444;
-  padding: 10px 14px;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  background: #151824;
-  color: #ecedf4;
-}
-
-.latest-btn.listen {
-  background: #1db954;
-  border-color: #1db954;
-  color: #0b120d;
-}
-
-.latest-preview-wrap {
-  margin-top: 12px;
-  display: none;
-}
-
-.latest-preview-wrap.show {
-  display: block;
-}
-
-.latest-embed {
-  width: 100%;
-  height: 152px;
-  border: 0;
-  border-radius: 12px;
-}
 
 .card, .video-section, .about-section, .discography-section {
   background: rgba(14,14,18,.83);
@@ -276,6 +195,144 @@ body {
 .video-section {
   padding: 18px;
 }
+
+/* === Editorial section system === */
+.section-block {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+.section-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .28em;
+  color: #b53bff;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-h2 {
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #f6f6fb;
+  letter-spacing: -0.01em;
+}
+.section-rule {
+  flex: 1;
+  height: 1px;
+  min-width: 40px;
+  background: linear-gradient(90deg, rgba(181,59,255,.55), rgba(181,59,255,0));
+}
+
+.split-60-40 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+/* Social rail (left column, 60%) */
+.social-rail {
+  border: 1px solid #24242b;
+  border-radius: 22px;
+  background: rgba(14,14,18,.83);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+.social-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: #e5e5e5;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: background .18s, transform .18s;
+}
+.social-row:last-child { border-bottom: none; }
+.social-row:hover {
+  background: rgba(181,59,255,.08);
+}
+.social-row:hover .social-arrow { transform: translateX(6px); color:#d37bff; }
+.social-row .icon { flex-shrink: 0; }
+.social-row-body { flex: 1; min-width: 0; }
+.social-row-title { font-weight: 700; font-size: 15px; }
+.social-row-desc { font-size: 12px; color: #9a9a9a; margin-top: 2px; }
+.social-arrow {
+  color: #6b6b78;
+  font-size: 18px;
+  transition: transform .18s, color .18s;
+}
+
+/* Featured CTA (right column, 40%) */
+.featured-cta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(181,59,255,.35);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(181,59,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(20,12,30,.92), rgba(12,12,18,.92));
+  box-shadow: 0 0 32px rgba(181,59,255,.18);
+}
+.featured-cta-kicker {
+  font-size: 11px;
+  letter-spacing: .26em;
+  font-weight: 700;
+  color: #b53bff;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.featured-cta-title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.05;
+  color: #f8f8ff;
+  letter-spacing: -0.01em;
+}
+.featured-cta-desc {
+  margin: 0 0 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #c9c9d4;
+  flex: 1;
+}
+.featured-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(135deg, #b53bff, #7b5bff);
+  box-shadow: 0 8px 24px rgba(181,59,255,.35);
+  transition: transform .18s, box-shadow .18s;
+  text-decoration: none;
+}
+.featured-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(181,59,255,.5);
+}
+.featured-cta-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
 .section-title {
   text-align: center;
@@ -327,8 +384,8 @@ body {
 
 .video-grid {
   display:grid;
-  grid-template-columns:1fr;
-  gap:14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:18px;
 }
 
 .video-card {
@@ -717,140 +774,17 @@ body::after {
   .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
 
-/* ===== Album promo popup ===== */
-.promo-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.82);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .28s ease;
-}
-
-.promo-modal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.promo-box {
-  width: min(92vw, 520px);
-  background:
-    radial-gradient(1200px 260px at 20% -10%, rgba(30, 215, 96, 0.18), transparent 50%),
-    linear-gradient(160deg, #101011, #070707 70%);
-  border: 1px solid #2a2a2d;
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(30,215,96,.2) inset;
-  transform: translateY(12px) scale(.98);
-  transition: transform .28s ease;
-}
-
-.promo-modal.active .promo-box {
-  transform: translateY(0) scale(1);
-}
-
-.promo-title {
-  margin: 0 0 14px;
-  font-size: clamp(34px, 6.4vw, 52px);
-  line-height: .95;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 0 22px rgba(30, 215, 96, .28);
-}
-
-.promo-cover {
-  width: 100%;
-  max-width: 320px;
-  margin: 0 auto 14px;
-  display: block;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 14px;
-  border: 1px solid #2a2a2f;
-  box-shadow: 0 14px 34px rgba(0,0,0,.42);
-}
-
-.promo-text {
-  margin: 0 0 14px;
-  color: #d8d8dd;
-  line-height: 1.45;
-  font-size: 15px;
-  text-align: center;
-}
-
-.promo-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.promo-btn {
-  flex: 1 1 170px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: 12px;
-  border: 1px solid #2a2a31;
-  padding: 12px 14px;
-  font-weight: 700;
-  text-decoration: none;
-  color: #efeff3;
-  background: #101013;
-  cursor: pointer;
-}
-
-.promo-btn:hover { transform: translateY(-1px); }
-
-.promo-btn.spotify {
-  background: #1db954;
-  border-color: #1db954;
-  color: #08110b;
-}
-
-.promo-btn.preview {
-  border-color: #1db954;
-  color: #89ffc1;
-}
-
-.promo-opt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
-  color: #9da1aa;
-  font-size: 13px;
-}
-
-.promo-preview-wrap {
-  margin-top: 12px;
-  display: none;
-}
-
-.promo-preview-wrap.show {
-  display: block;
-}
-
-.promo-embed {
-  width: 100%;
-  height: 152px;
-  border: 0;
-  border-radius: 12px;
-}
 
 @media (max-width: 860px) {
   .hero { margin-top: 24px; }
   .banner { height: 210px; border-radius: 20px; }
   .header { margin-top: -82px; }
   .avatar { width: 170px; height: 170px; border-width: 5px; }
-  .latest-release-card { grid-template-columns: 1fr; }
-  .latest-cover { width: 100%; height: auto; aspect-ratio: 1 / 1; max-width: 180px; }
   .content-grid { grid-template-columns: 1fr; }
+  .split-60-40 { grid-template-columns: 1fr; }
+  .video-grid { grid-template-columns: 1fr; }
+  .section-block { margin-top: 40px; padding-top: 22px; }
+  .featured-cta { padding: 22px 20px; }
   .about-section { padding: 24px; }
 }
 
@@ -892,27 +826,8 @@ body::after {
     <img class="brand-logo" decoding="async" src="img/logo-stylizedrg.png" alt="StylizedRG logo">
     <p class="tagline">Making music for the world to discover.</p>
 
-    <section class="latest-release-card reveal">
-      <img class="latest-cover" loading="lazy" decoding="async" src="img/sweet-lola.jpg" alt="Sweet, Sweet Lola album art">
-      <div>
-        <p class="latest-kicker">Latest release</p>
-        <h2 class="latest-title">Sweet, Sweet Lola</h2>
-        <p class="latest-copy">The new album — out now on all streaming platforms.</p>
-        <div class="latest-actions">
-          <a class="latest-btn listen" href="https://open.spotify.com/intl-es/album/1U57kh3NR9zTnBDLqcKxuK" target="_blank" rel="noopener noreferrer">▶ Listen on Spotify</a>
-          <button class="latest-btn" id="latestPreviewBtn" type="button">Preview</button>
-        </div>
-        <div class="latest-preview-wrap" id="latestPreviewWrap">
-          <iframe
-            class="latest-embed"
-            src="https://open.spotify.com/embed/album/1U57kh3NR9zTnBDLqcKxuK?utm_source=generator"
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            title="Sweet, Sweet Lola preview on Spotify">
-          </iframe>
-        </div>
-      </div>
-</section>
+  </div>
+
 
 <section class="stats-section reveal" aria-labelledby="stats-title">
   <h2 id="stats-title" style="position:absolute;left:-9999px;">By the numbers</h2>
@@ -934,57 +849,90 @@ body::after {
 </section>
 
 
-<div class="content-grid">
-  <div class="card social-card">
-    <div class="section-title">SOCIAL LINKS</div>
-
-    <a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></div>
-    <div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases.</div></div>
-    </a>
-
-    <a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></div>
-    <div><div class="link-title">Spotify</div><div class="link-desc">Stream my original music.</div></div>
-    </a>
-
-    <a class="link" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></div>
-    <div>
-    <div class="link-title">Discord</div>
-    <div class="link-desc">Join the community!</div>
-    </div>
-    </a>
-
-    <a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></div>
-    <div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews.</div></div>
-    </a>
-
-    <a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
-    <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my YouTube channel.</div></div>
-    </a>
-
-    <a class="link" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg></div>
-    <div>
-      <div class="link-title">Ko-fi</div>
-      <div class="link-desc">Support me & request custom remixes!</div>
-    </div>
-    </a>
-
-    <button class="link" type="button" id="openContactBtn" style="width:100%;font:inherit;text-align:left;">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg></div>
-    <div><div class="link-title">Contact</div><div class="link-desc">Send a message! (Collabs, Commissions, etc.)</div></div>
-    </button>
+<section class="section-block reveal" aria-labelledby="connect-title">
+  <div class="section-head">
+    <span class="section-num">01 — Connect</span>
+    <h2 id="connect-title" class="section-h2">Find me everywhere</h2>
+    <span class="section-rule" aria-hidden="true"></span>
   </div>
 
-  <section class="video-section">
-    <div class="section-title">VIDEOS</div>
-    <div id="videoGrid" class="video-grid"></div>
-  </section>
-</div>
+  <div class="split-60-40">
+    <div class="social-rail">
+      <a class="social-row" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">YouTube</div>
+          <div class="social-row-desc">Videos &amp; releases.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Spotify</div>
+          <div class="social-row-desc">Stream my original music.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Instagram</div>
+          <div class="social-row-desc">Clips &amp; previews.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">SoundCloud</div>
+          <div class="social-row-desc">More tracks &amp; unreleased cuts.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Discord</div>
+          <div class="social-row-desc">Real-time chat &amp; community.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Ko-fi</div>
+          <div class="social-row-desc">Support me &amp; request custom remixes.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <aside class="featured-cta">
+      <p class="featured-cta-kicker">Get in touch</p>
+      <h3 class="featured-cta-title">Let's work together</h3>
+      <p class="featured-cta-desc">Collabs, commissions, feedback or just to say hi — drop me a message and I'll get back to you.</p>
+      <button class="featured-cta-btn" type="button" id="openContactBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-mail"></use></svg>
+        Send a message
+      </button>
+    </aside>
+  </div>
+</section>
+
+<section class="section-block reveal" aria-labelledby="videos-title">
+  <div class="section-head">
+    <span class="section-num">02 — Latest videos</span>
+    <h2 id="videos-title" class="section-h2">Fresh from the channel</h2>
+    <span class="section-rule" aria-hidden="true"></span>
+  </div>
+  <div id="videoGrid" class="video-grid"></div>
+</section>
 
 <section class="about-section reveal">
   <div class="about-content">
@@ -1048,33 +996,6 @@ body::after {
 </div>
 </div>
 
-<!-- Album Promo Popup -->
-<div id="albumPromoModal" class="promo-modal" aria-hidden="true">
-  <div class="promo-box" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
-    <h2 class="promo-title" id="promoTitle">NEW ALBUM!</h2>
-    <img class="promo-cover" loading="lazy" decoding="async" src="img/sweet-lola.jpg" alt="Sweet, Sweet Lola album art">
-    <p class="promo-text">'Sweet, Sweet Lola' is now available on all platforms!</p>
-    <div class="promo-actions">
-      <a class="promo-btn spotify" id="promoListenBtn" href="https://open.spotify.com/intl-es/album/1U57kh3NR9zTnBDLqcKxuK" target="_blank" rel="noopener noreferrer">Listen</a>
-      <button class="promo-btn preview" id="promoPreviewBtn" type="button">▶ Preview</button>
-      <button class="promo-btn" id="promoCloseBtn" type="button">Close</button>
-    </div>
-    <div class="promo-preview-wrap" id="promoPreviewWrap">
-      <iframe
-        class="promo-embed"
-        id="promoEmbed"
-        src="https://open.spotify.com/embed/album/1U57kh3NR9zTnBDLqcKxuK?utm_source=generator"
-        loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        title="Preview del álbum Sweet, Sweet Lola en Spotify">
-      </iframe>
-    </div>
-    <label class="promo-opt">
-      <input id="promoDontShow" type="checkbox">
-      Don't show again
-    </label>
-  </div>
-</div>
 
 <script>
 (function(){
@@ -1086,7 +1007,7 @@ body::after {
   const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw"; // Restrict by HTTP referrer in Google Cloud Console!
   const YT_CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w";
   const YT_REMIX_PLAYLIST_ID = "PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN";
-  const PROMO_KEY = "hideAlbumPromo:sweet-lola"; // version-keyed so new releases re-show
+  
 
   // ===== Helpers =====
   const $ = (id) => document.getElementById(id);
@@ -1114,7 +1035,7 @@ body::after {
     });
   }, { threshold: .12 });
 
-  document.querySelectorAll('.card, .video-section, .about-section, .commissions-section, .latest-release-card').forEach(el => {
+  document.querySelectorAll('.section-block, .card, .video-section, .about-section, .commissions-section').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
@@ -1199,85 +1120,71 @@ body::after {
     }
   });
 
-  // ===== Album promo modal =====
-  const promoModal = $('albumPromoModal');
-  const promoCloseBtn = $('promoCloseBtn');
-  const promoListenBtn = $('promoListenBtn');
-  const promoPreviewBtn = $('promoPreviewBtn');
-  const promoPreviewWrap = $('promoPreviewWrap');
-  const promoDontShow = $('promoDontShow');
-  const latestPreviewBtn = $('latestPreviewBtn');
-  const latestPreviewWrap = $('latestPreviewWrap');
-
-  function openPromo(){
-    if (!promoModal) return;
-    promoModal.classList.add('active');
-    promoModal.setAttribute('aria-hidden', 'false');
-  }
-  function closePromo(){
-    if (!promoModal) return;
-    if (promoDontShow && promoDontShow.checked) {
-      try { localStorage.setItem(PROMO_KEY, 'true'); } catch {}
-    }
-    promoModal.classList.remove('active');
-    promoModal.setAttribute('aria-hidden', 'true');
-    if (promoPreviewWrap) promoPreviewWrap.classList.remove('show');
-    if (promoPreviewBtn) promoPreviewBtn.textContent = '▶ Preview';
-  }
-
-  let shouldShowPromo = true;
-  try { shouldShowPromo = localStorage.getItem(PROMO_KEY) !== 'true'; } catch {}
-  if (shouldShowPromo && promoModal) {
-    window.addEventListener('load', () => setTimeout(openPromo, 240));
-  }
-
-  on(promoCloseBtn, 'click', closePromo);
-  on(promoListenBtn, 'click', () => {
-    if (promoDontShow && promoDontShow.checked) {
-      try { localStorage.setItem(PROMO_KEY, 'true'); } catch {}
-    }
-    closePromo();
-  });
-  on(promoPreviewBtn, 'click', () => {
-    if (!promoPreviewWrap) return;
-    const isOpen = promoPreviewWrap.classList.toggle('show');
-    promoPreviewBtn.textContent = isOpen ? 'Hide preview' : '▶ Preview';
-  });
-  on(latestPreviewBtn, 'click', () => {
-    if (!latestPreviewWrap) return;
-    const isOpen = latestPreviewWrap.classList.toggle('show');
-    latestPreviewBtn.textContent = isOpen ? 'Hide preview' : 'Preview';
-  });
-  on(promoModal, 'click', (e) => { if (e.target === promoModal) closePromo(); });
-
   // Global Escape
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     if (contactModal && contactModal.classList.contains('active')) closeContact();
-    if (promoModal && promoModal.classList.contains('active')) closePromo();
   });
+
 
   // ===== YouTube videos (XSS-safe) =====
   const VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
   const grid = $('videoGrid');
 
+  // Parse ISO 8601 duration (e.g. PT1M30S) to seconds
+  function parseISODuration(iso){
+    if (typeof iso !== 'string') return 0;
+    const m = iso.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
+    if (!m) return 0;
+    return (+m[1]||0)*3600 + (+m[2]||0)*60 + (+m[3]||0);
+  }
+
   async function loadVideos(){
     if (!grid) return;
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${encodeURIComponent(YT_API_KEY)}&channelId=${encodeURIComponent(YT_CHANNEL_ID)}&part=snippet,id&order=date&maxResults=3&type=video`;
-    const data = await safeFetch(url);
-    if (!data || !Array.isArray(data.items)) {
+    // Pull recent uploads — request more than we need so we can filter out Shorts and Live broadcasts.
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${encodeURIComponent(YT_API_KEY)}&channelId=${encodeURIComponent(YT_CHANNEL_ID)}&part=snippet,id&order=date&maxResults=20&type=video`;
+    const searchData = await safeFetch(searchUrl);
+    if (!searchData || !Array.isArray(searchData.items)) {
       grid.textContent = 'Could not load videos right now. Please try again later.';
       return;
     }
 
-    grid.textContent = '';
-    data.items.slice(0, 3).forEach(v => {
+    // Keep only non-live items with valid IDs, preserving order
+    const candidates = [];
+    searchData.items.forEach(v => {
       const videoId = v && v.id && v.id.videoId;
       const snippet = v && v.snippet;
       if (!videoId || !VIDEO_ID_RE.test(videoId) || !snippet) return;
+      if (snippet.liveBroadcastContent && snippet.liveBroadcastContent !== 'none') return;
+      candidates.push({ videoId, snippet });
+    });
 
+    if (!candidates.length) { grid.textContent = ''; return; }
+
+    // Fetch durations + live details to drop Shorts (<= 60s) and any live/upcoming streams.
+    const ids = candidates.map(c => c.videoId).join(',');
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${encodeURIComponent(YT_API_KEY)}&id=${encodeURIComponent(ids)}&part=contentDetails,liveStreamingDetails,snippet`;
+    const details = await safeFetch(detailsUrl);
+    const detailMap = {};
+    if (details && Array.isArray(details.items)) {
+      details.items.forEach(it => { if (it && it.id) detailMap[it.id] = it; });
+    }
+
+    const filtered = candidates.filter(c => {
+      const d = detailMap[c.videoId];
+      if (!d) return false;
+      // Drop anything that ever was a live stream (live/upcoming or has streaming details)
+      if (d.liveStreamingDetails) return false;
+      if (d.snippet && d.snippet.liveBroadcastContent && d.snippet.liveBroadcastContent !== 'none') return false;
+      // Drop Shorts: duration <= 60s
+      const seconds = parseISODuration(d.contentDetails && d.contentDetails.duration);
+      if (seconds > 0 && seconds <= 60) return false;
+      return true;
+    }).slice(0, 3);
+
+    grid.textContent = '';
+    filtered.forEach(({ videoId, snippet }) => {
       const thumbUrl = snippet.thumbnails && snippet.thumbnails.high && snippet.thumbnails.high.url;
-      // Only allow https URLs from YouTube's image CDN
       const safeThumb = (typeof thumbUrl === 'string' && /^https:\/\/i\.ytimg\.com\//.test(thumbUrl)) ? thumbUrl : '';
       const title = typeof snippet.title === 'string' ? snippet.title : '';
 
