@@ -196,6 +196,144 @@ body {
   padding: 18px;
 }
 
+/* === Editorial section system === */
+.section-block {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+.section-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .28em;
+  color: #b53bff;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-h2 {
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #f6f6fb;
+  letter-spacing: -0.01em;
+}
+.section-rule {
+  flex: 1;
+  height: 1px;
+  min-width: 40px;
+  background: linear-gradient(90deg, rgba(181,59,255,.55), rgba(181,59,255,0));
+}
+
+.split-60-40 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+/* Social rail (left column, 60%) */
+.social-rail {
+  border: 1px solid #24242b;
+  border-radius: 22px;
+  background: rgba(14,14,18,.83);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+.social-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: #e5e5e5;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: background .18s, transform .18s;
+}
+.social-row:last-child { border-bottom: none; }
+.social-row:hover {
+  background: rgba(181,59,255,.08);
+}
+.social-row:hover .social-arrow { transform: translateX(6px); color:#d37bff; }
+.social-row .icon { flex-shrink: 0; }
+.social-row-body { flex: 1; min-width: 0; }
+.social-row-title { font-weight: 700; font-size: 15px; }
+.social-row-desc { font-size: 12px; color: #9a9a9a; margin-top: 2px; }
+.social-arrow {
+  color: #6b6b78;
+  font-size: 18px;
+  transition: transform .18s, color .18s;
+}
+
+/* Featured CTA (right column, 40%) */
+.featured-cta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(181,59,255,.35);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(181,59,255,.18), transparent 60%),
+    linear-gradient(180deg, rgba(20,12,30,.92), rgba(12,12,18,.92));
+  box-shadow: 0 0 32px rgba(181,59,255,.18);
+}
+.featured-cta-kicker {
+  font-size: 11px;
+  letter-spacing: .26em;
+  font-weight: 700;
+  color: #b53bff;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.featured-cta-title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.05;
+  color: #f8f8ff;
+  letter-spacing: -0.01em;
+}
+.featured-cta-desc {
+  margin: 0 0 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #c9c9d4;
+  flex: 1;
+}
+.featured-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(135deg, #b53bff, #7b5bff);
+  box-shadow: 0 8px 24px rgba(181,59,255,.35);
+  transition: transform .18s, box-shadow .18s;
+  text-decoration: none;
+}
+.featured-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(181,59,255,.5);
+}
+.featured-cta-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
 .section-title {
   text-align: center;
   font-size: 18px;
@@ -246,8 +384,8 @@ body {
 
 .video-grid {
   display:grid;
-  grid-template-columns:1fr;
-  gap:14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:18px;
 }
 
 .video-card {
@@ -643,6 +781,10 @@ body::after {
   .header { margin-top: -82px; }
   .avatar { width: 170px; height: 170px; border-width: 5px; }
   .content-grid { grid-template-columns: 1fr; }
+  .split-60-40 { grid-template-columns: 1fr; }
+  .video-grid { grid-template-columns: 1fr; }
+  .section-block { margin-top: 40px; padding-top: 22px; }
+  .featured-cta { padding: 22px 20px; }
   .about-section { padding: 24px; }
 }
 
@@ -707,57 +849,90 @@ body::after {
 </section>
 
 
-<div class="content-grid">
-  <div class="card social-card">
-    <div class="section-title">SOCIAL LINKS</div>
-
-    <a class="link" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></div>
-    <div><div class="link-title">YouTube</div><div class="link-desc">Videos & releases.</div></div>
-    </a>
-
-    <a class="link" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></div>
-    <div><div class="link-title">Spotify</div><div class="link-desc">Stream my original music.</div></div>
-    </a>
-
-    <a class="link" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></div>
-    <div>
-    <div class="link-title">Discord</div>
-    <div class="link-desc">Join the community!</div>
-    </div>
-    </a>
-
-    <a class="link" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></div>
-    <div><div class="link-title">Instagram</div><div class="link-desc">Clips & previews.</div></div>
-    </a>
-
-    <a class="link" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
-    <div><div class="link-title">SoundCloud</div><div class="link-desc">More tracks and unreleased content from my YouTube channel.</div></div>
-    </a>
-
-    <a class="link" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg></div>
-    <div>
-      <div class="link-title">Ko-fi</div>
-      <div class="link-desc">Support me & request custom remixes!</div>
-    </div>
-    </a>
-
-    <button class="link" type="button" id="openContactBtn" style="width:100%;font:inherit;text-align:left;">
-    <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg></div>
-    <div><div class="link-title">Contact</div><div class="link-desc">Send a message! (Collabs, Commissions, etc.)</div></div>
-    </button>
+<section class="section-block reveal" aria-labelledby="connect-title">
+  <div class="section-head">
+    <span class="section-num">01 — Connect</span>
+    <h2 id="connect-title" class="section-h2">Find me everywhere</h2>
+    <span class="section-rule" aria-hidden="true"></span>
   </div>
 
-  <section class="video-section">
-    <div class="section-title">VIDEOS</div>
-    <div id="videoGrid" class="video-grid"></div>
-  </section>
-</div>
+  <div class="split-60-40">
+    <div class="social-rail">
+      <a class="social-row" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">YouTube</div>
+          <div class="social-row-desc">Videos &amp; releases.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Spotify</div>
+          <div class="social-row-desc">Stream my original music.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Instagram</div>
+          <div class="social-row-desc">Clips &amp; previews.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">SoundCloud</div>
+          <div class="social-row-desc">More tracks &amp; unreleased cuts.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Discord</div>
+          <div class="social-row-desc">Real-time chat &amp; community.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="social-row" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg></div>
+        <div class="social-row-body">
+          <div class="social-row-title">Ko-fi</div>
+          <div class="social-row-desc">Support me &amp; request custom remixes.</div>
+        </div>
+        <span class="social-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <aside class="featured-cta">
+      <p class="featured-cta-kicker">Get in touch</p>
+      <h3 class="featured-cta-title">Let's work together</h3>
+      <p class="featured-cta-desc">Collabs, commissions, feedback or just to say hi — drop me a message and I'll get back to you.</p>
+      <button class="featured-cta-btn" type="button" id="openContactBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-mail"></use></svg>
+        Send a message
+      </button>
+    </aside>
+  </div>
+</section>
+
+<section class="section-block reveal" aria-labelledby="videos-title">
+  <div class="section-head">
+    <span class="section-num">02 — Latest videos</span>
+    <h2 id="videos-title" class="section-h2">Fresh from the channel</h2>
+    <span class="section-rule" aria-hidden="true"></span>
+  </div>
+  <div id="videoGrid" class="video-grid"></div>
+</section>
 
 <section class="about-section reveal">
   <div class="about-content">
@@ -860,7 +1035,7 @@ body::after {
     });
   }, { threshold: .12 });
 
-  document.querySelectorAll('.card, .video-section, .about-section, .commissions-section').forEach(el => {
+  document.querySelectorAll('.section-block, .card, .video-section, .about-section, .commissions-section').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
