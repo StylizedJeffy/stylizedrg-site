@@ -382,11 +382,48 @@ body {
 .link-title { font-weight:600; font-size:15px; }
 .link-desc { font-size:12px; color:#9a9a9a; }
 
-.video-grid {
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:18px;
+.video-carousel {
+  position: relative;
+  padding: 0 0;
 }
+.video-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 36px) / 3);
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+.video-track::-webkit-scrollbar { display: none; }
+.video-track .video-card { scroll-snap-align: start; }
+.video-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(15,15,22,.85);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 5;
+  backdrop-filter: blur(6px);
+  transition: background .2s ease, transform .2s ease, opacity .2s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,.5);
+}
+.video-nav:hover { background: rgba(168,85,247,.85); transform: translateY(-50%) scale(1.05); }
+.video-nav:disabled { opacity: .3; cursor: default; }
+.video-nav.prev { left: -10px; }
+.video-nav.next { right: -10px; }
 
 .video-card {
   display:block;
@@ -785,7 +822,8 @@ body::after {
   .avatar { width: 170px; height: 170px; border-width: 5px; }
   .content-grid { grid-template-columns: 1fr; }
   .split-60-40 { grid-template-columns: 1fr; }
-  .video-grid { grid-template-columns: 1fr; }
+  .video-track { grid-auto-columns: 100%; }
+  .video-nav { display: none; }
   .section-block { margin-top: 40px; padding-top: 22px; }
   .featured-cta { padding: 22px 20px; }
   .about-section { padding: 24px; }
@@ -934,7 +972,11 @@ body::after {
     <h2 id="videos-title" class="section-h2">Fresh from the channel</h2>
     <span class="section-rule" aria-hidden="true"></span>
   </div>
-  <div id="videoGrid" class="video-grid"></div>
+  <div class="video-carousel">
+    <button type="button" class="video-nav prev" id="videoPrev" aria-label="Previous videos">‹</button>
+    <div id="videoGrid" class="video-track"></div>
+    <button type="button" class="video-nav next" id="videoNext" aria-label="More videos">›</button>
+  </div>
 </section>
 
 <section class="about-section reveal">
@@ -1183,7 +1225,7 @@ body::after {
       const seconds = parseISODuration(d.contentDetails && d.contentDetails.duration);
       if (seconds > 0 && seconds <= 60) return false;
       return true;
-    }).slice(0, 3);
+    }).slice(0, 10);
 
     grid.textContent = '';
     filtered.forEach(({ videoId, snippet }) => {
@@ -1214,7 +1256,32 @@ body::after {
       grid.appendChild(a);
     });
   }
-  loadVideos();
+  loadVideos().then(setupCarousel);
+
+  function setupCarousel(){
+    const prev = document.getElementById('videoPrev');
+    const next = document.getElementById('videoNext');
+    if (!grid || !prev || !next) return;
+
+    function step(){
+      const first = grid.querySelector('.video-card');
+      if (!first) return grid.clientWidth;
+      const styles = getComputedStyle(grid);
+      const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      return first.getBoundingClientRect().width + gap;
+    }
+    function update(){
+      const max = grid.scrollWidth - grid.clientWidth - 1;
+      prev.disabled = grid.scrollLeft <= 1;
+      next.disabled = grid.scrollLeft >= max;
+    }
+    prev.addEventListener('click', () => { grid.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', () => { grid.scrollBy({ left:  step(), behavior: 'smooth' }); });
+    grid.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    setTimeout(update, 200);
+  }
 })();
 </script>
 
