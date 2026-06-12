@@ -382,26 +382,66 @@ body {
 .link-title { font-weight:600; font-size:15px; }
 .link-desc { font-size:12px; color:#9a9a9a; }
 
-.video-grid {
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:18px;
+.video-carousel {
+  position: relative;
+  padding: 0 0;
 }
+.video-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 36px) / 3);
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+.video-track::-webkit-scrollbar { display: none; }
+.video-track .video-card { scroll-snap-align: start; }
+.video-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(15,15,22,.85);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 5;
+  backdrop-filter: blur(6px);
+  transition: background .2s ease, transform .2s ease, opacity .2s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,.5);
+}
+.video-nav:hover { background: rgba(168,85,247,.85); transform: translateY(-50%) scale(1.05); }
+.video-nav:disabled { opacity: .3; cursor: default; }
+.video-nav.prev { left: -10px; }
+.video-nav.next { right: -10px; }
 
 .video-card {
   display:block;
-  border-radius:16px;
+  border-radius:18px;
   overflow:hidden;
-  border:1px solid #262626;
+  border:3px solid #ffffff;
+  outline:2px solid #000000;
+  outline-offset:0;
   text-decoration:none;
   color:inherit;
   background:#0d0d11;
-  transition:.2s;
+  transition:transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,.55);
 }
 
 .video-card:hover {
-  transform: translateY(-3px);
-  box-shadow:0 0 18px rgba(255,0,200,.18);
+  transform: translateY(-3px) rotate(-.4deg);
+  box-shadow: 0 10px 24px rgba(0,0,0,.6), 0 0 18px rgba(168,85,247,.25);
 }
 
 .video-thumb {
@@ -782,7 +822,8 @@ body::after {
   .avatar { width: 170px; height: 170px; border-width: 5px; }
   .content-grid { grid-template-columns: 1fr; }
   .split-60-40 { grid-template-columns: 1fr; }
-  .video-grid { grid-template-columns: 1fr; }
+  .video-track { grid-auto-columns: 100%; }
+  .video-nav { display: none; }
   .section-block { margin-top: 40px; padding-top: 22px; }
   .featured-cta { padding: 22px 20px; }
   .about-section { padding: 24px; }
@@ -931,7 +972,11 @@ body::after {
     <h2 id="videos-title" class="section-h2">Fresh from the channel</h2>
     <span class="section-rule" aria-hidden="true"></span>
   </div>
-  <div id="videoGrid" class="video-grid"></div>
+  <div class="video-carousel">
+    <button type="button" class="video-nav prev" id="videoPrev" aria-label="Previous videos">‹</button>
+    <div id="videoGrid" class="video-track"></div>
+    <button type="button" class="video-nav next" id="videoNext" aria-label="More videos">›</button>
+  </div>
 </section>
 
 <section class="about-section reveal">
@@ -1141,29 +1186,31 @@ body::after {
 
   async function loadVideos(){
     if (!grid) return;
-    // Pull recent uploads — request more than we need so we can filter out Shorts and Live broadcasts.
-    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${encodeURIComponent(YT_API_KEY)}&channelId=${encodeURIComponent(YT_CHANNEL_ID)}&part=snippet,id&order=date&maxResults=20&type=video`;
-    const searchData = await safeFetch(searchUrl);
-    if (!searchData || !Array.isArray(searchData.items)) {
+    // Pull items from the Remixes playlist so only remixes show up.
+    const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?key=${encodeURIComponent(YT_API_KEY)}&playlistId=${encodeURIComponent(YT_REMIX_PLAYLIST_ID)}&part=snippet,contentDetails&maxResults=25`;
+    const playlistData = await safeFetch(playlistUrl);
+    if (!playlistData || !Array.isArray(playlistData.items)) {
       grid.textContent = 'Could not load videos right now. Please try again later.';
       return;
     }
 
-    // Keep only non-live items with valid IDs, preserving order
     const candidates = [];
-    searchData.items.forEach(v => {
-      const videoId = v && v.id && v.id.videoId;
-      const snippet = v && v.snippet;
+    playlistData.items.forEach(it => {
+      const videoId = it && it.contentDetails && it.contentDetails.videoId;
+      const snippet = it && it.snippet;
       if (!videoId || !VIDEO_ID_RE.test(videoId) || !snippet) return;
-      if (snippet.liveBroadcastContent && snippet.liveBroadcastContent !== 'none') return;
-      candidates.push({ videoId, snippet });
+      // Drop items that aren't available (private/deleted)
+      const status = snippet.title;
+      if (status === 'Private video' || status === 'Deleted video') return;
+      candidates.push({ videoId, snippet, publishedAt: (snippet.publishedAt || it.contentDetails.videoPublishedAt || '') });
     });
 
     if (!candidates.length) { grid.textContent = ''; return; }
 
-    // Fetch durations + live details to drop Shorts (<= 60s) and any live/upcoming streams.
-    const ids = candidates.map(c => c.videoId).join(',');
-    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${encodeURIComponent(YT_API_KEY)}&id=${encodeURIComponent(ids)}&part=contentDetails,liveStreamingDetails,snippet`;
+    // Sort newest first and fetch details to drop Shorts / lives
+    candidates.sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''));
+    const topIds = candidates.slice(0, 15).map(c => c.videoId);
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${encodeURIComponent(YT_API_KEY)}&id=${encodeURIComponent(topIds.join(','))}&part=contentDetails,liveStreamingDetails,snippet`;
     const details = await safeFetch(detailsUrl);
     const detailMap = {};
     if (details && Array.isArray(details.items)) {
@@ -1173,18 +1220,17 @@ body::after {
     const filtered = candidates.filter(c => {
       const d = detailMap[c.videoId];
       if (!d) return false;
-      // Drop anything that ever was a live stream (live/upcoming or has streaming details)
       if (d.liveStreamingDetails) return false;
       if (d.snippet && d.snippet.liveBroadcastContent && d.snippet.liveBroadcastContent !== 'none') return false;
-      // Drop Shorts: duration <= 60s
       const seconds = parseISODuration(d.contentDetails && d.contentDetails.duration);
       if (seconds > 0 && seconds <= 60) return false;
       return true;
-    }).slice(0, 3);
+    }).slice(0, 10);
 
     grid.textContent = '';
     filtered.forEach(({ videoId, snippet }) => {
-      const thumbUrl = snippet.thumbnails && snippet.thumbnails.high && snippet.thumbnails.high.url;
+      const thumbs = snippet.thumbnails || {};
+      const thumbUrl = (thumbs.maxres && thumbs.maxres.url) || (thumbs.high && thumbs.high.url) || (thumbs.medium && thumbs.medium.url) || '';
       const safeThumb = (typeof thumbUrl === 'string' && /^https:\/\/i\.ytimg\.com\//.test(thumbUrl)) ? thumbUrl : '';
       const title = typeof snippet.title === 'string' ? snippet.title : '';
 
@@ -1210,7 +1256,32 @@ body::after {
       grid.appendChild(a);
     });
   }
-  loadVideos();
+  loadVideos().then(setupCarousel);
+
+  function setupCarousel(){
+    const prev = document.getElementById('videoPrev');
+    const next = document.getElementById('videoNext');
+    if (!grid || !prev || !next) return;
+
+    function step(){
+      const first = grid.querySelector('.video-card');
+      if (!first) return grid.clientWidth;
+      const styles = getComputedStyle(grid);
+      const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      return first.getBoundingClientRect().width + gap;
+    }
+    function update(){
+      const max = grid.scrollWidth - grid.clientWidth - 1;
+      prev.disabled = grid.scrollLeft <= 1;
+      next.disabled = grid.scrollLeft >= max;
+    }
+    prev.addEventListener('click', () => { grid.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', () => { grid.scrollBy({ left:  step(), behavior: 'smooth' }); });
+    grid.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    setTimeout(update, 200);
+  }
 })();
 </script>
 
