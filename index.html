@@ -1186,28 +1186,33 @@ body::after {
 
   async function loadVideos(){
     if (!grid) return;
-    // Pull items from the Remixes playlist so only remixes show up.
-    const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?key=${encodeURIComponent(YT_API_KEY)}&playlistId=${encodeURIComponent(YT_REMIX_PLAYLIST_ID)}&part=snippet,contentDetails&maxResults=25`;
-    const playlistData = await safeFetch(playlistUrl);
-    if (!playlistData || !Array.isArray(playlistData.items)) {
-      grid.textContent = 'Could not load videos right now. Please try again later.';
-      return;
-    }
-
+    // Page through ALL items in the Remixes playlist so we can sort by actual upload date.
     const candidates = [];
-    playlistData.items.forEach(it => {
-      const videoId = it && it.contentDetails && it.contentDetails.videoId;
-      const snippet = it && it.snippet;
-      if (!videoId || !VIDEO_ID_RE.test(videoId) || !snippet) return;
-      // Drop items that aren't available (private/deleted)
-      const status = snippet.title;
-      if (status === 'Private video' || status === 'Deleted video') return;
-      candidates.push({ videoId, snippet, publishedAt: (snippet.publishedAt || it.contentDetails.videoPublishedAt || '') });
-    });
+    let pageToken = '';
+    let pages = 0;
+    do {
+      const u = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
+      u.searchParams.set('key', YT_API_KEY);
+      u.searchParams.set('playlistId', YT_REMIX_PLAYLIST_ID);
+      u.searchParams.set('part', 'snippet,contentDetails');
+      u.searchParams.set('maxResults', '50');
+      if (pageToken) u.searchParams.set('pageToken', pageToken);
+      const data = await safeFetch(u.toString());
+      if (!data || !Array.isArray(data.items)) break;
+      data.items.forEach(it => {
+        const videoId = it && it.contentDetails && it.contentDetails.videoId;
+        const snippet = it && it.snippet;
+        if (!videoId || !VIDEO_ID_RE.test(videoId) || !snippet) return;
+        const status = snippet.title;
+        if (status === 'Private video' || status === 'Deleted video') return;
+        candidates.push({ videoId, snippet, publishedAt: (it.contentDetails.videoPublishedAt || snippet.publishedAt || '') });
+      });
+      pageToken = data.nextPageToken || '';
+    } while (pageToken && ++pages < 10);
 
     if (!candidates.length) { grid.textContent = ''; return; }
 
-    // Sort newest first and fetch details to drop Shorts / lives
+    // Sort newest first (by actual upload date) and fetch details to drop Shorts / lives
     candidates.sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''));
     const topIds = candidates.slice(0, 15).map(c => c.videoId);
     const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${encodeURIComponent(YT_API_KEY)}&id=${encodeURIComponent(topIds.join(','))}&part=contentDetails,liveStreamingDetails,snippet`;
@@ -1330,15 +1335,14 @@ body::after {
   // Self-contained config (the previous IIFE's consts are not in this scope)
   const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
   const YT_REMIX_PLAYLIST_ID = "PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN";
-  // Title must match this to count as a remix (case-insensitive). Adjust if needed.
-  const REMIX_RE = /remix|flip|bootleg|edit|mashup|rework/i;
+  // Count every available video in the playlist (no title filtering — trust the playlist).
 
   const playsEl = document.querySelector('.stat-num[data-stat="plays"]');
   const remixesEl = document.querySelector('.stat-num[data-stat="remixes"]');
   if (!playsEl && !remixesEl) return;
   if (!YT_API_KEY || !YT_REMIX_PLAYLIST_ID) return;
 
-  const CACHE_KEY = 'yt_remix_stats_v2';
+  const CACHE_KEY = 'yt_remix_stats_v3';
   const TTL_MS = 6 * 60 * 60 * 1000;
 
   const fmtCompact = (v) => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(v);
@@ -1384,9 +1388,8 @@ body::after {
       (j.items || []).forEach(it => {
         const id = it.contentDetails?.videoId;
         const title = it.snippet?.title || '';
-        // Skip private/deleted entries and titles that don't look like a remix
+        // Skip private/deleted entries only — count every other video in the playlist
         if (!id || /^(Private|Deleted) video$/i.test(title)) return;
-        if (!REMIX_RE.test(title)) return;
         items.push({ id, title });
       });
       pageToken = j.nextPageToken || '';
