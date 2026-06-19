@@ -40,11 +40,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon-192.png">
 <link rel="icon" type="image/png" sizes="256x256" href="/img/favicon-256.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-192.png">
-<!-- Fonts: preconnect + preload main family -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<!-- Fonts: native Arial Black stack (no remote fonts) -->
 
 <!-- Banner preload -->
 <link rel="preload" as="image" href="img/banner.jpg" fetchpriority="high">
@@ -81,7 +77,7 @@
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: 'Arial Black', 'Arial Bold', Gadget, Arial, sans-serif;
   color: #e5e5e5;
   min-height: 100vh;
   overflow-x: hidden;
@@ -160,13 +156,15 @@ body {
 
 .tagline {
   margin: 8px auto 34px;
-  max-width: 620px;
-  font-size: 15px;
-  color: #cfcfda;
+  max-width: 640px;
+  font-size: 20px;
+  line-height: 1.45;
+  letter-spacing: .2px;
+  color: #e6e6ef;
 }
 
 
-.card, .video-section, .about-section, .discography-section {
+.card, .video-section, .about-section, .toptracks-section {
   background: rgba(14,14,18,.83);
   border: 1px solid #24242b;
   border-radius: 22px;
@@ -467,44 +465,19 @@ body {
     url('img/about.jpg') center right / cover no-repeat;
 }
 
-.discography-section {
-  margin-top: 24px;
-  padding: 18px;
-}
-
-.discography-subtitle {
-  margin: -4px 0 16px;
-  text-align: center;
-  font-size: 14px;
-  color: #9ea0ad;
-}
-
-.discography-embed-wrap {
+.toptracks-embed-wrap {
+  margin-top: 8px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #2b2b34;
   background: #0b0b10;
 }
 
-.discography-embed {
+.toptracks-embed {
   width: 100%;
   height: 352px;
   border: 0;
   display: block;
-}
-
-.discography-link {
-  display: block;
-  margin-top: 12px;
-  text-align: center;
-  font-size: 15px;
-  color: #b53bff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.discography-link:hover {
-  color: #d37bff;
 }
 
 .about-content {
@@ -966,9 +939,28 @@ body::after {
   </div>
 </section>
 
+<section class="section-block reveal" aria-labelledby="toptracks-title">
+  <div class="section-head">
+    <span class="section-num">02 — Top Tracks</span>
+    <h2 id="toptracks-title" class="section-h2">Listen on Spotify</h2>
+    <span class="section-rule" aria-hidden="true"></span>
+  </div>
+  <div class="toptracks-embed-wrap">
+    <iframe
+      class="toptracks-embed"
+      src="https://open.spotify.com/embed/artist/16IDj0PILvEu42ZwYgvJo3?utm_source=generator&theme=0"
+      width="100%"
+      height="352"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      title="StylizedRG on Spotify"></iframe>
+  </div>
+</section>
+
 <section class="section-block reveal" aria-labelledby="videos-title">
   <div class="section-head">
-    <span class="section-num">02 — Latest videos</span>
+    <span class="section-num">03 — Latest videos</span>
     <h2 id="videos-title" class="section-h2">Fresh from the channel</h2>
     <span class="section-rule" aria-hidden="true"></span>
   </div>
