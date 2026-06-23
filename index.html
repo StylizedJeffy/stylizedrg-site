@@ -815,6 +815,28 @@ body::after {
   .about-content p { font-size: 18px; }
 }
 
+
+/* Latest Release popup */
+.lr-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;opacity:0;transition:opacity .25s ease;}
+.lr-overlay.is-open{display:flex;opacity:1;}
+.lr-modal{background:#0b0b10;border:1px solid #2b2b34;border-radius:18px;max-width:440px;width:100%;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.6);transform:translateY(10px) scale(.98);transition:transform .25s ease;position:relative;}
+.lr-overlay.is-open .lr-modal{transform:translateY(0) scale(1);}
+.lr-close{position:absolute;top:10px;right:12px;background:transparent;border:0;color:#e6e6ef;font-size:26px;line-height:1;cursor:pointer;padding:6px 10px;border-radius:8px;}
+.lr-close:hover{background:rgba(255,255,255,.08);}
+.lr-kicker{font-size:11px;letter-spacing:2px;color:#8a8a99;text-transform:uppercase;margin-bottom:8px;}
+.lr-title{font-size:22px;color:#fff;margin:0 0 14px;}
+.lr-embed{border-radius:12px;overflow:hidden;border:1px solid #2b2b34;background:#000;margin-bottom:16px;}
+.lr-embed iframe{display:block;width:100%;height:152px;border:0;}
+.lr-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;}
+.lr-btn{appearance:none;border:1px solid #2b2b34;background:#15151c;color:#e6e6ef;padding:10px 16px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:13px;letter-spacing:.5px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s;}
+.lr-btn:hover{background:#1d1d26;border-color:#3d3d4a;}
+.lr-btn-primary{background:#1db954;border-color:#1db954;color:#000;}
+.lr-btn-primary:hover{background:#1ed760;border-color:#1ed760;}
+.lr-btn-ghost{background:transparent;color:#8a8a99;border-color:transparent;font-size:12px;}
+.lr-btn-ghost:hover{color:#e6e6ef;background:rgba(255,255,255,.04);}
+@media (max-width:480px){.lr-modal{padding:20px 16px;}.lr-title{font-size:18px;}}
+
+
 </style>
 </head>
 
@@ -904,15 +926,6 @@ body::after {
         <div class="social-row-body">
           <div class="social-row-title">SoundCloud</div>
           <div class="social-row-desc">More tracks &amp; unreleased cuts.</div>
-        </div>
-        <span class="social-arrow" aria-hidden="true">→</span>
-      </a>
-
-      <a class="social-row" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></div>
-        <div class="social-row-body">
-          <div class="social-row-title">Discord</div>
-          <div class="social-row-desc">Real-time chat &amp; community.</div>
         </div>
         <span class="social-arrow" aria-hidden="true">→</span>
       </a>
@@ -1416,5 +1429,117 @@ body::after {
 })();
 </script>
 
+<!-- Latest Release Popup -->
+<div class="lr-overlay" id="lrOverlay" role="dialog" aria-modal="true" aria-labelledby="lrTitle" aria-describedby="lrDesc" aria-hidden="true" hidden>
+  <div class="lr-modal" role="document">
+    <button type="button" class="lr-close" id="lrClose" aria-label="Close latest release dialog">×</button>
+    <div class="lr-kicker" id="lrDesc">Latest Release</div>
+    <h3 class="lr-title" id="lrTitle">New from StylizedRG</h3>
+    <div class="lr-embed" id="lrEmbed" aria-live="polite" aria-busy="true">
+      <iframe id="lrIframe" src="https://open.spotify.com/embed/track/3l9orxzih1e1tIaQsPPdpi?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Latest release on Spotify"></iframe>
+    </div>
+    <div class="lr-actions">
+      <a class="lr-btn lr-btn-primary" id="lrPreview" href="https://open.spotify.com/track/3l9orxzih1e1tIaQsPPdpi" target="_blank" rel="noopener noreferrer">Preview on Spotify</a>
+      <button type="button" class="lr-btn" id="lrCloseBtn">Close</button>
+      <button type="button" class="lr-btn lr-btn-ghost" id="lrDontShow">Don't show again</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='lr_dontshow_v1';
+  var ARTIST='16IDj0PILvEu42ZwYgvJo3';
+  try{ if(localStorage.getItem(KEY)==='1') return; }catch(e){}
+  var ov=document.getElementById('lrOverlay');
+  if(!ov) return;
+  var modal=ov.querySelector('.lr-modal');
+  var closeBtn=document.getElementById('lrClose');
+  var closeBtn2=document.getElementById('lrCloseBtn');
+  var dontBtn=document.getElementById('lrDontShow');
+  var iframe=document.getElementById('lrIframe');
+  var previewLink=document.getElementById('lrPreview');
+  var titleEl=document.getElementById('lrTitle');
+  var embedWrap=document.getElementById('lrEmbed');
+  var lastFocus=null;
+  var isOpen=false;
+
+  function focusables(){
+    return Array.prototype.slice.call(
+      modal.querySelectorAll('a[href],button:not([disabled]),iframe,[tabindex]:not([tabindex="-1"])')
+    ).filter(function(el){ return el.offsetParent!==null || el===iframe; });
+  }
+  function trap(e){
+    if(e.key!=='Tab') return;
+    var f=focusables(); if(!f.length) return;
+    var first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  }
+  function onKey(e){
+    if(!isOpen) return;
+    if(e.key==='Escape'){ e.preventDefault(); close(); }
+    else trap(e);
+  }
+  function open(){
+    if(isOpen) return;
+    lastFocus=document.activeElement;
+    ov.hidden=false;
+    ov.classList.add('is-open');
+    ov.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    isOpen=true;
+    setTimeout(function(){ closeBtn.focus(); },50);
+  }
+  function close(){
+    if(!isOpen) return;
+    ov.classList.remove('is-open');
+    ov.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    isOpen=false;
+    setTimeout(function(){ ov.hidden=true; },250);
+    if(lastFocus && typeof lastFocus.focus==='function'){ try{ lastFocus.focus(); }catch(e){} }
+  }
+
+  closeBtn.addEventListener('click',close);
+  closeBtn2.addEventListener('click',close);
+  dontBtn.addEventListener('click',function(){
+    try{ localStorage.setItem(KEY,'1'); }catch(e){}
+    close();
+  });
+  ov.addEventListener('mousedown',function(e){ if(e.target===ov) close(); });
+  document.addEventListener('keydown',onKey);
+
+  // Fetch latest release (album or single) via Spotify anonymous access token
+  function fetchLatest(){
+    return fetch('https://open.spotify.com/get_access_token?reason=transport&productType=web_player',{credentials:'omit'})
+      .then(function(r){ return r.json(); })
+      .then(function(t){
+        if(!t || !t.accessToken) throw new Error('no token');
+        return fetch('https://api.spotify.com/v1/artists/'+ARTIST+'/albums?include_groups=album,single&market=US&limit=50',{
+          headers:{ 'Authorization':'Bearer '+t.accessToken }
+        });
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d || !d.items || !d.items.length) return null;
+        var items=d.items.slice().sort(function(a,b){
+          return (b.release_date||'').localeCompare(a.release_date||'');
+        });
+        return items[0];
+      });
+  }
+  fetchLatest().then(function(rel){
+    if(!rel) { embedWrap.setAttribute('aria-busy','false'); return; }
+    var label=rel.album_type==='album'?'Album':'Single';
+    titleEl.textContent=rel.name+' — '+label;
+    iframe.src='https://open.spotify.com/embed/album/'+rel.id+'?utm_source=generator&theme=0';
+    iframe.title='Latest '+label.toLowerCase()+' on Spotify: '+rel.name;
+    previewLink.href=rel.external_urls && rel.external_urls.spotify ? rel.external_urls.spotify : 'https://open.spotify.com/album/'+rel.id;
+    embedWrap.setAttribute('aria-busy','false');
+  }).catch(function(){ embedWrap.setAttribute('aria-busy','false'); });
+
+  setTimeout(open, 700);
+})();
+</script>
 </body>
 </html>
