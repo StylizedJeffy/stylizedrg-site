@@ -1,1545 +1,366 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>StylizedRG — Official Website</title>
-<link rel="manifest" href="/manifest.json">
-
-
-<!-- Primary SEO -->
-<meta name="description" content="StylizedRG — Releases, videos, and my official links.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.stylizedrg.linkpc.net/">
-
-
-<!-- Open Graph -->
-<meta property="og:site_name" content="StylizedRG">
-<meta property="og:title" content="StylizedRG — Official Website">
-<meta property="og:description" content="Releases, videos, and my official links.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.stylizedrg.linkpc.net/">
-<meta property="og:image" content="https://www.stylizedrg.linkpc.net/img/preview.jpg">
-<meta property="og:image:width" content="1707">
-<meta property="og:image:height" content="960">
-<meta property="og:image:alt" content="StylizedRG banner artwork">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="StylizedRG — Official Website">
-<meta name="twitter:description" content="Releases, videos, and my official links.">
-<meta name="twitter:image" content="https://www.stylizedrg.linkpc.net/img/preview.jpg">
-<meta name="twitter:image:alt" content="StylizedRG banner artwork">
-
-<!-- Icons -->
-<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
-<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
-<link rel="icon" type="image/png" sizes="128x128" href="/img/favicon-128.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon-192.png">
-<link rel="icon" type="image/png" sizes="256x256" href="/img/favicon-256.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-192.png">
-<!-- Fonts: native Arial Black stack (no remote fonts) -->
-
-<!-- Banner preload -->
-<link rel="preload" as="image" href="img/banner.jpg" fetchpriority="high">
-<link rel="preconnect" href="https://i.ytimg.com">
-<link rel="preconnect" href="https://www.googleapis.com">
-<link rel="dns-prefetch" href="https://i.ytimg.com">
-
-<!-- JSON-LD: MusicGroup structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  "name": "StylizedRG",
-  "alternateName": "Ivan",
-  "url": "https://www.stylizedrg.linkpc.net/",
-  "image": "https://www.stylizedrg.linkpc.net/img/preview.jpg",
-  "logo": "https://www.stylizedrg.linkpc.net/img/logo-stylizedrg.png",
-  "foundingDate": "2021",
-  "foundingLocation": { "@type": "Place", "name": "Mexico" },
-  "genre": ["Electro", "Glitchhop", "Indie House", "Movie Remixes"],
-  "description": "Mexican composer focused on movie remixes and original music.",
-  "sameAs": [
-    "https://www.youtube.com/@StylizedRG",
-    "https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3",
-    "https://www.instagram.com/stylizedrg/",
-    "https://soundcloud.com/stylizedrg",
-    "https://discord.gg/z48EBANjDs",
-    "https://ko-fi.com/stylizedrg"
-  ]
-}
-</script>
+<meta name="description" content="StylizedRG — Releases, videos, and my official links." />
+<meta property="og:title" content="StylizedRG — Official Website" />
+<meta property="og:description" content="Releases, videos, and my official links." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="https://www.stylizedrg.linkpc.net/img/avatar.png" />
 <style>
+:root { --bg:#050507; }
 * { box-sizing: border-box; }
-
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: 'Arial Black', 'Arial Bold', Gadget, Arial, sans-serif;
-  color: #e5e5e5;
   min-height: 100vh;
+  background: var(--bg);
+  color: #e5e5e5;
+  font-family: 'Arial Black','Arial Bold',Gadget,Arial,sans-serif;
   overflow-x: hidden;
-  background: radial-gradient(circle at 30% 0%, #15151a 0%, #09090d 42%, #030305 100%);
-  position: relative;
 }
+a { color: inherit; }
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 0 18px 50px;
-}
-
-.container {
-  width: 100%;
-  max-width: 1100px;
-  position: relative;
-  z-index: 2;
-  animation: fadeIn .7s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* HERO */
 .hero {
   position: relative;
-  margin-top: 72px;
-  text-align: center;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 60px 20px 40px; text-align: center;
 }
-
-.banner {
-  width: 100%;
-  height: 260px;
-  border-radius: 26px;
-  overflow: hidden;
-  background-image: url("img/banner.jpg");
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  border: 1px solid rgba(255,255,255,0.13);
+.hero-glow {
+  position: absolute; inset: 0;
+  background: url("https://www.stylizedrg.linkpc.net/img/banner.jpg") center/cover;
+  filter: blur(80px) saturate(1.4);
+  opacity: .35;
+  -webkit-mask-image: radial-gradient(ellipse at center,#000 0%,transparent 65%);
+          mask-image: radial-gradient(ellipse at center,#000 0%,transparent 65%);
+  z-index: 0; pointer-events: none;
 }
-
-.banner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.58));
-}
-
-.header {
-  margin-top: -98px;
-  position: relative;
-  z-index: 3;
-}
-
+.hero > *:not(.hero-glow) { position: relative; z-index: 1; }
 .avatar {
-  width: 360px;
-  height: 360px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 6px solid #f0f0f0;
-  box-shadow: 0 0 24px rgba(0,0,0,0.45);
-  transition: transform .25s ease;
+  width: min(320px,62vw); height: min(320px,62vw);
+  border-radius: 50%; object-fit: cover;
+  border: 4px solid #f0f0f0;
+  box-shadow: 0 0 50px rgba(0,0,0,.6);
 }
-
-.avatar:hover { transform: scale(1.08); }
-
 .brand-logo {
-  display: block;
-  width: min(340px, 74vw);
-  margin: 20px auto 10px;
+  display: block; width: min(420px,82vw);
+  margin: 28px auto 52px;
   filter: drop-shadow(0 8px 20px rgba(0,0,0,.45));
 }
-
-.tagline {
-  margin: 8px auto 34px;
-  max-width: 640px;
-  font-size: 20px;
-  line-height: 1.45;
-  letter-spacing: .2px;
-  color: #e6e6ef;
+.hero-nav { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.nav-word {
+  font-size: clamp(38px,8vw,96px); font-weight: 900;
+  line-height: 1.02; letter-spacing: -.02em;
+  text-decoration: none; opacity: .92;
+  transition: transform .2s, filter .2s, opacity .2s;
 }
+.nav-word:hover { transform: translateX(8px); filter: brightness(1.2) saturate(1.3); opacity: 1; }
+.hero-socials { display: flex; gap: 22px; margin-top: 48px; }
+.hero-socials a img { display: block; }
 
-
-.card, .video-section, .about-section, .toptracks-section {
-  background: rgba(14,14,18,.83);
-  border: 1px solid #24242b;
-  border-radius: 22px;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-
-.cf-status {
-  margin-top: 10px;
-  font-size: 13px;
-  min-height: 18px;
-  color: #cfd2e3;
-}
-.cf-status.error { color: #ff6b8a; }
-.cf-status.success { color: #56e88e; }
-
-
-.content-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-  align-items: start;
-}
-
-.social-card,
-.video-section {
-  padding: 18px;
-}
-
-/* === Editorial section system === */
-.section-block {
-  margin-top: 56px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(255,255,255,.08);
+/* SECTIONS */
+.section {
+  max-width: 900px; margin: 0 auto;
+  padding: 110px 24px 40px; scroll-margin-top: 40px;
 }
 .section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-  margin-bottom: 26px;
-  flex-wrap: wrap;
+  display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 28px;
+  border-top: 1px solid rgba(255,255,255,.08); padding-top: 28px;
 }
 .section-num {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .28em;
-  color: #b53bff;
-  text-transform: uppercase;
-  white-space: nowrap;
+  font-size: 12px; letter-spacing: .3em;
+  font-weight: 800; text-transform: uppercase;
 }
-.section-h2 {
-  margin: 0;
-  font-size: clamp(26px, 3.4vw, 38px);
-  font-weight: 800;
-  line-height: 1.05;
-  color: #f6f6fb;
-  letter-spacing: -0.01em;
-}
-.section-rule {
-  flex: 1;
-  height: 1px;
-  min-width: 40px;
-  background: linear-gradient(90deg, rgba(181,59,255,.55), rgba(181,59,255,0));
-}
-
-.split-60-40 {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  gap: 22px;
-  align-items: stretch;
-}
-
-/* Social rail (left column, 60%) */
-.social-rail {
-  border: 1px solid #24242b;
-  border-radius: 22px;
-  background: rgba(14,14,18,.83);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  overflow: hidden;
-}
-.social-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 18px;
-  text-decoration: none;
-  color: #e5e5e5;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  transition: background .18s, transform .18s;
-}
-.social-row:last-child { border-bottom: none; }
-.social-row:hover {
-  background: rgba(181,59,255,.08);
-}
-.social-row:hover .social-arrow { transform: translateX(6px); color:#d37bff; }
-.social-row .icon { flex-shrink: 0; }
-.social-row-body { flex: 1; min-width: 0; }
-.social-row-title { font-weight: 700; font-size: 15px; }
-.social-row-desc { font-size: 12px; color: #9a9a9a; margin-top: 2px; }
-.social-arrow {
-  color: #6b6b78;
-  font-size: 18px;
-  transition: transform .18s, color .18s;
-}
-
-/* Featured CTA (right column, 40%) */
-.featured-cta {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 26px 24px;
-  border-radius: 22px;
-  border: 1px solid rgba(181,59,255,.35);
-  background:
-    radial-gradient(120% 80% at 100% 0%, rgba(181,59,255,.18), transparent 60%),
-    linear-gradient(180deg, rgba(20,12,30,.92), rgba(12,12,18,.92));
-  box-shadow: 0 0 32px rgba(181,59,255,.18);
-}
-.featured-cta-kicker {
-  font-size: 11px;
-  letter-spacing: .26em;
-  font-weight: 700;
-  color: #b53bff;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
-.featured-cta-title {
-  margin: 0 0 12px;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.05;
-  color: #f8f8ff;
-  letter-spacing: -0.01em;
-}
-.featured-cta-desc {
-  margin: 0 0 22px;
-  font-size: 14px;
-  line-height: 1.55;
-  color: #c9c9d4;
-  flex: 1;
-}
-.featured-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
-  font-size: 15px;
-  color: #fff;
-  background: linear-gradient(135deg, #b53bff, #7b5bff);
-  box-shadow: 0 8px 24px rgba(181,59,255,.35);
-  transition: transform .18s, box-shadow .18s;
-  text-decoration: none;
-}
-.featured-cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(181,59,255,.5);
-}
-.featured-cta-btn svg { width: 18px; height: 18px; fill: currentColor; }
-
 .section-title {
-  text-align: center;
-  font-size: 18px;
-  font-weight: 800;
-  margin: 4px 0 14px;
-  letter-spacing: .02em;
+  font-size: clamp(32px,5vw,56px); font-weight: 900;
+  line-height: 1.05; letter-spacing: -.02em;
+  margin: 0; color: #f6f6fb;
+}
+.section-body {
+  font-size: 17px; line-height: 1.65; color: #c9c9d4;
+  max-width: 640px; margin: 0;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.tag {
+  padding: 8px 14px; border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px; font-size: 12px; letter-spacing: .1em;
+  color: #d5d5df; text-transform: uppercase;
 }
 
-.link {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  padding: 16px;
-  border-radius: 16px;
-  background: linear-gradient(135deg,#141414,#101010);
-  border:1px solid #262626;
-  text-decoration:none;
-  color:#e5e5e5;
-  margin-bottom:12px;
-  transition:.18s;
-  cursor:pointer;
-}
-
-.link:hover {
-  transform: translateY(-3px) scale(1.02);
-  border-color:#b53bff;
-  box-shadow:0 0 18px rgba(181,59,255,.27);
-}
-
-.icon {
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#0b0b0b;
-}
-.icon svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-  color: #e9ebf7;
-}
-
-.link-title { font-weight:600; font-size:15px; }
-.link-desc { font-size:12px; color:#9a9a9a; }
-
-.video-carousel {
-  position: relative;
-  padding: 0 0;
-}
-.video-track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 36px) / 3);
-  gap: 18px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding-bottom: 4px;
-}
-.video-track::-webkit-scrollbar { display: none; }
-.video-track .video-card { scroll-snap-align: start; }
-.video-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(15,15,22,.85);
-  color: #fff;
-  font-size: 22px;
-  font-weight: 700;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  z-index: 5;
-  backdrop-filter: blur(6px);
-  transition: background .2s ease, transform .2s ease, opacity .2s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,.5);
-}
-.video-nav:hover { background: rgba(168,85,247,.85); transform: translateY(-50%) scale(1.05); }
-.video-nav:disabled { opacity: .3; cursor: default; }
-.video-nav.prev { left: -10px; }
-.video-nav.next { right: -10px; }
-
-.video-card {
-  display:block;
-  border-radius:18px;
-  overflow:hidden;
-  border:3px solid #ffffff;
-  outline:2px solid #000000;
-  outline-offset:0;
-  text-decoration:none;
-  color:inherit;
-  background:#0d0d11;
-  transition:transform .2s ease, box-shadow .2s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,.55);
-}
-
-.video-card:hover {
-  transform: translateY(-3px) rotate(-.4deg);
-  box-shadow: 0 10px 24px rgba(0,0,0,.6), 0 0 18px rgba(168,85,247,.25);
-}
-
-.video-thumb {
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  display:block;
-}
-
-.video-card-title {
-  padding:12px 14px 16px;
-  font-size:16px;
-  font-weight:700;
-  line-height:1.35;
-  color:#e9e9ef;
-}
-
-.about-section {
-  margin-top: 24px;
-  padding: 30px 34px 34px;
-  background:
-    linear-gradient(90deg, rgba(6,8,16,.92) 0%, rgba(7,8,14,.62) 56%, rgba(7,8,14,.2) 100%),
-    url('img/about.jpg') center right / cover no-repeat;
-}
-
-.toptracks-embed-wrap {
-  margin-top: 8px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid #2b2b34;
-  background: #0b0b10;
-}
-
-.toptracks-embed {
-  width: 100%;
-  height: 352px;
-  border: 0;
-  display: block;
-}
-
-.about-content {
-  max-width: 540px;
-}
-
-.about-kicker {
-  margin: 0 0 12px;
-  font-size: 11px;
-  letter-spacing: .26em;
-  font-weight: 700;
-  color: #ff4abf;
-  text-transform: uppercase;
-}
-
-.about-content h2 {
-  margin: 0 0 14px;
-  font-size: clamp(38px, 6vw, 58px);
-  line-height: .95;
-  color: #f8f8ff;
-}
-
-.about-content p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #d8d9e4;
-}
-
-.about-tags {
-  margin-top: 18px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.about-tag {
-  border: 1px solid #2f3240;
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 12px;
-  color: #bec1cf;
-  background: rgba(18,20,29,.72);
-}
-
-/* ===== Remix Commissions ===== */
-.commissions-section {
-  position: relative;
-  margin-top: 24px;
-  padding: 38px 34px;
-  border-radius: 18px;
-  overflow: hidden;
-  background:
-    radial-gradient(120% 140% at 0% 0%, rgba(255,74,191,.28) 0%, rgba(255,74,191,0) 55%),
-    radial-gradient(120% 140% at 100% 100%, rgba(123,92,255,.32) 0%, rgba(123,92,255,0) 55%),
-    linear-gradient(135deg, #120a1f 0%, #0a0814 60%, #150a22 100%);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 18px 60px -20px rgba(181, 59, 255, .35);
-}
-.commissions-section::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 2px, transparent 2px 14px);
-  pointer-events: none;
-}
-.commissions-section::after {
-  content: "";
-  position: absolute;
-  width: 320px; height: 320px;
-  right: -120px; top: -120px;
-  background: radial-gradient(circle, rgba(255,74,191,.45) 0%, transparent 65%);
-  filter: blur(20px);
-  pointer-events: none;
-  animation: floaty 8s ease-in-out infinite alternate;
-}
-@keyframes floaty {
-  from { transform: translate(0, 0); }
-  to   { transform: translate(-20px, 20px); }
-}
-.commissions-content {
-  position: relative;
-  z-index: 1;
-  max-width: 640px;
-}
-.commissions-kicker {
-  margin: 0 0 12px;
-  font-size: 11px;
-  letter-spacing: .26em;
-  font-weight: 700;
-  color: #ff4abf;
-  text-transform: uppercase;
-}
-.commissions-content h2 {
-  margin: 0 0 14px;
-  font-size: clamp(36px, 5.6vw, 54px);
-  line-height: .98;
-  background: linear-gradient(90deg, #ffffff 0%, #ffb3e6 50%, #b59cff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.commissions-content p {
-  margin: 0 0 18px;
-  font-size: 16px;
-  line-height: 1.55;
-  color: #d8d9e4;
-}
-.commissions-perks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 22px;
-  padding: 0;
-  list-style: none;
-}
-.commissions-perks li {
-  border: 1px solid rgba(255,74,191,.35);
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 12px;
-  color: #f1d6ec;
-  background: rgba(255,74,191,.08);
-}
-.commissions-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 22px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #1a0010;
-  text-decoration: none;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #ff4abf 0%, #b53bff 100%);
-  box-shadow: 0 10px 28px -8px rgba(255,74,191,.55);
-  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
-}
-.commissions-cta:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.07);
-  box-shadow: 0 14px 34px -8px rgba(255,74,191,.7);
-}
-.commissions-cta svg {
-  width: 20px; height: 20px;
-}
-@media (max-width: 640px) {
-  .commissions-section { padding: 28px 22px; }
-}
-
-.footer-socials {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.footer-social {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  border: 1px solid #2a2d3b;
-  background: rgba(15,17,27,.82);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #cfd2e3;
-  font-size: 13px;
-  text-decoration: none;
-  transition: .2s;
-}
-.footer-social svg {
-  width: 15px;
-  height: 15px;
-  fill: currentColor;
-}
-
-.footer-social:hover {
-  transform: translateY(-2px);
-  border-color: #ff4abf;
-  color: #ffffff;
-  box-shadow: 0 0 14px rgba(255,74,191,.25);
-}
-
-.footer {
-  text-align:center;
-  margin-top:30px;
-  padding-top:20px;
-  border-top: 1px solid rgba(255,255,255,.08);
-  font-size:12px;
-  color:#858595;
-}
-
-/* Contact modal */
-.modal {
-  position:fixed; inset:0;
-  background:rgba(0,0,0,.7);
-  display:flex; align-items:center; justify-content:center;
-  opacity:0; pointer-events:none;
-  transition:.25s;
-  z-index:20;
-}
-
-.modal.active { opacity:1; pointer-events:all; }
-
-.modal-box {
-  width:92%; max-width:420px;
-  background:#0e0e12;
-  border:1px solid #26262c;
-  border-radius:20px;
-  padding:20px;
-}
-
-.input, textarea {
-  width:100%;
-  background:#0a0a0d;
-  border:1px solid #22232a;
-  border-radius:12px;
-  padding:12px;
-  color:#e5e5e5;
-  margin-top:10px;
-}
-
-textarea { min-height:120px; resize:vertical; }
-
-.send-btn, .close-btn {
-  width:100%; margin-top:12px; padding:12px;
-  border-radius:14px;
-  background:#111; color:#e5e5e5;
-  border:1px solid #2a2a33;
-  cursor:pointer;
-}
-
-/* micro animations */
-.link, .video-card, .avatar { will-change: transform; }
-.link:active { transform: scale(.98); }
-.video-card:active { transform: scale(.985); }
-.send-btn:active, .close-btn:active { transform: scale(.97); }
-
-.modal-box { animation: modalPop .25s ease; }
-@keyframes modalPop {
-  from { transform:scale(.9); opacity:0; }
-  to { transform:scale(1); opacity:1; }
-}
-
-.reveal { opacity:0; transform: translateY(18px); transition:.5s; }
-.reveal.show { opacity:1; transform: translateY(0); }
-
-/* Progressive enhancement: scroll-driven animations on supported browsers */
-@supports (animation-timeline: view()) {
-  .reveal {
-    opacity: 1; transform: none; transition: none;
-    animation: scroll-reveal linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 35%;
-  }
-  @keyframes scroll-reveal {
-    from { opacity: 0; transform: translateY(40px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-}
-
-/* Grain / noise overlay */
-body::after {
-  content: "";
-  position: fixed; inset: 0;
-  pointer-events: none; z-index: 9999;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  opacity: .045;
-  mix-blend-mode: overlay;
-}
-
-/* Stats section */
-.stats-section { padding: 60px 24px; max-width: 1100px; margin: 0 auto; }
-.stats-grid {
-  display: grid; gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  text-align: center;
-}
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 .stat-card {
-  padding: 28px 18px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.06);
-  backdrop-filter: blur(8px);
+  padding: 32px 20px; border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px; text-align: center;
+  background: rgba(255,255,255,.02);
 }
-.stat-num {
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  font-weight: 800;
-  line-height: 1;
-  background: linear-gradient(135deg, #ffffff, #8a8a99);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+.stat-num { font-size: clamp(36px,5vw,56px); font-weight: 900; color: #fff; letter-spacing: -.02em; line-height: 1; }
+.stat-label { margin-top: 10px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #9a9aa8; font-weight: 700; }
+@media (max-width:640px){ .stats-grid{ grid-template-columns:1fr; } }
+
+/* MUSIC PLATFORMS */
+.music-platforms {
+  margin-top: 48px; display: grid;
+  grid-template-columns: 1fr 1fr; gap: 20px;
 }
-.stat-label {
-  margin-top: 10px;
-  color: #aaa;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.78rem;
-  font-weight: 600;
+.music-platform {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 18px;
+  padding: 56px 20px; border-radius: 20px;
+  text-decoration: none; color: #fff;
+  font-weight: 900; font-size: 20px; letter-spacing: .12em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,.08);
+  transition: transform .25s, box-shadow .25s, background .25s;
 }
+.music-platform img { transition: transform .25s; }
+.music-platform:hover { transform: translateY(-4px); }
+.music-platform:hover img { transform: scale(1.08); }
+.music-platform--yt { background: linear-gradient(135deg,#2a0a0a 0%,#0a0a0a 100%); }
+.music-platform--yt:hover { background: linear-gradient(135deg,#ff0000 0%,#8b0000 100%); box-shadow: 0 20px 40px rgba(255,0,0,.25); }
+.music-platform--sc { background: linear-gradient(135deg,#2a1405 0%,#0a0a0a 100%); }
+.music-platform--sc:hover { background: linear-gradient(135deg,#ff5500 0%,#b23a00 100%); box-shadow: 0 20px 40px rgba(255,85,0,.25); }
+@media (max-width:640px){ .music-platforms{ grid-template-columns:1fr; } .music-platform{ padding:40px 20px; } }
 
-@media (prefers-reduced-motion: reduce) {
-  body::after { display: none; }
-  .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
+/* CONTACT LIST */
+.social-list { display: flex; flex-direction: column; border-top: 1px solid rgba(255,255,255,.08); }
+.social-row {
+  display: flex; align-items: center; gap: 18px;
+  padding: 20px 4px; border-bottom: 1px solid rgba(255,255,255,.08);
+  color: #e5e5e5; text-decoration: none;
+  transition: padding .2s, color .2s;
 }
+.social-row:hover { padding-left: 14px; color: #fff; }
+.social-row-name { flex: 1; font-size: 18px; font-weight: 800; letter-spacing: .04em; }
+.social-row-arrow { color: #6b6b78; font-size: 20px; }
+.social-row:hover .social-row-arrow { color: #c9a37a; }
 
-
-@media (max-width: 860px) {
-  .hero { margin-top: 24px; }
-  .banner { height: 210px; border-radius: 20px; }
-  .header { margin-top: -82px; }
-  .avatar { width: 170px; height: 170px; border-width: 5px; }
-  .content-grid { grid-template-columns: 1fr; }
-  .split-60-40 { grid-template-columns: 1fr; }
-  .video-track { grid-auto-columns: 100%; }
-  .video-nav { display: none; }
-  .section-block { margin-top: 40px; padding-top: 22px; }
-  .featured-cta { padding: 22px 20px; }
-  .about-section { padding: 24px; }
+.contact-btn {
+  display: inline-block; margin-top: 28px;
+  padding: 16px 28px; border: 1px solid #c9a37a;
+  background: transparent; color: #c9a37a;
+  font: inherit; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; font-size: 13px;
+  border-radius: 999px; cursor: pointer;
+  transition: background .2s, color .2s;
 }
+.contact-btn:hover { background: #c9a37a; color: #fff; }
 
-@media (max-width: 520px) {
-  .wrapper { padding: 0 12px 30px; }
-  .banner { height: 170px; }
-  .header { margin-top: -64px; }
-  .avatar { width: 138px; height: 138px; }
-  .brand-logo { width: min(260px, 70vw); margin-top: 14px; }
-  .tagline { font-size: 14px; margin-bottom: 22px; }
-  .section-title { font-size: 16px; }
-  .about-section { padding: 24px 18px; }
-  .about-content h2 { font-size: 46px; }
-  .about-content p { font-size: 18px; }
+/* COMMISSIONS */
+.perks { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-direction: column; gap: 10px; color: #c9c9d4; font-size: 15px; }
+.perks li::before { content: "✦  "; color: #9a8fb5; }
+.commissions-cta {
+  display: inline-block; margin-top: 28px;
+  padding: 16px 28px; border-radius: 999px;
+  background: #9a8fb5; color: #fff; text-decoration: none;
+  font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 13px;
+  transition: transform .2s, box-shadow .2s;
 }
+.commissions-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(154,143,181,.4); }
 
+/* FOOTER */
+.footer { max-width: 900px; margin: 80px auto 0; padding: 40px 24px 60px; border-top: 1px solid rgba(255,255,255,.08); text-align: center; }
+.footer-socials { display: flex; justify-content: center; gap: 22px; margin-bottom: 20px; }
+.footer-copy { color: #6b6b78; font-size: 12px; letter-spacing: .1em; }
 
-/* Latest Release popup */
-.lr-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;opacity:0;transition:opacity .25s ease;}
-.lr-overlay.is-open{display:flex;opacity:1;}
-.lr-modal{background:#0b0b10;border:1px solid #2b2b34;border-radius:18px;max-width:440px;width:100%;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.6);transform:translateY(10px) scale(.98);transition:transform .25s ease;position:relative;}
-.lr-overlay.is-open .lr-modal{transform:translateY(0) scale(1);}
-.lr-close{position:absolute;top:10px;right:12px;background:transparent;border:0;color:#e6e6ef;font-size:26px;line-height:1;cursor:pointer;padding:6px 10px;border-radius:8px;}
-.lr-close:hover{background:rgba(255,255,255,.08);}
-.lr-kicker{font-size:11px;letter-spacing:2px;color:#8a8a99;text-transform:uppercase;margin-bottom:8px;}
-.lr-title{font-size:22px;color:#fff;margin:0 0 14px;}
-.lr-embed{border-radius:12px;overflow:hidden;border:1px solid #2b2b34;background:#000;margin-bottom:16px;}
-.lr-embed iframe{display:block;width:100%;height:152px;border:0;}
-.lr-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;}
-.lr-btn{appearance:none;border:1px solid #2b2b34;background:#15151c;color:#e6e6ef;padding:10px 16px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:13px;letter-spacing:.5px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s;}
-.lr-btn:hover{background:#1d1d26;border-color:#3d3d4a;}
-.lr-btn-primary{background:#1db954;border-color:#1db954;color:#000;}
-.lr-btn-primary:hover{background:#1ed760;border-color:#1ed760;}
-.lr-btn-ghost{background:transparent;color:#8a8a99;border-color:transparent;font-size:12px;}
-.lr-btn-ghost:hover{color:#e6e6ef;background:rgba(255,255,255,.04);}
-@media (max-width:480px){.lr-modal{padding:20px 16px;}.lr-title{font-size:18px;}}
-
-
+/* MODAL */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 100; }
+.modal.open { display: flex; }
+.modal-box { width: 100%; max-width: 460px; background: #0e0e12; border: 1px solid #24242b; border-radius: 18px; padding: 28px; position: relative; }
+.modal-box h3 { margin: 0 0 18px; font-size: 20px; color: #fff; }
+.input { display: block; width: 100%; padding: 12px 14px; margin-bottom: 12px; background: #05050a; border: 1px solid #24242b; border-radius: 10px; color: #e5e5e5; font: inherit; font-size: 14px; font-weight: 500; }
+textarea.input { resize: vertical; min-height: 110px; }
+.input:focus { outline: none; border-color: #9a8fb5; }
+.cf-status { min-height: 20px; font-size: 13px; color: #cfd2e3; margin: 6px 0 10px; font-weight: 500; }
+.cf-status.error { color: #ff6b8a; }
+.cf-status.success { color: #56e88e; }
+.send-btn { width: 100%; padding: 14px; border: none; border-radius: 10px; background: linear-gradient(135deg,#9a8fb5,#7a9bbf); color: #fff; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.send-btn:disabled { opacity: .6; cursor: not-allowed; }
+.close-btn { margin-top: 12px; width: 100%; padding: 12px; background: transparent; color: #9a9aa8; border: 1px solid #24242b; border-radius: 10px; cursor: pointer; font: inherit; font-weight: 700; }
 </style>
 </head>
-
 <body>
 
-<svg aria-hidden="true" width="0" height="0" style="position:absolute;left:-9999px;overflow:hidden">
-  <symbol id="icon-youtube" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></symbol>
-  <symbol id="icon-spotify" viewBox="0 0 24 24"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21Zm4.8 15.1a.9.9 0 0 1-1.2.3 9.9 9.9 0 0 0-9.4-.7.9.9 0 1 1-.7-1.7 11.7 11.7 0 0 1 11 .8.9.9 0 0 1 .3 1.3Zm1.7-2.5a1.1 1.1 0 0 1-1.5.4 11.9 11.9 0 0 0-11.7-.8 1.1 1.1 0 1 1-.9-2 14 14 0 0 1 13.9 1 1.1 1.1 0 0 1 .2 1.4Zm.1-2.8a13.8 13.8 0 0 0-13.5-.7 1.3 1.3 0 1 1-1.1-2.4 16.4 16.4 0 0 1 16 1 1.3 1.3 0 0 1-1.4 2.1Z"/></symbol>
-  <symbol id="icon-discord" viewBox="0 0 24 24"><path d="M20.3 5.5a16 16 0 0 0-4-1.2l-.2.5a11 11 0 0 1 3.6 1.8 12.8 12.8 0 0 0-15.4 0A11 11 0 0 1 7.9 4.8l-.2-.5a16 16 0 0 0-4 1.2C1.2 9.1.6 12.6.9 16l.1.2a16.2 16.2 0 0 0 4.9 2.5l.5-.8a10.6 10.6 0 0 1-2.3-1.2l.6-.5a11.7 11.7 0 0 0 10.6 0l.6.5a10.6 10.6 0 0 1-2.4 1.2l.5.8a16.1 16.1 0 0 0 4.9-2.5l.1-.2c.4-3.9-.6-7.4-2.9-10.5ZM8.8 14.2c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8c1 0 1.7.8 1.7 1.8s-.7 1.8-1.7 1.8Zm6.4 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.7.8 1.7 1.8-.8 1.8-1.7 1.8Z"/></symbol>
-  <symbol id="icon-instagram" viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 1.8A3.7 3.7 0 0 0 3.8 7.5v9a3.7 3.7 0 0 0 3.7 3.7h9a3.7 3.7 0 0 0 3.7-3.7v-9a3.7 3.7 0 0 0-3.7-3.7h-9Zm9.4 1.4a1.2 1.2 0 1 1 0 2.3 1.2 1.2 0 0 1 0-2.3ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z"/></symbol>
-  <symbol id="icon-soundcloud" viewBox="0 0 24 24"><path d="M3 10.7h1.5v7.2H3v-7.2Zm2.4-1.4H7v8.6H5.4V9.3Zm2.4-1H9.3v9.6H7.8V8.4Zm2.4-.6h1.5V18h-1.5V7.8Zm2.3 1h1.5V18H12.5V8.8Zm2.4 1.2h1.5V18h-1.5V10Zm2 .4a3.5 3.5 0 0 1 3.4 3.5 3.5 3.5 0 0 1-3.5 3.5h-2V10.3h2.1Z"/></symbol>
-  <symbol id="icon-kofi" viewBox="0 0 24 24"><path d="M4 7h13a3 3 0 0 1 3 3v1.2a3.8 3.8 0 0 1-3.8 3.8h-.3A5.8 5.8 0 0 1 10.2 20H9.8A5.8 5.8 0 0 1 4 14.2V7Zm2 2v5.2A3.8 3.8 0 0 0 9.8 18h.4a3.8 3.8 0 0 0 3.8-3.8V9H6Zm10.1 4h.1a1.8 1.8 0 0 0 1.8-1.8V10a1 1 0 0 0-1-1h-1v4Z"/></symbol>
-  <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M3 6h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm1.6 2 7.4 5.2L19.4 8H4.6Zm15.4 8v-6l-7.4 5.2a1 1 0 0 1-1.2 0L4 10v6h16Z"/></symbol>
-</svg>
-
-<div class="wrapper">
-<div class="container">
-
+<!-- HERO -->
 <section class="hero">
-  <div class="banner"></div>
-  <div class="header">
-    <img class="avatar" decoding="async" fetchpriority="high" src="img/avatar.png" alt="StylizedRG avatar">
-    <img class="brand-logo" decoding="async" src="img/logo-stylizedrg.png" alt="StylizedRG logo">
-    <p class="tagline">StylizedRG is an artist and music producer focused on contemporary electronic Plunderphonic music. His sound blends electro, glitch-hop, and indie dance, while continuously exploring new genres and sonic approaches.</p>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <img class="avatar" src="https://www.stylizedrg.linkpc.net/img/avatar.png" alt="StylizedRG avatar" />
+  <img class="brand-logo" src="https://www.stylizedrg.linkpc.net/img/logo-stylizedrg.png" alt="StylizedRG" />
 
+  <nav class="hero-nav" aria-label="Primary">
+    <a href="#information" class="nav-word" style="color:#e8e8ea">INFORMATION</a>
+    <a href="#music"       class="nav-word" style="color:#e8e8ea">MUSIC</a>
+    <a href="#contact"     class="nav-word" style="color:#e8e8ea">CONTACT</a>
+    <a href="#commissions" class="nav-word" style="color:#e8e8ea">COMMISSIONS</a>
+  </nav>
+
+  <div class="hero-socials">
+    <a href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener" aria-label="YouTube"><img src="https://cdn.simpleicons.org/youtube/b5b5c0" width="22" height="22" alt="YouTube"/></a>
+    <a href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener" aria-label="Spotify"><img src="https://cdn.simpleicons.org/spotify/b5b5c0" width="22" height="22" alt="Spotify"/></a>
+    <a href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener" aria-label="Instagram"><img src="https://cdn.simpleicons.org/instagram/b5b5c0" width="22" height="22" alt="Instagram"/></a>
+    <a href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener" aria-label="SoundCloud"><img src="https://cdn.simpleicons.org/soundcloud/b5b5c0" width="22" height="22" alt="SoundCloud"/></a>
+    <a href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener" aria-label="Ko-fi"><img src="https://cdn.simpleicons.org/kofi/b5b5c0" width="22" height="22" alt="Ko-fi"/></a>
   </div>
+</section>
 
+<!-- INFORMATION -->
+<section id="information" class="section">
+  <div class="section-head">
+    <span class="section-num" style="color:#7a9bbf">01 — INFORMATION</span>
+    <h2 class="section-title">So, who am I?</h2>
+  </div>
+  <p class="section-body">I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022 and I'm still experimenting with new sounds every release.</p>
+  <div class="tags">
+    <span class="tag">Electro</span><span class="tag">Glitchhop</span><span class="tag">Indie House</span><span class="tag">Movie Remixes</span>
+  </div>
+</section>
 
-<section class="stats-section reveal" aria-labelledby="stats-title">
-  <h2 id="stats-title" style="position:absolute;left:-9999px;">By the numbers</h2>
+<!-- MUSIC / STATS -->
+<section id="music" class="section">
+  <div class="section-head">
+    <span class="section-num" style="color:#e8e8ea">02 — MUSIC</span>
+    <h2 class="section-title">By the numbers</h2>
+  </div>
   <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-num" data-stat="remixes" data-count="30" data-suffix="+">0</div>
-      <div class="stat-label">Remixes</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-count="5" data-suffix="+">0</div>
-      <div class="stat-label">Years making music</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-stat="plays" data-count="0" data-suffix="+" data-format="compact">0</div>
-      <div class="stat-label">Remix plays</div>
-    </div>
-  </div>
-</section>
-</section>
-
-
-<section class="section-block reveal" aria-labelledby="connect-title">
-  <div class="section-head">
-    <span class="section-num">01 — Connect</span>
-    <h2 id="connect-title" class="section-h2">Find me everywhere</h2>
-    <span class="section-rule" aria-hidden="true"></span>
+    <div class="stat-card"><div class="stat-num" data-count="31" data-suffix="">0</div><div class="stat-label">Remixes</div></div>
+    <div class="stat-card"><div class="stat-num" data-count="4" data-suffix="+">0</div><div class="stat-label">Years making music</div></div>
+    <div class="stat-card"><div class="stat-num" data-count="94000" data-suffix="+" data-compact="1">0</div><div class="stat-label">Remix plays</div></div>
   </div>
 
-  <div class="split-60-40">
-    <div class="social-rail">
-      <a class="social-row" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></div>
-        <div class="social-row-body">
-          <div class="social-row-title">YouTube</div>
-          <div class="social-row-desc">Videos &amp; releases.</div>
-        </div>
-        <span class="social-arrow" aria-hidden="true">→</span>
-      </a>
-
-      <a class="social-row" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></div>
-        <div class="social-row-body">
-          <div class="social-row-title">Spotify</div>
-          <div class="social-row-desc">Stream my original music.</div>
-        </div>
-        <span class="social-arrow" aria-hidden="true">→</span>
-      </a>
-
-      <a class="social-row" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></div>
-        <div class="social-row-body">
-          <div class="social-row-title">Instagram</div>
-          <div class="social-row-desc">Clips &amp; previews.</div>
-        </div>
-        <span class="social-arrow" aria-hidden="true">→</span>
-      </a>
-
-      <a class="social-row" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></div>
-        <div class="social-row-body">
-          <div class="social-row-title">SoundCloud</div>
-          <div class="social-row-desc">More tracks &amp; unreleased cuts.</div>
-        </div>
-        <span class="social-arrow" aria-hidden="true">→</span>
-      </a>
-
-      <a class="social-row" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-kofi"></use></svg></div>
-        <div class="social-row-body">
-          <div class="social-row-title">Ko-fi</div>
-          <div class="social-row-desc">Support me &amp; request custom remixes.</div>
-        </div>
-        <span class="social-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-
-    <aside class="featured-cta">
-      <p class="featured-cta-kicker">Get in touch</p>
-      <h3 class="featured-cta-title">Let's work together</h3>
-      <p class="featured-cta-desc">Collabs, commissions, feedback or just to say hi — drop me a message and I'll get back to you.</p>
-      <button class="featured-cta-btn" type="button" id="openContactBtn">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-mail"></use></svg>
-        Send a message
-      </button>
-    </aside>
-  </div>
-</section>
-
-<section class="section-block reveal" aria-labelledby="toptracks-title">
-  <div class="section-head">
-    <span class="section-num">02 — Top Tracks</span>
-    <h2 id="toptracks-title" class="section-h2">Listen on Spotify</h2>
-    <span class="section-rule" aria-hidden="true"></span>
-  </div>
-  <div class="toptracks-embed-wrap">
-    <iframe
-      class="toptracks-embed"
-      src="https://open.spotify.com/embed/artist/16IDj0PILvEu42ZwYgvJo3?utm_source=generator&theme=0"
-      width="100%"
-      height="352"
-      frameborder="0"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"
-      title="StylizedRG on Spotify"></iframe>
-  </div>
-</section>
-
-<section class="section-block reveal" aria-labelledby="videos-title">
-  <div class="section-head">
-    <span class="section-num">03 — Latest videos</span>
-    <h2 id="videos-title" class="section-h2">Fresh from the channel</h2>
-    <span class="section-rule" aria-hidden="true"></span>
-  </div>
-  <div class="video-carousel">
-    <button type="button" class="video-nav prev" id="videoPrev" aria-label="Previous videos">‹</button>
-    <div id="videoGrid" class="video-track"></div>
-    <button type="button" class="video-nav next" id="videoNext" aria-label="More videos">›</button>
-  </div>
-</section>
-
-<section class="about-section reveal">
-  <div class="about-content">
-    <p class="about-kicker">About</p>
-    <h2>So, who am I?</h2>
-    <p>I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022 and I'm still experimenting with new sounds every release.</p>
-    <div class="about-tags">
-      <span class="about-tag">Electro</span>
-      <span class="about-tag">Glitchhop</span>
-      <span class="about-tag">Indie House</span>
-      <span class="about-tag">Movie Remixes</span>
-    </div>
-  </div>
-</section>
-
-<section class="commissions-section reveal" aria-labelledby="commissions-title">
-  <div class="commissions-content">
-    <p class="commissions-kicker">Now Open</p>
-    <h2 id="commissions-title">Remix Commissions</h2>
-    <p>Got a movie you love and want it reimagined into a song? I will create a custom remix using samples from a movie of your choice and convert it into something STYLIZED.</p>
-    <ul class="commissions-perks">
-      <li>✦ Custom genre & vibe</li>
-      <li>✦ MP3 & WAV delivery</li>
-      <li>✦ And more...</li>
-    </ul>
-    <a class="commissions-cta" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-kofi"></use></svg>
-      Commission a remix on Ko-fi
+  <div class="music-platforms">
+    <a href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener" class="music-platform music-platform--yt" aria-label="StylizedRG on YouTube">
+      <img src="https://cdn.simpleicons.org/youtube/ffffff" width="72" height="72" alt="" />
+      <span>YouTube</span>
+    </a>
+    <a href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener" class="music-platform music-platform--sc" aria-label="StylizedRG on SoundCloud">
+      <img src="https://cdn.simpleicons.org/soundcloud/ffffff" width="72" height="72" alt="" />
+      <span>SoundCloud</span>
     </a>
   </div>
 </section>
 
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="section-head">
+    <span class="section-num" style="color:#c9a37a">03 — CONTACT</span>
+    <h2 class="section-title">Find me everywhere</h2>
+  </div>
+  <div class="social-list">
+    <a href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener" class="social-row"><img src="https://cdn.simpleicons.org/youtube/b5b5c0" width="20" height="20" alt=""/><span class="social-row-name">YouTube</span><span class="social-row-arrow">→</span></a>
+    <a href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener" class="social-row"><img src="https://cdn.simpleicons.org/spotify/b5b5c0" width="20" height="20" alt=""/><span class="social-row-name">Spotify</span><span class="social-row-arrow">→</span></a>
+    <a href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener" class="social-row"><img src="https://cdn.simpleicons.org/instagram/b5b5c0" width="20" height="20" alt=""/><span class="social-row-name">Instagram</span><span class="social-row-arrow">→</span></a>
+    <a href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener" class="social-row"><img src="https://cdn.simpleicons.org/soundcloud/b5b5c0" width="20" height="20" alt=""/><span class="social-row-name">SoundCloud</span><span class="social-row-arrow">→</span></a>
+    <a href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener" class="social-row"><img src="https://cdn.simpleicons.org/kofi/b5b5c0" width="20" height="20" alt=""/><span class="social-row-name">Ko-fi</span><span class="social-row-arrow">→</span></a>
+  </div>
+  <button type="button" class="contact-btn" id="openContact">Send me a message</button>
+</section>
+
+<!-- COMMISSIONS -->
+<section id="commissions" class="section">
+  <div class="section-head">
+    <span class="section-num" style="color:#9a8fb5">04 — COMMISSIONS</span>
+    <h2 class="section-title">Remix Commissions</h2>
+  </div>
+  <p class="section-body">Got a movie you love and want it reimagined into a song? I will create a custom remix using samples from a movie of your choice and convert it into something STYLIZED.</p>
+  <ul class="perks">
+    <li>Custom genre &amp; vibe</li>
+    <li>MP3 &amp; WAV delivery</li>
+    <li>And more...</li>
+  </ul>
+  <a class="commissions-cta" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener">Commission a remix on Ko-fi →</a>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-socials">
-    <a class="footer-social" href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24"><use href="#icon-youtube"></use></svg></a>
-    <a class="footer-social" href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener noreferrer" aria-label="Spotify"><svg viewBox="0 0 24 24"><use href="#icon-spotify"></use></svg></a>
-    <a class="footer-social" href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></a>
-    <a class="footer-social" href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud"><svg viewBox="0 0 24 24"><use href="#icon-soundcloud"></use></svg></a>
-    <a class="footer-social" href="https://discord.gg/z48EBANjDs" target="_blank" rel="noopener noreferrer" aria-label="Discord"><svg viewBox="0 0 24 24"><use href="#icon-discord"></use></svg></a>
+    <a href="https://www.youtube.com/@StylizedRG" target="_blank" rel="noopener" aria-label="YouTube"><img src="https://cdn.simpleicons.org/youtube/6b6b78" width="20" height="20" alt=""/></a>
+    <a href="https://open.spotify.com/intl-es/artist/16IDj0PILvEu42ZwYgvJo3" target="_blank" rel="noopener" aria-label="Spotify"><img src="https://cdn.simpleicons.org/spotify/6b6b78" width="20" height="20" alt=""/></a>
+    <a href="https://www.instagram.com/stylizedrg/" target="_blank" rel="noopener" aria-label="Instagram"><img src="https://cdn.simpleicons.org/instagram/6b6b78" width="20" height="20" alt=""/></a>
+    <a href="https://soundcloud.com/stylizedrg" target="_blank" rel="noopener" aria-label="SoundCloud"><img src="https://cdn.simpleicons.org/soundcloud/6b6b78" width="20" height="20" alt=""/></a>
+    <a href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener" aria-label="Ko-fi"><img src="https://cdn.simpleicons.org/kofi/6b6b78" width="20" height="20" alt=""/></a>
   </div>
-  <div>© <span id="year"></span> StylizedRG — All links in one place.</div>
+  <div class="footer-copy">© <span id="year"></span> StylizedRG</div>
 </footer>
 
-</div>
-</div>
-
-<!-- Contact Modal -->
-<div id="contactModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle" aria-hidden="true">
-<div class="modal-box">
-<h3 id="contactTitle">Send a message</h3>
-<form id="contactForm" novalidate>
-  <!-- Honeypot: bots fill this, humans don't see it -->
-  <input type="text" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
-  <input class="input" type="text" name="name" id="cf-name" placeholder="Your name" required minlength="2" maxlength="80" autocomplete="name">
-  <input class="input" type="email" name="email" id="cf-email" placeholder="Your email" required maxlength="120" autocomplete="email">
-  <textarea name="message" id="cf-message" placeholder="Your message" required minlength="5" maxlength="2000"></textarea>
-  <div id="cf-status" class="cf-status" aria-live="polite"></div>
-  <button class="send-btn" type="submit" id="cf-submit">Send</button>
-</form>
-<button class="close-btn" type="button" id="closeContactBtn">Close</button>
-</div>
-</div>
-
-
-<script>
-(function(){
-  'use strict';
-
-  // ===== Config =====
-  // Web3Forms access key — get yours free at https://web3forms.com (no signup, just enter your email)
-  const WEB3FORMS_ACCESS_KEY = "637b4a51-aee6-49df-be78-0baaef5fdde4";
-  const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw"; // Restrict by HTTP referrer in Google Cloud Console!
-  const YT_CHANNEL_ID = "UCUCqtrMbHOGb6PBQBGex5-w";
-  const YT_REMIX_PLAYLIST_ID = "PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN";
-  
-
-  // ===== Helpers =====
-  const $ = (id) => document.getElementById(id);
-  const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
-
-  async function safeFetch(url){
-    try {
-      const r = await fetch(url);
-      if(!r.ok) throw new Error('network');
-      return await r.json();
-    } catch { return null; }
-  }
-
-  // ===== Dynamic year =====
-  const yearEl = $('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // ===== Scroll reveal =====
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('show');
-        revealObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: .12 });
-
-  document.querySelectorAll('.section-block, .card, .video-section, .about-section, .commissions-section').forEach(el => {
-    el.classList.add('reveal');
-    revealObserver.observe(el);
-  });
-
-  // ===== Contact modal =====
-  const contactModal = $('contactModal');
-  const openContactBtn = $('openContactBtn');
-  const closeContactBtn = $('closeContactBtn');
-  const contactForm = $('contactForm');
-  const cfStatus = $('cf-status');
-  const cfSubmit = $('cf-submit');
-
-  function openContact(){
-    if (!contactModal) return;
-    contactModal.classList.add('active');
-    contactModal.setAttribute('aria-hidden', 'false');
-    const first = $('cf-name');
-    if (first) setTimeout(() => first.focus(), 50);
-  }
-  function closeContact(){
-    if (!contactModal) return;
-    contactModal.classList.remove('active');
-    contactModal.setAttribute('aria-hidden', 'true');
-  }
-
-  on(openContactBtn, 'click', openContact);
-  on(closeContactBtn, 'click', closeContact);
-  on(contactModal, 'click', (e) => { if (e.target === contactModal) closeContact(); });
-
-  // Form validation + submission via Web3Forms
-  function setStatus(msg, type){
-    if (!cfStatus) return;
-    cfStatus.textContent = msg;
-    cfStatus.className = 'cf-status' + (type ? ' ' + type : '');
-  }
-
-  on(contactForm, 'submit', async (e) => {
-    e.preventDefault();
-    if (!contactForm) return;
-
-    const name = ($('cf-name').value || '').trim();
-    const email = ($('cf-email').value || '').trim();
-    const message = ($('cf-message').value || '').trim();
-    const botcheck = contactForm.elements['botcheck'] ? contactForm.elements['botcheck'].value : '';
-
-    // Honeypot — silently succeed for bots
-    if (botcheck) { setStatus('Thanks! Message sent.', 'success'); contactForm.reset(); return; }
-
-    // Validation
-    if (name.length < 2 || name.length > 80) return setStatus('Please enter a valid name (2–80 chars).', 'error');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length > 120) return setStatus('Please enter a valid email.', 'error');
-    if (message.length < 5 || message.length > 2000) return setStatus('Message must be 5–2000 characters.', 'error');
-
-
-    cfSubmit.disabled = true;
-    setStatus('Sending…');
-
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: 'New StylizedRG contact: ' + name,
-          from_name: 'StylizedRG site',
-          name, email, message,
-          botcheck: ''
-        })
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.success) {
-        setStatus('Thanks! Your message was sent.', 'success');
-        contactForm.reset();
-        setTimeout(closeContact, 1500);
-      } else {
-        setStatus((data && data.message) || 'Something went wrong. Try again later.', 'error');
-      }
-    } catch {
-      setStatus('Network error. Please try again.', 'error');
-    } finally {
-      cfSubmit.disabled = false;
-    }
-  });
-
-  // Global Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    if (contactModal && contactModal.classList.contains('active')) closeContact();
-  });
-
-
-  // ===== YouTube videos (XSS-safe) =====
-  const VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
-  const grid = $('videoGrid');
-
-  // Parse ISO 8601 duration (e.g. PT1M30S) to seconds
-  function parseISODuration(iso){
-    if (typeof iso !== 'string') return 0;
-    const m = iso.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
-    if (!m) return 0;
-    return (+m[1]||0)*3600 + (+m[2]||0)*60 + (+m[3]||0);
-  }
-
-  async function loadVideos(){
-    if (!grid) return;
-    // Page through ALL items in the Remixes playlist so we can sort by actual upload date.
-    const candidates = [];
-    let pageToken = '';
-    let pages = 0;
-    do {
-      const u = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
-      u.searchParams.set('key', YT_API_KEY);
-      u.searchParams.set('playlistId', YT_REMIX_PLAYLIST_ID);
-      u.searchParams.set('part', 'snippet,contentDetails');
-      u.searchParams.set('maxResults', '50');
-      if (pageToken) u.searchParams.set('pageToken', pageToken);
-      const data = await safeFetch(u.toString());
-      if (!data || !Array.isArray(data.items)) break;
-      data.items.forEach(it => {
-        const videoId = it && it.contentDetails && it.contentDetails.videoId;
-        const snippet = it && it.snippet;
-        if (!videoId || !VIDEO_ID_RE.test(videoId) || !snippet) return;
-        const status = snippet.title;
-        if (status === 'Private video' || status === 'Deleted video') return;
-        candidates.push({ videoId, snippet, publishedAt: (it.contentDetails.videoPublishedAt || snippet.publishedAt || '') });
-      });
-      pageToken = data.nextPageToken || '';
-    } while (pageToken && ++pages < 10);
-
-    if (!candidates.length) { grid.textContent = ''; return; }
-
-    // Sort newest first (by actual upload date) and fetch details to drop Shorts / lives
-    candidates.sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''));
-    const topIds = candidates.slice(0, 15).map(c => c.videoId);
-    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${encodeURIComponent(YT_API_KEY)}&id=${encodeURIComponent(topIds.join(','))}&part=contentDetails,liveStreamingDetails,snippet`;
-    const details = await safeFetch(detailsUrl);
-    const detailMap = {};
-    if (details && Array.isArray(details.items)) {
-      details.items.forEach(it => { if (it && it.id) detailMap[it.id] = it; });
-    }
-
-    const filtered = candidates.filter(c => {
-      const d = detailMap[c.videoId];
-      if (!d) return false;
-      if (d.liveStreamingDetails) return false;
-      if (d.snippet && d.snippet.liveBroadcastContent && d.snippet.liveBroadcastContent !== 'none') return false;
-      const seconds = parseISODuration(d.contentDetails && d.contentDetails.duration);
-      if (seconds > 0 && seconds <= 60) return false;
-      return true;
-    }).slice(0, 10);
-
-    grid.textContent = '';
-    filtered.forEach(({ videoId, snippet }) => {
-      const thumbs = snippet.thumbnails || {};
-      const thumbUrl = (thumbs.maxres && thumbs.maxres.url) || (thumbs.high && thumbs.high.url) || (thumbs.medium && thumbs.medium.url) || '';
-      const safeThumb = (typeof thumbUrl === 'string' && /^https:\/\/i\.ytimg\.com\//.test(thumbUrl)) ? thumbUrl : '';
-      const title = typeof snippet.title === 'string' ? snippet.title : '';
-
-      const a = document.createElement('a');
-      a.className = 'video-card';
-      a.href = 'https://www.youtube.com/watch?v=' + videoId;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-
-      const img = document.createElement('img');
-      img.className = 'video-thumb';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.alt = title;
-      if (safeThumb) img.src = safeThumb;
-
-      const titleDiv = document.createElement('div');
-      titleDiv.className = 'video-card-title';
-      titleDiv.textContent = title;
-
-      a.appendChild(img);
-      a.appendChild(titleDiv);
-      grid.appendChild(a);
-    });
-  }
-  loadVideos().then(setupCarousel);
-
-  function setupCarousel(){
-    const prev = document.getElementById('videoPrev');
-    const next = document.getElementById('videoNext');
-    if (!grid || !prev || !next) return;
-
-    function step(){
-      const first = grid.querySelector('.video-card');
-      if (!first) return grid.clientWidth;
-      const styles = getComputedStyle(grid);
-      const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
-      return first.getBoundingClientRect().width + gap;
-    }
-    function update(){
-      const max = grid.scrollWidth - grid.clientWidth - 1;
-      prev.disabled = grid.scrollLeft <= 1;
-      next.disabled = grid.scrollLeft >= max;
-    }
-    prev.addEventListener('click', () => { grid.scrollBy({ left: -step(), behavior: 'smooth' }); });
-    next.addEventListener('click', () => { grid.scrollBy({ left:  step(), behavior: 'smooth' }); });
-    grid.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-    setTimeout(update, 200);
-  }
-})();
-</script>
-
-<script>
-/* Animated stats counter */
-(() => {
-  const fmt = (n, mode) => mode === 'compact'
-    ? new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(n)
-    : new Intl.NumberFormat('en').format(n);
-  const animate = (el) => {
-    const target = +el.dataset.count || 0;
-    const suffix = el.dataset.suffix || '';
-    const mode = el.dataset.format;
-    const dur = 1600;
-    const t0 = performance.now();
-    const tick = (t) => {
-      const p = Math.min(1, (t - t0) / dur);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = fmt(Math.round(target * eased), mode) + suffix;
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const nodes = document.querySelectorAll('.stat-num');
-  if (reduced) {
-    nodes.forEach(el => {
-      const n = +el.dataset.count || 0;
-      el.textContent = fmt(n, el.dataset.format) + (el.dataset.suffix || '');
-    });
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.4 });
-  nodes.forEach(el => io.observe(el));
-})();
-</script>
-
-<script>
-/* Remix plays + remix count — pulls playlist, filters out non-remixes by title,
-   sums viewCount of remaining videos, and updates both stat cards. */
-(async () => {
-  // Self-contained config (the previous IIFE's consts are not in this scope)
-  const YT_API_KEY = "AIzaSyChLbkoDuWfagIrsfFEUSwo7GSS80Qvrpw";
-  const YT_REMIX_PLAYLIST_ID = "PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN";
-  // Count every available video in the playlist (no title filtering — trust the playlist).
-
-  const playsEl = document.querySelector('.stat-num[data-stat="plays"]');
-  const remixesEl = document.querySelector('.stat-num[data-stat="remixes"]');
-  if (!playsEl && !remixesEl) return;
-  if (!YT_API_KEY || !YT_REMIX_PLAYLIST_ID) return;
-
-  const CACHE_KEY = 'yt_remix_stats_v3';
-  const TTL_MS = 6 * 60 * 60 * 1000;
-
-  const fmtCompact = (v) => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(v);
-  const fmtPlain = (v) => new Intl.NumberFormat('en').format(v);
-
-  const apply = ({ plays, count }) => {
-    if (playsEl && typeof plays === 'number') {
-      playsEl.dataset.count = String(plays);
-      playsEl.textContent = fmtCompact(plays) + (playsEl.dataset.suffix || '');
-    }
-    if (remixesEl && typeof count === 'number') {
-      remixesEl.dataset.count = String(count);
-      remixesEl.textContent = fmtPlain(count) + (remixesEl.dataset.suffix || '');
-    }
-  };
-
-  // Hydrate from cache for instant UX
-  try {
-    const raw = localStorage.getItem(CACHE_KEY);
-    if (raw) {
-      const { value, ts } = JSON.parse(raw);
-      if (value && typeof value.plays === 'number') {
-        apply(value);
-        if (Date.now() - ts < TTL_MS) return;
-      }
-    }
-  } catch {}
-
-  try {
-    // 1) Page through playlistItems (need snippet for title-based filtering)
-    const items = [];
-    let pageToken = '';
-    do {
-      const u = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
-      u.searchParams.set('part', 'snippet,contentDetails');
-      u.searchParams.set('playlistId', YT_REMIX_PLAYLIST_ID);
-      u.searchParams.set('maxResults', '50');
-      u.searchParams.set('key', YT_API_KEY);
-      if (pageToken) u.searchParams.set('pageToken', pageToken);
-      const r = await fetch(u);
-      if (!r.ok) throw new Error('playlistItems ' + r.status);
-      const j = await r.json();
-      (j.items || []).forEach(it => {
-        const id = it.contentDetails?.videoId;
-        const title = it.snippet?.title || '';
-        // Skip private/deleted entries only — count every other video in the playlist
-        if (!id || /^(Private|Deleted) video$/i.test(title)) return;
-        items.push({ id, title });
-      });
-      pageToken = j.nextPageToken || '';
-    } while (pageToken);
-
-    if (!items.length) {
-      console.warn('[remix stats] playlist returned 0 remix items after filtering');
-      return;
-    }
-
-    // 2) Sum viewCount in chunks of 50
-    let plays = 0;
-    const ids = items.map(i => i.id);
-    for (let i = 0; i < ids.length; i += 50) {
-      const chunk = ids.slice(i, i + 50);
-      const u = new URL('https://www.googleapis.com/youtube/v3/videos');
-      u.searchParams.set('part', 'statistics');
-      u.searchParams.set('id', chunk.join(','));
-      u.searchParams.set('key', YT_API_KEY);
-      const r = await fetch(u);
-      if (!r.ok) throw new Error('videos ' + r.status);
-      const j = await r.json();
-      (j.items || []).forEach(v => { plays += parseInt(v.statistics?.viewCount || '0', 10) || 0; });
-    }
-
-    const value = { plays, count: items.length };
-    apply(value);
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ value, ts: Date.now() })); } catch {}
-  } catch (err) {
-    console.warn('[remix stats] failed:', err);
-  }
-})();
-</script>
-
-<!-- Latest Release Popup -->
-<div class="lr-overlay" id="lrOverlay" role="dialog" aria-modal="true" aria-labelledby="lrTitle" aria-describedby="lrDesc" aria-hidden="true" hidden>
-  <div class="lr-modal" role="document">
-    <button type="button" class="lr-close" id="lrClose" aria-label="Close latest release dialog">×</button>
-    <div class="lr-kicker" id="lrDesc">Latest Release</div>
-    <h3 class="lr-title" id="lrTitle">New from StylizedRG</h3>
-    <div class="lr-embed" id="lrEmbed" aria-live="polite" aria-busy="true">
-      <iframe id="lrIframe" src="https://open.spotify.com/embed/track/3l9orxzih1e1tIaQsPPdpi?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Latest release on Spotify"></iframe>
-    </div>
-    <div class="lr-actions">
-      <a class="lr-btn lr-btn-primary" id="lrPreview" href="https://open.spotify.com/track/3l9orxzih1e1tIaQsPPdpi" target="_blank" rel="noopener noreferrer">Preview on Spotify</a>
-      <button type="button" class="lr-btn" id="lrCloseBtn">Close</button>
-      <button type="button" class="lr-btn lr-btn-ghost" id="lrDontShow">Don't show again</button>
-    </div>
+<!-- CONTACT MODAL -->
+<div class="modal" id="contactModal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <h3>Send a message</h3>
+    <form id="contactForm" novalidate>
+      <input type="text" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true" />
+      <input class="input" type="text" name="name" placeholder="Your name" required minlength="2" maxlength="80" />
+      <input class="input" type="email" name="email" placeholder="Your email" required maxlength="120" />
+      <textarea class="input" name="message" placeholder="Your message" required minlength="5" maxlength="2000" rows="5"></textarea>
+      <div class="cf-status" id="cfStatus" aria-live="polite"></div>
+      <button class="send-btn" type="submit" id="sendBtn">Send</button>
+    </form>
+    <button class="close-btn" type="button" id="closeContact">Close</button>
   </div>
 </div>
+
 <script>
-(function(){
-  var KEY='lr_dontshow_v1';
-  var ARTIST='16IDj0PILvEu42ZwYgvJo3';
-  try{ if(localStorage.getItem(KEY)==='1') return; }catch(e){}
-  var ov=document.getElementById('lrOverlay');
-  if(!ov) return;
-  var modal=ov.querySelector('.lr-modal');
-  var closeBtn=document.getElementById('lrClose');
-  var closeBtn2=document.getElementById('lrCloseBtn');
-  var dontBtn=document.getElementById('lrDontShow');
-  var iframe=document.getElementById('lrIframe');
-  var previewLink=document.getElementById('lrPreview');
-  var titleEl=document.getElementById('lrTitle');
-  var embedWrap=document.getElementById('lrEmbed');
-  var lastFocus=null;
-  var isOpen=false;
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  function focusables(){
-    return Array.prototype.slice.call(
-      modal.querySelectorAll('a[href],button:not([disabled]),iframe,[tabindex]:not([tabindex="-1"])')
-    ).filter(function(el){ return el.offsetParent!==null || el===iframe; });
-  }
-  function trap(e){
-    if(e.key!=='Tab') return;
-    var f=focusables(); if(!f.length) return;
-    var first=f[0], last=f[f.length-1];
-    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
-  }
-  function onKey(e){
-    if(!isOpen) return;
-    if(e.key==='Escape'){ e.preventDefault(); close(); }
-    else trap(e);
-  }
-  function open(){
-    if(isOpen) return;
-    lastFocus=document.activeElement;
-    ov.hidden=false;
-    ov.classList.add('is-open');
-    ov.setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden';
-    isOpen=true;
-    setTimeout(function(){ closeBtn.focus(); },50);
-  }
-  function close(){
-    if(!isOpen) return;
-    ov.classList.remove('is-open');
-    ov.setAttribute('aria-hidden','true');
-    document.body.style.overflow='';
-    isOpen=false;
-    setTimeout(function(){ ov.hidden=true; },250);
-    if(lastFocus && typeof lastFocus.focus==='function'){ try{ lastFocus.focus(); }catch(e){} }
-  }
-
-  closeBtn.addEventListener('click',close);
-  closeBtn2.addEventListener('click',close);
-  dontBtn.addEventListener('click',function(){
-    try{ localStorage.setItem(KEY,'1'); }catch(e){}
-    close();
+// Count-up on scroll
+function formatCompact(v) {
+  if (v >= 1e6) return (v/1e6).toFixed(1).replace(/\.0$/,'') + 'M';
+  if (v >= 1e3) return (v/1e3).toFixed(1).replace(/\.0$/,'') + 'K';
+  return String(v);
+}
+const nums = document.querySelectorAll('.stat-num');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const compact = el.dataset.compact === '1';
+    const start = performance.now(), dur = 1400;
+    function tick(t) {
+      const p = Math.min(1, (t - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const v = Math.round(target * eased);
+      el.textContent = (compact ? formatCompact(v) : String(v)) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    io.unobserve(el);
   });
-  ov.addEventListener('mousedown',function(e){ if(e.target===ov) close(); });
-  document.addEventListener('keydown',onKey);
+}, { threshold: 0.35 });
+nums.forEach(n => io.observe(n));
 
-  // Fetch latest release (album or single) via Spotify anonymous access token
-  function fetchLatest(){
-    return fetch('https://open.spotify.com/get_access_token?reason=transport&productType=web_player',{credentials:'omit'})
-      .then(function(r){ return r.json(); })
-      .then(function(t){
-        if(!t || !t.accessToken) throw new Error('no token');
-        return fetch('https://api.spotify.com/v1/artists/'+ARTIST+'/albums?include_groups=album,single&market=US&limit=50',{
-          headers:{ 'Authorization':'Bearer '+t.accessToken }
-        });
-      })
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        if(!d || !d.items || !d.items.length) return null;
-        var items=d.items.slice().sort(function(a,b){
-          return (b.release_date||'').localeCompare(a.release_date||'');
-        });
-        return items[0];
-      });
-  }
-  fetchLatest().then(function(rel){
-    if(!rel) { embedWrap.setAttribute('aria-busy','false'); return; }
-    var label=rel.album_type==='album'?'Album':'Single';
-    titleEl.textContent=rel.name+' — '+label;
-    iframe.src='https://open.spotify.com/embed/album/'+rel.id+'?utm_source=generator&theme=0';
-    iframe.title='Latest '+label.toLowerCase()+' on Spotify: '+rel.name;
-    previewLink.href=rel.external_urls && rel.external_urls.spotify ? rel.external_urls.spotify : 'https://open.spotify.com/album/'+rel.id;
-    embedWrap.setAttribute('aria-busy','false');
-  }).catch(function(){ embedWrap.setAttribute('aria-busy','false'); });
+// Contact modal
+const modal = document.getElementById('contactModal');
+document.getElementById('openContact').addEventListener('click', () => modal.classList.add('open'));
+document.getElementById('closeContact').addEventListener('click', () => modal.classList.remove('open'));
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
 
-  setTimeout(open, 700);
-})();
+// Contact form (Web3Forms)
+const form = document.getElementById('contactForm');
+const cfStatus = document.getElementById('cfStatus');
+const sendBtn = document.getElementById('sendBtn');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  if (fd.get('botcheck')) return;
+  fd.append('access_key', '637b4a51-aee6-49df-be78-0baaef5fdde4');
+  fd.append('subject', 'New message from StylizedRG site');
+  sendBtn.disabled = true; cfStatus.className = 'cf-status'; cfStatus.textContent = 'Sending...';
+  try {
+    const r = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+    const j = await r.json();
+    if (j.success) { cfStatus.className = 'cf-status success'; cfStatus.textContent = 'Message sent. Thank you!'; form.reset(); }
+    else { cfStatus.className = 'cf-status error'; cfStatus.textContent = j.message || 'Something went wrong.'; }
+  } catch {
+    cfStatus.className = 'cf-status error'; cfStatus.textContent = 'Network error. Try again later.';
+  } finally { sendBtn.disabled = false; }
+});
 </script>
 </body>
 </html>
