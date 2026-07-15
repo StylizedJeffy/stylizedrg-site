@@ -153,6 +153,16 @@ a { color: inherit; }
 .contact-btn:hover { background: #c9a37a; color: #fff; }
 
 /* COMMISSIONS */
+#commissions { position: relative; overflow: hidden; }
+.commissions-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.commissions-bg img {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  height: 100%; width: 65%; object-fit: cover; object-position: right center;
+  opacity: .6; filter: saturate(1.1);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 75%, #000 100%);
+          mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 75%, #000 100%);
+}
+.commissions-content { position: relative; z-index: 1; max-width: 560px; }
 .perks { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-direction: column; gap: 10px; color: #c9c9d4; font-size: 15px; }
 .perks li::before { content: "✦  "; color: #9a8fb5; }
 .commissions-cta {
@@ -163,6 +173,9 @@ a { color: inherit; }
   transition: transform .2s, box-shadow .2s;
 }
 .commissions-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(154,143,181,.4); }
+@media (max-width:720px) {
+  .commissions-bg img { width: 100%; opacity: .22; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); }
+}
 
 /* FOOTER */
 .footer { max-width: 900px; margin: 80px auto 0; padding: 40px 24px 60px; border-top: 1px solid rgba(255,255,255,.08); text-align: center; }
@@ -228,9 +241,9 @@ textarea.input { resize: vertical; min-height: 110px; }
     <h2 class="section-title">By the numbers</h2>
   </div>
   <div class="stats-grid">
-    <div class="stat-card"><div class="stat-num" data-count="31" data-suffix="">0</div><div class="stat-label">Remixes</div></div>
+    <div class="stat-card"><div class="stat-num" data-live="remix-count" data-count="31" data-suffix="">0</div><div class="stat-label">Remixes</div></div>
     <div class="stat-card"><div class="stat-num" data-count="4" data-suffix="+">0</div><div class="stat-label">Years making music</div></div>
-    <div class="stat-card"><div class="stat-num" data-count="94000" data-suffix="+" data-compact="1">0</div><div class="stat-label">Remix plays</div></div>
+    <div class="stat-card"><div class="stat-num" data-live="remix-plays" data-count="94000" data-suffix="+" data-compact="1">0</div><div class="stat-label">Remix plays</div></div>
   </div>
 
   <div class="music-platforms">
@@ -263,17 +276,22 @@ textarea.input { resize: vertical; min-height: 110px; }
 
 <!-- COMMISSIONS -->
 <section id="commissions" class="section">
-  <div class="section-head">
-    <span class="section-num" style="color:#9a8fb5">04 — COMMISSIONS</span>
-    <h2 class="section-title">Remix Commissions</h2>
+  <div class="commissions-bg" aria-hidden="true">
+    <img src="/__l5e/assets-v1/ead0d5f3-6e17-4260-b888-b25e9335ab76/commisions.gif" alt="" loading="lazy" decoding="async" />
   </div>
-  <p class="section-body">Got a movie you love and want it reimagined into a song? I will create a custom remix using samples from a movie of your choice and convert it into something STYLIZED.</p>
-  <ul class="perks">
-    <li>Custom genre &amp; vibe</li>
-    <li>MP3 &amp; WAV delivery</li>
-    <li>And more...</li>
-  </ul>
-  <a class="commissions-cta" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener">Commission a remix on Ko-fi →</a>
+  <div class="commissions-content">
+    <div class="section-head">
+      <span class="section-num" style="color:#9a8fb5">04 — COMMISSIONS</span>
+      <h2 class="section-title">Remix Commissions</h2>
+    </div>
+    <p class="section-body">Got a movie you love and want it reimagined into a song? I will create a custom remix using samples from a movie of your choice and convert it into something STYLIZED.</p>
+    <ul class="perks">
+      <li>Custom genre &amp; vibe</li>
+      <li>MP3 &amp; WAV delivery</li>
+      <li>And more...</li>
+    </ul>
+    <a class="commissions-cta" href="https://ko-fi.com/c/7388be8be5" target="_blank" rel="noopener">Commission a remix on Ko-fi →</a>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -361,6 +379,81 @@ form.addEventListener('submit', async (e) => {
     cfStatus.className = 'cf-status error'; cfStatus.textContent = 'Network error. Try again later.';
   } finally { sendBtn.disabled = false; }
 });
+
+// Live remix stats from YouTube playlist
+(function(){
+  const YT_API_KEY = 'AIzaSyAcTFPmCH-UANaeGdd7SqEQF1Yv0mgW54M';
+  const PLAYLIST_ID = 'PL5SlwKL1Lf6W4pZhTOoG_u0-b3pXk4lkN';
+  const CACHE_KEY = 'remix_stats_v1';
+  const TTL = 6 * 60 * 60 * 1000;
+
+  const countEl = document.querySelector('[data-live="remix-count"]');
+  const playsEl = document.querySelector('[data-live="remix-plays"]');
+  if (!countEl || !playsEl) return;
+
+  function apply(count, plays) {
+    countEl.dataset.count = String(count);
+    playsEl.dataset.count = String(plays);
+    // If already rendered a static value, refresh visible text
+    [countEl, playsEl].forEach(el => {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const compact = el.dataset.compact === '1';
+      el.textContent = (compact ? formatCompact(target) : String(target)) + suffix;
+    });
+  }
+
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.t < TTL) {
+      apply(cached.count, cached.plays);
+      return;
+    }
+  } catch {}
+
+  async function fetchAll() {
+    const ids = [];
+    let pageToken = '';
+    for (let i = 0; i < 10; i++) {
+      const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${PLAYLIST_ID}&key=${YT_API_KEY}${pageToken ? '&pageToken=' + pageToken : ''}`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('playlistItems');
+      const j = await r.json();
+      (j.items || []).forEach(it => { if (it.contentDetails?.videoId) ids.push(it.contentDetails.videoId); });
+      if (!j.nextPageToken) break;
+      pageToken = j.nextPageToken;
+    }
+
+    function parseDur(iso) {
+      const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso || '');
+      if (!m) return 0;
+      return (+m[1]||0)*3600 + (+m[2]||0)*60 + (+m[3]||0);
+    }
+
+    let count = 0, plays = 0;
+    for (let i = 0; i < ids.length; i += 50) {
+      const chunk = ids.slice(i, i + 50).join(',');
+      const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,liveStreamingDetails,statistics&id=${chunk}&key=${YT_API_KEY}`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('videos');
+      const j = await r.json();
+      (j.items || []).forEach(v => {
+        if (v.liveStreamingDetails) return;
+        if (parseDur(v.contentDetails?.duration) <= 60) return;
+        count++;
+        plays += parseInt(v.statistics?.viewCount || '0', 10);
+      });
+    }
+    return { count, plays };
+  }
+
+  fetchAll().then(({ count, plays }) => {
+    if (count > 0) {
+      apply(count, plays);
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), count, plays })); } catch {}
+    }
+  }).catch(() => {});
+})();
 </script>
 </body>
 </html>
