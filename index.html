@@ -156,11 +156,11 @@ a { color: inherit; }
 #commissions { position: relative; overflow: hidden; }
 .commissions-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .commissions-bg img {
-  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-  height: 100%; width: 65%; object-fit: cover; object-position: right center;
+  position: absolute; right: 60px; top: 50%; transform: translateY(-50%);
+  height: 65%; width: auto; object-fit: contain; object-position: right center;
   opacity: .6; filter: saturate(1.1);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 75%, #000 100%);
-          mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 75%, #000 100%);
+  -webkit-mask-image: none;
+          mask-image: none;
 }
 .commissions-content { position: relative; z-index: 1; max-width: 560px; }
 .perks { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-direction: column; gap: 10px; color: #c9c9d4; font-size: 15px; }
@@ -174,7 +174,7 @@ a { color: inherit; }
 }
 .commissions-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(154,143,181,.4); }
 @media (max-width:720px) {
-  .commissions-bg img { width: 100%; opacity: .22; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); }
+  .commissions-bg img { width: 100%; height: auto; opacity: .22; right: 0; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); }
 }
 
 /* FOOTER */
@@ -187,7 +187,7 @@ a { color: inherit; }
 .modal.open { display: flex; }
 .modal-box { width: 100%; max-width: 460px; background: #0e0e12; border: 1px solid #24242b; border-radius: 18px; padding: 28px; position: relative; }
 .modal-box h3 { margin: 0 0 18px; font-size: 20px; color: #fff; }
-.input { display: block; width: 100%; padding: 12px 14px; margin-bottom: 12px; background: #05050a; border: 1px solid #24242b; border-radius: 10px; color: #e5e5e5; font: inherit; font-size: 14px; font-weight: 500; }
+.input { display: block; width: 100%; padding: 12px 14px; margin-bottom: 12px; background: #05050a; border: 1px solid #24242b; border-radius: 10px; color: #e5e5e5; font: inherit; font-size: 14px; }
 textarea.input { resize: vertical; min-height: 110px; }
 .input:focus { outline: none; border-color: #9a8fb5; }
 .cf-status { min-height: 20px; font-size: 13px; color: #cfd2e3; margin: 6px 0 10px; font-weight: 500; }
@@ -228,7 +228,7 @@ textarea.input { resize: vertical; min-height: 110px; }
     <span class="section-num" style="color:#7a9bbf">01 — INFORMATION</span>
     <h2 class="section-title">So, who am I?</h2>
   </div>
-  <p class="section-body">I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022 and I'm still experimenting with new sounds every release.</p>
+  <p class="section-body">I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022</p>
   <div class="tags">
     <span class="tag">Electro</span><span class="tag">Glitchhop</span><span class="tag">Indie House</span><span class="tag">Movie Remixes</span>
   </div>
