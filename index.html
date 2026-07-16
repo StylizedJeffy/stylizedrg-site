@@ -153,16 +153,25 @@ a { color: inherit; }
 .contact-btn:hover { background: #c9a37a; color: #fff; }
 
 /* COMMISSIONS */
-#commissions { position: relative; overflow: hidden; }
+#commissions { position: relative; overflow: hidden; min-height: 360px; }
 .commissions-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .commissions-bg img {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  height: 65%; width: auto; object-fit: contain; object-position: right center;
-  opacity: .6; filter: saturate(1.1);
-  -webkit-mask-image: none;
-          mask-image: none;
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  width: clamp(280px, 38%, 460px);
+  height: auto;
+  max-height: 78%;
+  object-fit: cover;
+  transform: translateY(-50%) rotate(-3deg);
+  border-radius: 14px;
+  opacity: .78;
+  filter: saturate(1.05) contrast(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 100%);
+          mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 100%);
 }
-.commissions-content { position: relative; z-index: 1; max-width: 560px; }
+.commissions-content { position: relative; z-index: 1; max-width: 520px; }
 .perks { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-direction: column; gap: 10px; color: #c9c9d4; font-size: 15px; }
 .perks li::before { content: "✦  "; color: #9a8fb5; }
 .commissions-cta {
@@ -173,8 +182,17 @@ a { color: inherit; }
   transition: transform .2s, box-shadow .2s;
 }
 .commissions-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(154,143,181,.4); }
-@media (max-width:720px) {
-  .commissions-bg img { width: 100%; height: auto; opacity: .22; right: 0; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); mask-image: linear-gradient(to bottom, transparent 0%, #000 60%); }
+@media (max-width:860px) {
+  .commissions-bg img {
+    right: -6%;
+    width: 60%;
+    max-height: 55%;
+    opacity: .28;
+    transform: translateY(-50%) rotate(-3deg);
+  }
+}
+@media (max-width:560px) {
+  .commissions-bg img { display: none; }
 }
 
 /* FOOTER */
@@ -187,7 +205,7 @@ a { color: inherit; }
 .modal.open { display: flex; }
 .modal-box { width: 100%; max-width: 460px; background: #0e0e12; border: 1px solid #24242b; border-radius: 18px; padding: 28px; position: relative; }
 .modal-box h3 { margin: 0 0 18px; font-size: 20px; color: #fff; }
-.input { display: block; width: 100%; padding: 12px 14px; margin-bottom: 12px; background: #05050a; border: 1px solid #24242b; border-radius: 10px; color: #e5e5e5; font: inherit; font-size: 14px; }
+.input { display: block; width: 100%; padding: 12px 14px; margin-bottom: 12px; background: #05050a; border: 1px solid #24242b; border-radius: 10px; color: #e5e5e5; font: inherit; font-size: 14px; font-weight: 500; }
 textarea.input { resize: vertical; min-height: 110px; }
 .input:focus { outline: none; border-color: #9a8fb5; }
 .cf-status { min-height: 20px; font-size: 13px; color: #cfd2e3; margin: 6px 0 10px; font-weight: 500; }
@@ -228,7 +246,7 @@ textarea.input { resize: vertical; min-height: 110px; }
     <span class="section-num" style="color:#7a9bbf">01 — INFORMATION</span>
     <h2 class="section-title">So, who am I?</h2>
   </div>
-  <p class="section-body">I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022</p>
+  <p class="section-body">I'm Ivan — a Mexican composer focused on movie remixes and original music. My sound centers on a mix of electro, glitchhop, and indie house. I started making music in 2022 and I'm still experimenting with new sounds every release.</p>
   <div class="tags">
     <span class="tag">Electro</span><span class="tag">Glitchhop</span><span class="tag">Indie House</span><span class="tag">Movie Remixes</span>
   </div>
@@ -277,7 +295,7 @@ textarea.input { resize: vertical; min-height: 110px; }
 <!-- COMMISSIONS -->
 <section id="commissions" class="section">
   <div class="commissions-bg" aria-hidden="true">
-    <img src="img/Commisions.gif" alt="" loading="lazy" decoding="async" />
+  <img src="img/Commisions.gif" alt="" loading="lazy" decoding="async" />
   </div>
   <div class="commissions-content">
     <div class="section-head">
@@ -447,12 +465,20 @@ form.addEventListener('submit', async (e) => {
     return { count, plays };
   }
 
-  fetchAll().then(({ count, plays }) => {
+  const withTimeout = (p, ms) => Promise.race([p, new Promise((_, rj) => setTimeout(() => rj(new Error('timeout')), ms))]);
+
+  withTimeout(fetchAll(), 12000).then(({ count, plays }) => {
     if (count > 0) {
       apply(count, plays);
       try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), count, plays })); } catch {}
     }
-  }).catch(() => {});
+  }).catch((e) => {
+    console.warn('[remix-stats] API unavailable, using fallback:', e?.message || e);
+    try {
+      const stale = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+      if (stale && stale.count > 0) apply(stale.count, stale.plays);
+    } catch {}
+  });
 })();
 </script>
 </body>
